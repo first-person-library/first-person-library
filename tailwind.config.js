@@ -17,6 +17,9 @@ export default {
         'bright-gray': '#F7F7F7',
         'dusty-white': '#FDFDFD',
       },
+      fontFamily: {
+        cambay: ['Cambay', 'sans-serif'],
+      },
     },
   },
   plugins: [],
