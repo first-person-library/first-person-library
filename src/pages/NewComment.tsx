@@ -3,6 +3,7 @@ import BookCard from '../components/Card/BookCard';
 import BackgroundSelector from '../components/NewComment/BackgroundSelector';
 import BookSelector from '../components/NewComment/BookSelector';
 import { useModal } from '../contexts/ModalContext';
+import CommentSubmission from '../components/NewComment/CommentSubmission';
 
 const NewComment = () => {
   const { isOpen, handleOpen, handleClose } = useModal();
@@ -25,28 +26,29 @@ const NewComment = () => {
     <>
       <main className="w-full mx-auto lg:pt-24 lg:pb-44 lg:w-4/6 md:px-4 p-5">
         <section className="bg-white rounded-xl lg:border border-dusty-gray lg:shadow-lg">
-          <div className="md:py-12 lg:px-24">
-            {/* 도서 썸네일 */}
-            <BookCard color={color} />
-            {/* 도서 검색하기 */}
-            <BookSelector handleOpen={handleOpen} />
-            {/* 배경색 선택하기 */}
-            <BackgroundSelector
-              colorPickerRef={colorPickerRef}
-              handleColorPick={handleColorPick}
-              handleColorClick={handleColorClick}
-            />
-            {/* 코멘트 작성하기 */}
-            <textarea
-              className="w-full border pl-5 md:pl-6 pt-3 md:pt-6 focus:outline-none text-sm md:text-xl text-strong-black placeholer-modal-black"
-              rows={3}
-              placeholder="50자 이내의 독서 코멘트를 남겨주세요."
-            ></textarea>
-            <div className="flex justify-center my-6 md:my-12 lg:my-16">
-              <button className="bg-normal-gray w-36 h-12 md:h-14 text-white rounded-full text-xl font-bold ">
-                발행하기
-              </button>
-            </div>
+          <div className="md:my-12 lg:mx-24">
+            {true && (
+              <>
+                <BookCard color={color} />
+                <BookSelector handleOpen={handleOpen} />
+                <BackgroundSelector
+                  colorPickerRef={colorPickerRef}
+                  handleColorPick={handleColorPick}
+                  handleColorClick={handleColorClick}
+                />
+                <textarea
+                  className="w-full border pl-5 md:pl-6 pt-3 md:pt-6 focus:outline-none text-sm md:text-xl text-strong-black placeholer-modal-black"
+                  rows={3}
+                  placeholder="50자 이내의 독서 코멘트를 남겨주세요."
+                ></textarea>
+                <div className="flex justify-center my-6 md:my-12 lg:my-16">
+                  <button className="bg-normal-gray w-36 h-12 md:h-14 text-white rounded-full text-xl font-bold">
+                    발행하기
+                  </button>
+                </div>
+              </>
+            )}
+            {false && <CommentSubmission />}
           </div>
         </section>
       </main>

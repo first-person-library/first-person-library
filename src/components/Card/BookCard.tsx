@@ -8,7 +8,7 @@ type Props = {
 export default function BookCard({ color }: Props) {
   return (
     <div className="flex justify-center">
-      <div className="bg-bright-gray lg:mb-9 w-[320px] h-[446px] md:w-[332px] md:h-[450px] flex-col md:mb-7 flex items-center justify-center shadow-md">
+      <div className="bg-bright-gray lg:mb-9 md:mb-7 w-[320px] h-[446px] md:w-[332px] md:h-[450px] flex-col flex items-center justify-center shadow-md">
         {false && (
           <>
             <img
