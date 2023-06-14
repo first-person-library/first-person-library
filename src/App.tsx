@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { ModalProvider } from './contexts/ModalContext';
 import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <ModalProvider>
         <Outlet />
       </ModalProvider>
+      <Footer />
     </>
   );
 }

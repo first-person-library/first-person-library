@@ -19,6 +19,7 @@ export default {
       },
       fontFamily: {
         cambay: ['Cambay', 'sans-serif'],
+        'nanum-myeongjo': ['Nanum Myeongjo', 'sans-serif'],
         'noto-sans': ['Noto Sans KR', 'sans-serif'],
       },
     },

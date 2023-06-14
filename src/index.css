@@ -3,5 +3,6 @@
 @tailwind utilities;
 
 body {
+  @apply font-noto-sans;
   @apply text-strong-black;
 }
