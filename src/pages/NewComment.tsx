@@ -10,10 +10,6 @@ const NewComment = () => {
   const [color, setColor] = useState<string>('#F7F7F7');
   const colorPickerRef = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    console.log(colorPickerRef);
-  });
-
   const handleColorPick = () => {
     setColor(colorPickerRef.current?.value || '');
   };
@@ -25,7 +21,7 @@ const NewComment = () => {
   return (
     <>
       <main className="w-full mx-auto lg:pt-24 lg:pb-44 lg:w-4/6 md:px-4 p-5">
-        <section className="bg-white rounded-xl lg:border border-dusty-gray lg:shadow-lg">
+        <section className="bg-white rounded-xl lg:border border-dusty-gray">
           <div className="md:my-12 lg:mx-24">
             {true && (
               <>
