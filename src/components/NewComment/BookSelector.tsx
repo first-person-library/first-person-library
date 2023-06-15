@@ -1,4 +1,4 @@
-import search from '../../assets/icon/search2.png';
+import Icon from '../UI/Icon';
 
 type Props = {
   handleOpen: () => void;
@@ -7,7 +7,7 @@ type Props = {
 export default function BookSelector({ handleOpen }: Props) {
   return (
     <>
-      {false && (
+      {true && (
         <div className="md:flex my-7 md:my-12 lg:my-10">
           <div className="md:w-1/4 flex items-center">
             <div className="md:text-left text-base md:text-xl mb-3 md:mb-0">
@@ -19,16 +19,16 @@ export default function BookSelector({ handleOpen }: Props) {
               className="border border-dusty-gray w-full h-12 flex items-center right-4 rounded-full focus:bg-white cursor-pointer"
               onClick={handleOpen}
             >
-              <img
-                src={search}
+              <Icon
+                src="/icon/search2.png"
                 alt="검색"
-                className="absolute right-6 w-6 h-6"
+                className="absolute right-6 w-6"
               />
             </div>
           </div>
         </div>
       )}
-      {true && (
+      {false && (
         <div className="md:flex my-7 md:my-8 lg:my-10">
           <div className="md:w-1/4 flex">
             <div className="md:text-left text-base md:text-xl mb-3 md:mb-0">

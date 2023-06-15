@@ -1,21 +1,12 @@
-import sun from '../../assets/icon/sun.png';
-import moon from '../../assets/icon/moon.png';
+import Icon from '../UI/Icon';
 
 const DarkmodeIcon = () => (
   <>
     {false && (
-      <img
-        src={moon}
-        alt="다크모드"
-        className="w-[22px] h-[22px] bg-no-repeat bg-contain cursor-pointer"
-      />
+      <Icon src="/icon/moon.png" alt="다크모드" className="icon w-[22px]" />
     )}
     {true && (
-      <img
-        src={sun}
-        alt="라이트모드"
-        className="w-[22px] h-[22px] bg-no-repeat bg-contain cursor-pointer"
-      />
+      <Icon src="/icon/sun.png" alt="라이트모드" className="icon w-[22px]" />
     )}
   </>
 );

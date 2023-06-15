@@ -3,6 +3,44 @@
 @tailwind utilities;
 
 body {
-  @apply font-noto-sans;
-  @apply text-strong-black;
+  @apply font-noto-sans text-strong-black;
+}
+
+/* 버튼 */
+.btn {
+  @apply text-base md:text-lg lg:text-xl font-bold py-3 px-10 cursor-pointer;
+}
+
+.btn-main-green {
+  @apply bg-main-green text-white;
+}
+
+.btn-main-green:hover {
+  @apply bg-dusty-green text-white;
+}
+
+.btn-normal-gray {
+  @apply bg-normal-gray text-white;
+}
+
+.btn-normal-gray:hover {
+  @apply bg-strong-black text-white;
+}
+
+.btn-strong-black {
+  @apply bg-strong-black text-white;
+}
+
+.btn-white {
+  @apply border border-dusty-black text-strong-black;
+}
+
+/* 아이콘 */
+.icon {
+  @apply bg-no-repeat bg-contain cursor-pointer;
+}
+
+/* 프로필 드롭다운 리스트*/
+.dropdown-li {
+  @apply flex items-center px-7 py-3 hover:bg-bright-gray cursor-pointer;
 }
