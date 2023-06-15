@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import BookCard from '../components/Card/BookCard';
+import BookCard from '../components/UI/Card/BookCard';
 import BackgroundSelector from '../components/NewComment/BackgroundSelector';
 import BookSelector from '../components/NewComment/BookSelector';
 import { useModal } from '../contexts/ModalContext';

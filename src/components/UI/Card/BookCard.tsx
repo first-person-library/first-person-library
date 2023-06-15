@@ -1,4 +1,4 @@
-import Icon from '../UI/Icon';
+import Icon from '../Icon';
 
 type Props = {
   color?: string;
