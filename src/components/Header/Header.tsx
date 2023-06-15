@@ -1,13 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import exit from '../../assets/icon/exit.png';
-import more from '../../assets/icon/more.png';
-import brand from '../../assets/icon/brand.png';
-import my from '../../assets/icon/my.png';
-import add from '../../assets/icon/add.png';
 import Search from './Search';
 import ProfileDropdown from './ProfileDropdown';
 import DarkmodeIcon from './DarkmodeIcon';
+import Icon from '../UI/Icon';
 
 const Header = () => {
   const [mobileNavbar, setMobileNavbar] = useState<boolean>(false);
@@ -21,24 +17,26 @@ const Header = () => {
           onClick={() => setMobileNavbar((prev) => !prev)}
         >
           {mobileNavbar ? (
-            <img src={exit} alt="모바일 메뉴 닫기" />
+            <Icon src="/icon/exit.png" alt="모바일 메뉴 닫기" />
           ) : (
-            <img src={more} alt="모바일 메뉴 열기" />
+            <Icon src="/icon/more.png" alt="모바일 메뉴 열기" />
           )}
         </button>
         <Link to="/">
-          <img src={brand} alt="brand" className="h-7 md:h-9" />
+          <Icon src="/icon/brand.png" alt="brand" className="h-7 md:h-9" />
         </Link>
         <nav className="flex">
           <ul className="hidden md:flex items-center md:gap-7 lg:gap-10 md:mr-8">
             <li>
-              <Search />
+              <div className="w-64">
+                <Search />
+              </div>
             </li>
             <li className="md:flex lg:hidden">
-              <img
-                src={add}
+              <Icon
+                src="/icon/add.png"
                 alt="코멘트 등록하기"
-                className="w-7 h-6 bg-no-repeat bg-contain cursor-pointer"
+                className="icon w-7"
               />
             </li>
             <li className="hidden lg:flex">
@@ -51,19 +49,19 @@ const Header = () => {
             </li>
           </ul>
           <div className="flex items-center relative">
-            {true && (
+            {false && (
               <Link to="/">
                 <button className="hover:text-dusty2-black hover:border-b border-dusty2-black">
                   로그인
                 </button>
               </Link>
             )}
-            {false && (
-              <img
-                src={my}
+            {true && (
+              <Icon
+                src="/icon/my.png"
                 alt="프로필 이미지"
                 onClick={() => setDropdown((prev) => !prev)}
-                className="w-8 h-8 md:w-9 md:h-9 bg-no-repeat bg-contain cursor-pointer"
+                className="icon w-8 md:w-9"
               />
             )}
             {dropdown && <ProfileDropdown />}

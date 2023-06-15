@@ -1,5 +1,4 @@
-import book from '../../assets/icon/book.png';
-import bookcover from '../../assets/icon/bookcover.png';
+import Icon from '../Icon';
 
 type Props = {
   color?: string;
@@ -9,28 +8,28 @@ export default function BookCard({ color }: Props) {
   return (
     <div className="flex justify-center">
       <div className="bg-bright-gray lg:mb-9 md:mb-7 w-[320px] h-[446px] md:w-[332px] md:h-[450px] flex-col flex items-center justify-center shadow-md">
-        {false && (
+        {true && (
           <>
-            <img
-              src={book}
+            <Icon
+              src="/icon/book.png"
               alt="책 썸네일"
-              className="w-6 md:w-7 h-6 md:h-8 bg-contain bg-no-repeat mb-7 md:mb-11"
+              className="icon w-6 md:w-7 mb-7 md:mb-11"
             />
             <span className="text-center text-lg lg:text-xl text-dusty-black">
               도서를 검색해주세요.
             </span>
           </>
         )}
-        {true && (
+        {false && (
           <>
             <div className="relative h-full flex flex-col w-full overflow-hidden">
               <img
-                src={bookcover}
+                src="/icon/bookcover.png"
                 alt="블러 배경"
-                className="flex h-2/3 bg-no-repeat bg-cover blur-2xl"
+                className="flex h-2/3 bg-no-repeat bg-contain blur-2xl"
               />
               <img
-                src={bookcover}
+                src="/icon/bookcover.png"
                 alt="책"
                 className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-44 h-[264px] bg-no-repeat bg-contain"
               />
