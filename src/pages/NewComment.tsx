@@ -38,7 +38,7 @@ const NewComment = () => {
                   placeholder="50자 이내의 독서 코멘트를 남겨주세요."
                 ></textarea>
                 <div className="flex justify-center my-6 md:my-12 lg:my-16">
-                  <button className="bg-normal-gray w-36 h-12 md:h-14 text-white rounded-full text-xl font-bold">
+                  <button className="btn btn-normal-gray rounded-full">
                     발행하기
                   </button>
                 </div>

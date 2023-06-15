@@ -1,10 +1,8 @@
-import search from '../../assets/icon/search.png';
-
 const Search = () => (
   <form>
     <div className="relative flex items-center">
       <img
-        src={search}
+        src="/icon/search.png"
         alt="search"
         className="absolute h-4 w-4 left-4 text-lg"
       />
@@ -15,7 +13,7 @@ const Search = () => (
         id="searchInput"
         type="text"
         placeholder="코멘트 검색하기"
-        className="w-64 h-[36px] rounded-full border border-main-green outline-none pl-10 placeholder-dusty2-black text-"
+        className="w-full h-[36px] rounded-full border border-main-green outline-none pl-10 placeholder-dusty2-black text-"
       />
     </div>
   </form>
