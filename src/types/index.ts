@@ -8,10 +8,10 @@ export type Books<T> = {
 
 export type Book = {
   title: string;
-  link: string;
+  link?: string;
   author: string;
   pubDate: string;
   description: string;
-  isbn: string;
+  isbn?: string;
   cover: string;
 };

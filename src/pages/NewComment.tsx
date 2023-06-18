@@ -1,9 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
 import BookCard from '../components/UI/Card/BookCard';
-import BackgroundSelector from '../components/NewComment/BackgroundSelector';
-import BookSelector from '../components/NewComment/BookSelector';
+import BackgroundSelector from '../components/Comment/BackgroundSelector';
+import BookSelector from '../components/Comment/BookSelector';
 import { useModal } from '../contexts/ModalContext';
-import CommentSubmission from '../components/NewComment/CommentSubmission';
+import CommentSubmission from '../components/Comment/CommentSubmission';
+import Modal from '../components/UI/Modal/Modal';
+import BookSearchModal from '../components/Comment/BookSearchModal/BookSearchModal';
 
 const NewComment = () => {
   const { isOpen, handleOpen, handleClose } = useModal();
@@ -48,6 +50,9 @@ const NewComment = () => {
           </div>
         </section>
       </main>
+      <Modal isOpen={isOpen} onClose={handleClose}>
+        <BookSearchModal onClose={handleClose} />
+      </Modal>
     </>
   );
 };

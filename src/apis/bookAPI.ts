@@ -5,5 +5,5 @@ type SearchProp = {
 };
 
 export async function search(keyword: SearchProp) {
-  return axios.get('data/search.json');
+  return axios.get('/data/search.json');
 }
