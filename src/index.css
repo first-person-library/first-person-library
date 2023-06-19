@@ -8,7 +8,11 @@ body {
 
 /* 버튼 */
 .btn {
-  @apply text-base md:text-lg lg:text-xl font-bold py-3 px-10 cursor-pointer;
+  @apply text-base md:text-lg lg:text-xl font-bold h-14 px-10 cursor-pointer;
+}
+
+.btn-modal {
+  @apply text-base font-bold h-8 px-6 cursor-pointer transition duration-300 ease-out;
 }
 
 .btn-main-green {

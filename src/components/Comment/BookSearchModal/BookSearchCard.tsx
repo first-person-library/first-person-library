@@ -1,36 +1,45 @@
-import { Book } from '../../../types';
+import Icon from '../../UI/Icon';
+
+type BookSearchCardProps = {
+  title: string;
+  author: string;
+  translator: string;
+  description: string;
+  cover: string;
+};
 
 export default function BookSearchCard({
   title,
   author,
-  pubDate,
+  translator,
   description,
   cover,
-}: Book) {
+}: BookSearchCardProps) {
   return (
-    <div className="flex mt-4 md:mt-10 border-t py-10 border-light-gray">
-      <div className="w-2/5 md:w-1/5">
-        <svg className="w-28 h-40 bg-no-repeat bg-contain bg-bookcover2"></svg>
+    <div className="flex border-t py-10 md:px-12 lg:px-13 border-light-gray">
+      <div className="w-2/5 md:w-1/5 flex items-center">
+        <div className="w-3/4">
+          <Icon src={cover} alt={title} className="aspect-w-2 aspect-h-3" />
+        </div>
       </div>
       <div className="w-3/5 md:w-4/5">
         <div className="flex flex-col md:flex-row md:justify-between">
           <div>
             <span className="text-base md:text-lg font-bold text-dusty-black mb-2 md:mb-0">
-              {title}
+              {title.length < 28 ? title : `${title.slice(0, 28)} ...`}
             </span>
-            <p className="text-xs leading-5 md:text-sm text-modal-black">
-              {author} 지음
+            <p className="text-modal-black">
+              {`${author} 지음`}
+              {translator === '없음' ? '' : ` · ${translator} 옮김`}
             </p>
-            <p className="text-xs leading-5 md:text-sm text-modal-black">
-              {/* 있는경우 옮김 없는경우 칸채우기 */}
-            </p>
+            <p className="text-xs leading-5 text-modal-black"></p>
           </div>
-          <span className="mt-2 md:mt-0 flex items-center justify-center text-base font-bold text-white bg-light-gray hover:bg-main-green cursor-pointer w-28 h-8 transition duration-300 ease-out">
-            선택하기
-          </span>
+          <button className="btn-modal btn-main-green">선택하기</button>
         </div>
-        <div className="hidden md:block w-full h-20 border border-light-gray overflow-hidden text-xs text-modal-black p-2 mt-3">
-          {description}
+        <div className="none md:block">
+          <p className="line-clamp-3 border border-light-gray text-modal-black p-1 mt-3">
+            {description}
+          </p>
         </div>
       </div>
     </div>
