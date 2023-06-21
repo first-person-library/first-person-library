@@ -1,8 +1,8 @@
 export type Books<T> = {
   query: string;
-  totalResults: string;
-  startIndex: string;
-  itemsPerPage: string;
+  totalResults: number;
+  startIndex: number;
+  itemsPerPage: number;
   item: T[];
 };
 

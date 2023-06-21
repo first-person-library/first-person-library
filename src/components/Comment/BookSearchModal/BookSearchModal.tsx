@@ -1,18 +1,19 @@
+import { ChangeEvent, useState } from 'react';
 import BookSearchBar from './BookSearchBar';
 import BookSearchCard from './BookSearchCard';
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
 import { search } from '../../../apis/bookAPI';
 import { Books, Book } from '../../../types';
 import { AxiosResponse } from 'axios';
-import Icon from '../../UI/Icon';
+import BookSearchPagenation from './BookSearchPagenation';
+import BookSearchManual from './BookSearchManual';
 
 type BookSearchModalProps = {
   onClose: () => void;
 };
 
 export default function BookSearchModal({ onClose }: BookSearchModalProps) {
-  const keyword = useParams();
+  const [keyword, setKeyword] = useState<string>('');
 
   const {
     isLoading,
@@ -20,14 +21,36 @@ export default function BookSearchModal({ onClose }: BookSearchModalProps) {
     error,
     data: books,
   } = useQuery<AxiosResponse<Books<Book>, Error>>(
-    ['books', keyword],
-    () => search(keyword),
-    { enabled: !!keyword }
+    ['books'],
+    () => search({ keyword })
+    // {
+    //   enabled: !!keyword,
+    // }
   );
 
+  console.log(books);
+  console.log(error);
+
+  const lastIndex =
+    books?.data?.itemsPerPage &&
+    books?.data?.totalResults &&
+    books.data.itemsPerPage <= books.data.totalResults
+      ? Math.ceil(books.data.totalResults / books.data.itemsPerPage)
+      : undefined;
+
+  console.log(lastIndex);
+
+  const handleKeyword = (e: ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value);
+  };
+
+  const removeKeyword = () => {
+    setKeyword('');
+  };
+
   return (
-    <div className="relative h-screen md:h-fit bg-white overflow-hidden md:rounded-2xl">
-      <div className="p-5 md:pt-14 md:pb-20 md:px-12 lg:pt-16 lg:pb-10 lg:px-13">
+    <div className="relative flex flex-col h-full md:h-fit bg-white overflow-hidden md:rounded-2xl pt-5 md:pt-14 lg:pt-16 ">
+      <div className="p-5 md:pb-9 md:px-12 lg:px-13">
         <h2 className="md:hidden my-7 text-center font-semibold text-lg">
           도서 검색하기
         </h2>
@@ -37,32 +60,37 @@ export default function BookSearchModal({ onClose }: BookSearchModalProps) {
         >
           닫기
         </div>
-        <BookSearchBar />
+        <BookSearchBar
+          keyword={keyword}
+          onChange={handleKeyword}
+          removeKeyword={removeKeyword}
+        />
       </div>
-      <ul className="search-modal max-h-[450px] overflow-y-auto">
-        {books?.data.item.map((book) => (
-          <BookSearchCard
-            key={book.isbn}
-            title={book.title}
-            author={book.authorTypeAuthor}
-            translator={book.authorTypeTranslator}
-            description={book.description}
-            cover={book.cover}
-          />
-        ))}
-      </ul>
-      <footer className="sticky bottom-0 border-t border-light-gray h-20 flex items-center justify-center">
-        {books?.data.startIndex === '1' ? (
-          ''
+      <div>
+        {!keyword ? (
+          <BookSearchManual />
         ) : (
-          <Icon src="/icon/modalright.png" alt="왼쪽" className="w-5" />
+          <>
+            <ul className="max-h-[450px] overflow-y-auto border-t border-light-gray">
+              {books?.data.item.map((book, index) => (
+                <BookSearchCard
+                  key={book.isbn}
+                  index={index}
+                  title={book.title}
+                  author={book.authorTypeAuthor}
+                  translator={book.authorTypeTranslator}
+                  description={book.description}
+                  cover={book.cover}
+                />
+              ))}
+            </ul>
+            <BookSearchPagenation
+              startIndex={books?.data.startIndex}
+              lastIndex={lastIndex}
+            />
+          </>
         )}
-        <div className="px-4">
-          <span>{books?.data.startIndex}</span>
-          <span></span>
-        </div>
-        <Icon src="/icon/modalright.png" alt="오른쪽" className="w-5" />
-      </footer>
+      </div>
     </div>
   );
 }
