@@ -1,18 +1,26 @@
+import { FormEvent, useRef } from 'react';
 import Icon from '../../UI/Icon';
 
 type BookSearchBarProps = {
-  keyword: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   removeKeyword: () => void;
+  onChange: (text: string) => void;
 };
 
 export default function BookSearchBar({
-  keyword,
   onChange,
   removeKeyword,
 }: BookSearchBarProps) {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (inputRef.current !== null) {
+      onChange(inputRef.current.value);
+    }
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit} className="flex justify-between">
       <label htmlFor="searchInput" className="sr-only">
         도서 검색창
       </label>
@@ -20,12 +28,12 @@ export default function BookSearchBar({
         <input
           type="text"
           id="searchInput"
-          value={keyword}
+          ref={inputRef}
           placeholder="검색어를 입력해 주세요."
-          onChange={onChange}
           className="w-full h-12 flex items-center px-5 rounded bg-dusty-green focus:outline-none"
         />
-        {!keyword.length ? (
+        {/* {!keyword.length ? ( */}
+        {true ? (
           ''
         ) : (
           <Icon
@@ -36,6 +44,9 @@ export default function BookSearchBar({
           />
         )}
       </div>
+      <button type="submit" className="bg-red-200 px-2">
+        검색
+      </button>
     </form>
   );
 }

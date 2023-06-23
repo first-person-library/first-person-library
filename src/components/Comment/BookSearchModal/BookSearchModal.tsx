@@ -1,4 +1,5 @@
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
+
 import BookSearchBar from './BookSearchBar';
 import BookSearchCard from './BookSearchCard';
 import { useQuery } from '@tanstack/react-query';
@@ -13,7 +14,10 @@ type BookSearchModalProps = {
 };
 
 export default function BookSearchModal({ onClose }: BookSearchModalProps) {
-  const [keyword, setKeyword] = useState<string>('');
+  const [query, setQuery] = useState<string>('');
+  const [page, setPage] = useState<number>(1);
+  const [keywords, setKeywords] = useState<string[]>([]);
+  const [searchHistory, setSearchHistory] = useState([]);
 
   const {
     isLoading,
@@ -21,11 +25,11 @@ export default function BookSearchModal({ onClose }: BookSearchModalProps) {
     error,
     data: books,
   } = useQuery<AxiosResponse<Books<Book>, Error>>(
-    ['books'],
-    () => search({ keyword })
-    // {
-    //   enabled: !!keyword,
-    // }
+    ['books', query],
+    () => search({ query, page }),
+    {
+      enabled: !!query,
+    }
   );
 
   console.log(books);
@@ -40,12 +44,16 @@ export default function BookSearchModal({ onClose }: BookSearchModalProps) {
 
   console.log(lastIndex);
 
-  const handleKeyword = (e: ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
+  const handleChange = (text: string) => {
+    setQuery(text);
   };
 
   const removeKeyword = () => {
-    setKeyword('');
+    setQuery('');
+  };
+
+  const handleHistoryKeyword = (keyword: string) => {
+    setQuery(keyword);
   };
 
   return (
@@ -60,15 +68,11 @@ export default function BookSearchModal({ onClose }: BookSearchModalProps) {
         >
           닫기
         </div>
-        <BookSearchBar
-          keyword={keyword}
-          onChange={handleKeyword}
-          removeKeyword={removeKeyword}
-        />
+        <BookSearchBar onChange={handleChange} removeKeyword={removeKeyword} />
       </div>
       <div>
-        {!keyword ? (
-          <BookSearchManual />
+        {!query ? (
+          <BookSearchManual keywords={keywords} />
         ) : (
           <>
             <ul className="max-h-[450px] overflow-y-auto border-t border-light-gray">
