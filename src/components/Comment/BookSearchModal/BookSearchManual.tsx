@@ -1,27 +1,17 @@
-import { useState } from 'react';
 import Icon from '../../UI/Icon';
 import BookSearchHistory from './BookSearchHistory';
 
 type BookSearchManualProps = {
-  //selectKeyword: (keyword: string) => void;
+  discardKeywords: () => void;
   keywords: string[];
+  searchSelectedKeyword: (keyword: string) => void;
 };
 
-export default function BookSearchManual({ keywords }: BookSearchManualProps) {
-  /*
-  = [
-    '리더의 탄생',
-    '넛지',
-    '데미안',
-    '미움받을 용기',
-    '1984',
-    '토지',
-    '노르웨이의 숲',
-    '마인드셋',
-    '사피엔스',
-  ];
-  */
-
+export default function BookSearchManual({
+  discardKeywords,
+  keywords,
+  searchSelectedKeyword,
+}: BookSearchManualProps) {
   return (
     <div className="h-[523px]">
       <div className="px-5 md:px-12 lg:px-13">
@@ -34,11 +24,12 @@ export default function BookSearchManual({ keywords }: BookSearchManualProps) {
             />
           </div>
           <div className="space-y-2">
-            <p className="text-lg font-bold text-dusty-black">
+            <p className="text-base md:text-lg font-bold text-dusty-black">
               어떤 도서를 검색해야 할지 고민되세요?
             </p>
-            <p className="text-sm text-modal text-modal-black">
-              다음과 같은 도서들도 검색해 보면 좋아요! 어떤 종류의 독서 코멘트도
+            <p className="text-xs md:text-sm text-modal text-modal-black">
+              다음과 같은 도서들도 검색해 보면 좋아요!{' '}
+              <br className="block md:hidden" /> 어떤 종류의 독서 코멘트도
               환영입니다.
             </p>
           </div>
@@ -46,7 +37,11 @@ export default function BookSearchManual({ keywords }: BookSearchManualProps) {
         <PCManual />
         <MobileManual />
       </div>
-      <BookSearchHistory keywords={keywords} />
+      <BookSearchHistory
+        discardKeywords={discardKeywords}
+        keywords={keywords}
+        searchSelectedKeyword={searchSelectedKeyword}
+      />
     </div>
   );
 }
@@ -69,7 +64,7 @@ function PCManual() {
 
 function MobileManual() {
   return (
-    <div className="block md:hidden space-y-6 font-semibold text-center text-main-green">
+    <div className="block md:hidden space-y-6 font-semibold text-center text-main-green text-sm">
       <div className="py-3 bg-dusty-white rounded-md shadow-sm">
         <p>예전에 읽었지만 ‘인생 책’이라 자부할 수 있는 도서</p>
       </div>

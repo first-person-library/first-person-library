@@ -1,12 +1,21 @@
 import Icon from '../../UI/Icon';
 
 type BookSearchHistoryProps = {
+  discardKeywords: () => void;
   keywords: string[];
+  searchSelectedKeyword: (keyword: string) => void;
 };
 
 export default function BookSearchHistory({
+  discardKeywords,
   keywords,
+  searchSelectedKeyword,
 }: BookSearchHistoryProps) {
+  const handleClick = (keyword: string) => {
+    console.log(keyword);
+    searchSelectedKeyword(keyword);
+  };
+
   return (
     <div>
       <div className="px-5 md:px-12 lg:px-13">
@@ -14,7 +23,12 @@ export default function BookSearchHistory({
         <div className="flex flex-col">
           <div className="flex justify-between w-full">
             <span className="font-semibold">최근 검색어</span>
-            <span className="text-sm text-normal-gray">전체 삭제</span>
+            <span
+              onClick={discardKeywords}
+              className="text-xs md:text-sm text-normal-gray cursor-pointer"
+            >
+              전체 삭제
+            </span>
           </div>
         </div>
         <div className="my-6">
@@ -34,8 +48,11 @@ export default function BookSearchHistory({
           ) : (
             <div className="flex flex-wrap overflow-y-auto h-28">
               {keywords.map((keyword, index) => (
-                <div key={`${index}-${keyword}`} className="flex-shrink-0">
-                  <span className="text-sm px-5 py-2 cursor-pointer rounded-full bg-bright-gray my-2 mr-3">
+                <div
+                  key={`${index}-${keyword}`}
+                  onClick={() => handleClick(keyword)}
+                >
+                  <span className="flex text-sm px-5 py-1.5 cursor-pointer rounded-full bg-bright-gray my-2 mr-3">
                     {keyword}
                   </span>
                 </div>

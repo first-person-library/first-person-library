@@ -1,5 +1,4 @@
-import { useState } from 'react';
-
+import { useState, useRef, useEffect } from 'react';
 import BookSearchBar from './BookSearchBar';
 import BookSearchCard from './BookSearchCard';
 import { useQuery } from '@tanstack/react-query';
@@ -8,6 +7,8 @@ import { Books, Book } from '../../../types';
 import { AxiosResponse } from 'axios';
 import BookSearchPagenation from './BookSearchPagenation';
 import BookSearchManual from './BookSearchManual';
+import LoadingSpinner from '../../LoadingSpinner';
+import ErrorScreen from '../../ErrorScreen';
 
 type BookSearchModalProps = {
   onClose: () => void;
@@ -16,13 +17,16 @@ type BookSearchModalProps = {
 export default function BookSearchModal({ onClose }: BookSearchModalProps) {
   const [query, setQuery] = useState<string>('');
   const [page, setPage] = useState<number>(1);
-  const [keywords, setKeywords] = useState<string[]>([]);
-  const [searchHistory, setSearchHistory] = useState([]);
+  const [keywords, setKeywords] = useState<string[]>(initialKeywords);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    localStorage.setItem('keywords', JSON.stringify(keywords));
+  }, [keywords]);
 
   const {
     isLoading,
     isError,
-    error,
     data: books,
   } = useQuery<AxiosResponse<Books<Book>, Error>>(
     ['books', query],
@@ -32,9 +36,6 @@ export default function BookSearchModal({ onClose }: BookSearchModalProps) {
     }
   );
 
-  console.log(books);
-  console.log(error);
-
   const lastIndex =
     books?.data?.itemsPerPage &&
     books?.data?.totalResults &&
@@ -42,18 +43,31 @@ export default function BookSearchModal({ onClose }: BookSearchModalProps) {
       ? Math.ceil(books.data.totalResults / books.data.itemsPerPage)
       : undefined;
 
-  console.log(lastIndex);
-
-  const handleChange = (text: string) => {
-    setQuery(text);
+  const handleChange = (query: string) => {
+    setQuery(query);
   };
 
-  const removeKeyword = () => {
-    setQuery('');
-  };
-
-  const handleHistoryKeyword = (keyword: string) => {
+  const searchSelectedKeyword = (keyword: string) => {
     setQuery(keyword);
+
+    if (inputRef.current !== null) {
+      inputRef.current.value = keyword;
+    }
+  };
+
+  const addKeyword = (query: string) => {
+    setKeywords((prevKeywords) => {
+      if (10 <= prevKeywords.length) {
+        const newKeywords = prevKeywords.slice(1);
+        return [...newKeywords, query];
+      }
+
+      return [...prevKeywords, query];
+    });
+  };
+
+  const discardKeywords = () => {
+    setKeywords([]);
   };
 
   return (
@@ -68,26 +82,40 @@ export default function BookSearchModal({ onClose }: BookSearchModalProps) {
         >
           닫기
         </div>
-        <BookSearchBar onChange={handleChange} removeKeyword={removeKeyword} />
+        <BookSearchBar
+          inputRef={inputRef}
+          onChange={handleChange}
+          addKeyword={addKeyword}
+        />
       </div>
       <div>
         {!query ? (
-          <BookSearchManual keywords={keywords} />
+          <BookSearchManual
+            keywords={keywords}
+            discardKeywords={discardKeywords}
+            searchSelectedKeyword={searchSelectedKeyword}
+          />
         ) : (
           <>
-            <ul className="max-h-[450px] overflow-y-auto border-t border-light-gray">
-              {books?.data.item.map((book, index) => (
-                <BookSearchCard
-                  key={book.isbn}
-                  index={index}
-                  title={book.title}
-                  author={book.authorTypeAuthor}
-                  translator={book.authorTypeTranslator}
-                  description={book.description}
-                  cover={book.cover}
-                />
-              ))}
-            </ul>
+            <div className="max-h-[450px] overflow-y-auto border-t border-light-gray">
+              {isLoading && <LoadingSpinner />}
+              {isError && <ErrorScreen />}
+              {books && (
+                <ul>
+                  {books?.data.item.map((book, index) => (
+                    <BookSearchCard
+                      key={book.isbn}
+                      index={index}
+                      title={book.title}
+                      author={book.authorTypeAuthor}
+                      translator={book.authorTypeTranslator}
+                      description={book.description}
+                      cover={book.cover}
+                    />
+                  ))}
+                </ul>
+              )}
+            </div>
             <BookSearchPagenation
               startIndex={books?.data.startIndex}
               lastIndex={lastIndex}
@@ -98,3 +126,6 @@ export default function BookSearchModal({ onClose }: BookSearchModalProps) {
     </div>
   );
 }
+
+const keywordsString = localStorage.getItem('keywords');
+const initialKeywords = keywordsString ? JSON.parse(keywordsString) : [];
