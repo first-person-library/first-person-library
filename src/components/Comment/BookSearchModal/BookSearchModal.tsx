@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, MouseEventHandler } from 'react';
 import BookSearchBar from './BookSearchBar';
 import BookSearchCard from './BookSearchCard';
 import { useQuery } from '@tanstack/react-query';
@@ -17,7 +17,10 @@ type BookSearchModalProps = {
 export default function BookSearchModal({ onClose }: BookSearchModalProps) {
   const [query, setQuery] = useState<string>('');
   const [page, setPage] = useState<number>(1);
-  const [keywords, setKeywords] = useState<string[]>(initialKeywords);
+  const [keywords, setKeywords] = useState<string[]>(() => {
+    keywordsString = localStorage.getItem('keywords');
+    return keywordsString ? JSON.parse(keywordsString) : [];
+  });
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -66,6 +69,12 @@ export default function BookSearchModal({ onClose }: BookSearchModalProps) {
     });
   };
 
+  const removeKeyword = (index: number): MouseEventHandler<HTMLSpanElement> => {
+    return () => {
+      setKeywords(keywords.filter((_, i) => i !== index));
+    };
+  };
+
   const discardKeywords = () => {
     setKeywords([]);
   };
@@ -92,6 +101,7 @@ export default function BookSearchModal({ onClose }: BookSearchModalProps) {
         {!query ? (
           <BookSearchManual
             keywords={keywords}
+            removeKeyword={removeKeyword}
             discardKeywords={discardKeywords}
             searchSelectedKeyword={searchSelectedKeyword}
           />
@@ -127,5 +137,4 @@ export default function BookSearchModal({ onClose }: BookSearchModalProps) {
   );
 }
 
-const keywordsString = localStorage.getItem('keywords');
-const initialKeywords = keywordsString ? JSON.parse(keywordsString) : [];
+let keywordsString;

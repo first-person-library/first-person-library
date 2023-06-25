@@ -39,14 +39,14 @@ export default function BookSearchBar({
           id="searchInput"
           ref={inputRef}
           placeholder="검색어를 입력해 주세요."
-          className="w-full h-12 flex items-center px-5 rounded  placeholder:text-dusty-black bg-dusty-green focus:outline-none"
+          className="w-full h-12 flex items-center px-5 rounded placeholder:text-dusty-black bg-dusty-green focus:outline-none"
         />
         {inputRef.current?.value === '' ? (
           ''
         ) : (
           <Icon
             src="/icon/remove.png"
-            alt="검색어 지우기"
+            alt="지우기"
             onClick={clearQuery}
             className="icon absolute right-5 w-4"
           />

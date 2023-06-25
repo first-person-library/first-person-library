@@ -1,12 +1,15 @@
+import { MouseEventHandler } from 'react';
 import Icon from '../../UI/Icon';
 
 type BookSearchHistoryProps = {
+  removeKeyword: (index: number) => MouseEventHandler<HTMLSpanElement>;
   discardKeywords: () => void;
   keywords: string[];
   searchSelectedKeyword: (keyword: string) => void;
 };
 
 export default function BookSearchHistory({
+  removeKeyword,
   discardKeywords,
   keywords,
   searchSelectedKeyword,
@@ -52,9 +55,15 @@ export default function BookSearchHistory({
                   key={`${index}-${keyword}`}
                   onClick={() => handleClick(keyword)}
                 >
-                  <span className="flex text-sm px-5 py-1.5 cursor-pointer rounded-full bg-bright-gray my-2 mr-3">
+                  <div className="text-sm px-5 py-1.5 cursor-pointer rounded-full bg-bright-gray my-2 mr-3">
                     {keyword}
-                  </span>
+                    <span
+                      onClick={removeKeyword(index)}
+                      className="px-1 text-normal-gray"
+                    >
+                      ✖
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>

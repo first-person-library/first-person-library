@@ -1,13 +1,16 @@
+import { MouseEventHandler } from 'react';
 import Icon from '../../UI/Icon';
 import BookSearchHistory from './BookSearchHistory';
 
 type BookSearchManualProps = {
+  removeKeyword: (index: number) => MouseEventHandler<HTMLSpanElement>;
   discardKeywords: () => void;
   keywords: string[];
   searchSelectedKeyword: (keyword: string) => void;
 };
 
 export default function BookSearchManual({
+  removeKeyword,
   discardKeywords,
   keywords,
   searchSelectedKeyword,
@@ -38,6 +41,7 @@ export default function BookSearchManual({
         <MobileManual />
       </div>
       <BookSearchHistory
+        removeKeyword={removeKeyword}
         discardKeywords={discardKeywords}
         keywords={keywords}
         searchSelectedKeyword={searchSelectedKeyword}
