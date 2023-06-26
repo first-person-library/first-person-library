@@ -12,13 +12,17 @@ import ErrorScreen from '../../ErrorScreen';
 
 type BookSearchModalProps = {
   onClose: () => void;
+  onSelect: (book: Book) => void;
 };
 
-export default function BookSearchModal({ onClose }: BookSearchModalProps) {
+export default function BookSearchModal({
+  onClose,
+  onSelect,
+}: BookSearchModalProps) {
   const [query, setQuery] = useState<string>('');
   const [page, setPage] = useState<number>(1);
   const [keywords, setKeywords] = useState<string[]>(() => {
-    keywordsString = localStorage.getItem('keywords');
+    const keywordsString = localStorage.getItem('keywords');
     return keywordsString ? JSON.parse(keywordsString) : [];
   });
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -60,6 +64,8 @@ export default function BookSearchModal({ onClose }: BookSearchModalProps) {
 
   const addKeyword = (query: string) => {
     setKeywords((prevKeywords) => {
+      if (prevKeywords.includes(query)) return prevKeywords;
+
       if (10 <= prevKeywords.length) {
         const newKeywords = prevKeywords.slice(1);
         return [...newKeywords, query];
@@ -77,6 +83,10 @@ export default function BookSearchModal({ onClose }: BookSearchModalProps) {
 
   const discardKeywords = () => {
     setKeywords([]);
+  };
+
+  const handleBookSelect = (book: Book) => {
+    onSelect(book);
   };
 
   return (
@@ -116,11 +126,8 @@ export default function BookSearchModal({ onClose }: BookSearchModalProps) {
                     <BookSearchCard
                       key={book.isbn}
                       index={index}
-                      title={book.title}
-                      author={book.authorTypeAuthor}
-                      translator={book.authorTypeTranslator}
-                      description={book.description}
-                      cover={book.cover}
+                      book={book}
+                      handleBookSelect={handleBookSelect}
                     />
                   ))}
                 </ul>
@@ -136,5 +143,3 @@ export default function BookSearchModal({ onClose }: BookSearchModalProps) {
     </div>
   );
 }
-
-let keywordsString;
