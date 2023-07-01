@@ -1,10 +1,10 @@
 import Icon from '../UI/Icon';
 
-type Props = {
+type BookSelectorProps = {
   handleOpen: () => void;
 };
 
-export default function BookSelector({ handleOpen }: Props) {
+export default function BookSelector({ handleOpen }: BookSelectorProps) {
   return (
     <>
       {true && (

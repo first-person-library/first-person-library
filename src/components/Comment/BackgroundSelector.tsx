@@ -1,16 +1,20 @@
 import Icon from '../UI/Icon';
 
-type Props = {
+type BackgroundSelectorProps = {
   colorPickerRef: React.LegacyRef<HTMLInputElement>;
   handleColorPick: () => void;
   handleColorClick: () => void;
+  handleBlurClick: () => void;
+  cover?: string;
 };
 
 export default function BackgroundSelector({
   colorPickerRef,
   handleColorPick,
   handleColorClick,
-}: Props) {
+  handleBlurClick,
+  cover,
+}: BackgroundSelectorProps) {
   return (
     <>
       <div className="md:flex my-7 md:my-8 lg:my-11">
@@ -19,7 +23,11 @@ export default function BackgroundSelector({
             배경색 선택하기
           </div>
         </div>
-        <div className="md:w-3/4 flex items-center text-dusty-black text-sm md:text-lg gap-6 md:gap-11">
+        <div
+          className={`md:w-3/4 flex items-center text-dusty-black text-sm md:text-lg gap-6 md:gap-11 ${
+            cover ? '' : 'pointer-events-none'
+          }`}
+        >
           <div className="flex items-center gap-4">
             <div className="relative flex items-center justify-center shrink-0">
               <label htmlFor="colorPicker" className="sr-only"></label>
@@ -43,6 +51,7 @@ export default function BackgroundSelector({
             <Icon
               src="/icon/blurpicker.png"
               alt="블러 효과"
+              onClick={handleBlurClick}
               className="icon w-6 md:w-8"
             />
             <span>배경 블러효과</span>
