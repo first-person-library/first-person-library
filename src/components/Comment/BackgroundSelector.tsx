@@ -5,7 +5,7 @@ type BackgroundSelectorProps = {
   handleColorPick: () => void;
   handleColorClick: () => void;
   handleBlurClick: () => void;
-  cover?: string;
+  thumbnail?: string;
 };
 
 export default function BackgroundSelector({
@@ -13,7 +13,7 @@ export default function BackgroundSelector({
   handleColorPick,
   handleColorClick,
   handleBlurClick,
-  cover,
+  thumbnail,
 }: BackgroundSelectorProps) {
   return (
     <>
@@ -25,7 +25,7 @@ export default function BackgroundSelector({
         </div>
         <div
           className={`md:w-3/4 flex items-center text-dusty-black text-sm md:text-lg gap-6 md:gap-11 ${
-            cover ? '' : 'pointer-events-none'
+            thumbnail ? '' : 'pointer-events-none'
           }`}
         >
           <div className="flex items-center gap-4">

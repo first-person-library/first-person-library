@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, MouseEventHandler } from 'react';
+import { useState, useMemo, useRef, useEffect, MouseEventHandler } from 'react';
 import BookSearchBar from './BookSearchBar';
 import BookSearchCard from './BookSearchCard';
 import { useQuery } from '@tanstack/react-query';
@@ -26,29 +26,30 @@ export default function BookSearchModal({
     return keywordsString ? JSON.parse(keywordsString) : [];
   });
   const inputRef = useRef<HTMLInputElement | null>(null);
-
   useEffect(() => {
     localStorage.setItem('keywords', JSON.stringify(keywords));
   }, [keywords]);
 
-  const {
-    isLoading,
-    isError,
-    data: books,
-  } = useQuery<AxiosResponse<Books<Book>, Error>>(
-    ['books', query],
-    () => search({ query, page }),
-    {
-      enabled: !!query,
-    }
-  );
+  const { isLoading, isError, data } = useQuery<
+    AxiosResponse<Books<Book>, Error>
+  >(['books', query, page], () => search({ query, page }), {
+    enabled: !!query,
+  });
 
-  const lastIndex =
-    books?.data?.itemsPerPage &&
-    books?.data?.totalResults &&
-    books.data.itemsPerPage <= books.data.totalResults
-      ? Math.ceil(books.data.totalResults / books.data.itemsPerPage)
-      : undefined;
+  const nextPage = () => {
+    setPage((prev) => prev + 1);
+  };
+
+  const previousPage = () => {
+    setPage((prev) => prev - 1);
+  };
+
+  const PER_PAGE = 10;
+
+  const books = data?.data;
+  const totalPages = books?.meta.pageable_count
+    ? Math.ceil(books?.meta.pageable_count / PER_PAGE)
+    : 0;
 
   const handleChange = (query: string) => {
     setQuery(query);
@@ -90,9 +91,9 @@ export default function BookSearchModal({
   };
 
   return (
-    <div className="relative flex flex-col h-full md:h-fit bg-white overflow-hidden md:rounded-2xl pt-5 md:pt-14 lg:pt-16 ">
+    <div className="relative flex flex-col h-full md:h-fit bg-white overflow-hidden md:rounded-2xl md:pt-14 lg:pt-16">
       <div className="p-5 md:pb-9 md:px-12 lg:px-13">
-        <h2 className="md:hidden my-7 text-center font-semibold text-lg">
+        <h2 className="md:hidden my-7 md:my-7 text-center font-semibold text-lg">
           도서 검색하기
         </h2>
         <div
@@ -122,10 +123,9 @@ export default function BookSearchModal({
               {isError && <ErrorScreen />}
               {books && (
                 <ul>
-                  {books?.data.item.map((book, index) => (
+                  {books.documents.map((book, index) => (
                     <BookSearchCard
-                      key={book.isbn}
-                      index={index}
+                      key={`${book.isbn}-${index}`}
                       book={book}
                       handleBookSelect={handleBookSelect}
                     />
@@ -134,8 +134,11 @@ export default function BookSearchModal({
               )}
             </div>
             <BookSearchPagenation
-              startIndex={books?.data.startIndex}
-              lastIndex={lastIndex}
+              currentPage={page}
+              isEnd={books?.meta.is_end}
+              totalPages={totalPages}
+              nextPage={nextPage}
+              previousPage={previousPage}
             />
           </>
         )}

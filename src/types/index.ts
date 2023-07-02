@@ -1,22 +1,25 @@
 export type Books<T> = {
-  query: string;
-  totalResults: number;
-  startIndex: number;
-  itemsPerPage: number;
-  item: T[];
+  documents: T[];
+  meta: Meta;
 };
 
-export type Book = {
+export interface Book {
+  authors: string[];
+  contents: string;
+  datetime: string;
   isbn: string;
-  title: string;
-  link: string;
+  price: number;
   publisher: string;
-  pubDate: string;
-  year: string;
-  month: string;
-  author: string;
-  authorTypeAuthor: string;
-  authorTypeTranslator: string;
-  description: string;
-  cover: string;
-};
+  sale_price: number;
+  status: string;
+  thumbnail: string;
+  title: string;
+  translators: string[] | [];
+  url: string;
+}
+
+export interface Meta {
+  is_end: boolean;
+  pageable_count: number;
+  total_count: number;
+}

@@ -12,7 +12,7 @@ import BookSelectionResult from '../components/Comment/BookSelectionResult';
 const NewComment = () => {
   const { isOpen, handleOpen, handleClose } = useModal();
   const [backgroundType, setBackgroundType] = useState<'color' | 'blur'>(
-    'blur'
+    'color'
   );
   const [backgroundColor, setBackgroundColor] = useState<string>('#F7F7F7');
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
@@ -54,9 +54,9 @@ const NewComment = () => {
                 <BookCard
                   colorCode={backgroundColor}
                   backgroundType={backgroundType}
-                  cover={selectedBook?.cover}
+                  thumbnail={selectedBook?.thumbnail}
                   title={selectedBook?.title}
-                  author={selectedBook?.authorTypeAuthor}
+                  author={selectedBook?.authors[0]}
                   comment={comment}
                 />
                 {selectedBook ? (
@@ -72,7 +72,7 @@ const NewComment = () => {
                   handleColorPick={handleColorPicker}
                   handleColorClick={handleColorClick}
                   handleBlurClick={handleBlurClick}
-                  cover={selectedBook?.cover}
+                  thumbnail={selectedBook?.thumbnail}
                 />
                 <div className="relative">
                   <textarea
