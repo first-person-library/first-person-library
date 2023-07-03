@@ -9,8 +9,10 @@ export default function BookSelectionResult({
   book,
   handleOpen,
 }: BookSelectionResultProps) {
-  const { title, publisher, year, month, authorTypeAuthor: author } = book;
-  const formattedMonth = month.replace(/^0/, '');
+  const { title, publisher, datetime, authors } = book;
+  const date = new Date(datetime);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
 
   return (
     <div className="md:flex my-7 md:my-8 lg:my-10">
@@ -43,20 +45,20 @@ export default function BookSelectionResult({
             <span className="w-1/6 flex items-center text-normal-gray font">
               저자
             </span>
-            <span>{author}</span>
+            <span>{authors[0] || '정보가 없습니다'}</span>
           </div>
           <div className="flex items-center w-full">
             <span className="w-1/6 flex items-center text-normal-gray">
               출판사
             </span>
-            <span className="">{publisher}</span>
+            <span className="">{publisher || '정보가 없습니다'}</span>
           </div>
           <div className="flex items-center w-full">
             <span className="w-1/6 flex items-center text-normal-gray">
               출간일
             </span>
             <span className="">
-              {year}년 {formattedMonth}월
+              {year}년 {month}월
             </span>
           </div>
         </div>

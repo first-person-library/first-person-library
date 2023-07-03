@@ -4,7 +4,7 @@ import Icon from '../Icon';
 type BookCardProps = {
   colorCode: string;
   backgroundType: 'color' | 'blur';
-  cover?: string;
+  thumbnail?: string;
   title?: string;
   author?: string;
   comment?: string;
@@ -13,18 +13,18 @@ type BookCardProps = {
 export default function BookCard({
   colorCode,
   backgroundType,
-  cover,
+  thumbnail,
   title,
   author,
   comment,
 }: BookCardProps) {
-  const formattedTitle = truncateText(title, 10);
-  const formattedAuthor = truncateText(author, 6);
+  const formattedTitle = truncateText(title, 13);
+  const formattedauthor = truncateText(author, 7);
 
   return (
     <div className="flex justify-center">
       <div className="bg-bright-gray lg:mb-9 md:mb-7 w-[320px] h-[446px] md:w-[332px] md:h-[450px] flex-col flex items-center justify-center shadow-md">
-        {!cover && (
+        {!thumbnail && (
           <>
             <Icon
               src="/icon/book.png"
@@ -36,7 +36,7 @@ export default function BookCard({
             </span>
           </>
         )}
-        {cover && (
+        {thumbnail && (
           <>
             <div className="relative h-full flex flex-col w-full overflow-hidden">
               {backgroundType === 'color' ? (
@@ -46,13 +46,13 @@ export default function BookCard({
                 ></div>
               ) : (
                 <img
-                  src={cover}
+                  src={thumbnail}
                   alt="블러 배경"
                   className="flex h-2/3 bg-no-repeat bg-contain blur-2xl"
                 />
               )}
               <img
-                src={cover}
+                src={thumbnail}
                 alt="책"
                 className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-44 h-[264px] bg-no-repeat bg-contain"
               />
@@ -61,7 +61,9 @@ export default function BookCard({
                   {comment}
                 </div>
                 <div className="absolute bottom-4">
-                  &lt;{formattedTitle}&gt;, {formattedAuthor}
+                  {`<${formattedTitle}> ${
+                    formattedauthor ? `, ${formattedauthor}` : ''
+                  }`}
                 </div>
               </div>
             </div>
