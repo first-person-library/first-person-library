@@ -5,6 +5,7 @@ import App from './App';
 import './index.css';
 import Home from './pages/Home';
 import NewComment from './pages/NewComment';
+import ProtectedRoute from './pages/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -13,7 +14,14 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: '/comment', element: <Home /> },
-      { path: '/comment/new', element: <NewComment /> },
+      {
+        path: '/comment/new',
+        element: (
+          <ProtectedRoute>
+            <NewComment />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);

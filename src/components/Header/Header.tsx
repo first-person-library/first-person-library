@@ -4,10 +4,16 @@ import Search from './Search';
 import ProfileDropdown from './ProfileDropdown';
 import DarkmodeIcon from './DarkmodeIcon';
 import Icon from '../UI/Icon';
+import { useAuthContext } from '../../contexts/AuthContext';
 
-const Header = () => {
+export function Header() {
   const [mobileNavbar, setMobileNavbar] = useState<boolean>(false);
   const [dropdown, setDropdown] = useState<boolean>(false);
+  const { user, login } = useAuthContext();
+
+  const handleDropdown = () => {
+    setDropdown((prev) => !prev);
+  };
 
   return (
     <header className="sticky top-0 z-30 w-full bg-white border-b border-dusty-gray text-sm">
@@ -32,39 +38,45 @@ const Header = () => {
                 <Search />
               </div>
             </li>
-            <li className="md:flex lg:hidden">
-              <Icon
-                src="/icon/add.png"
-                alt="코멘트 등록하기"
-                className="icon w-7"
-              />
-            </li>
-            <li className="hidden lg:flex">
-              <Link to="/comment/new" className="">
-                코멘트 등록하기
-              </Link>
-            </li>
+            {user && (
+              <>
+                <li className="md:flex lg:hidden">
+                  <Icon
+                    src="/icon/add.png"
+                    alt="코멘트 등록하기"
+                    className="icon w-7"
+                  />
+                </li>
+
+                <li className="hidden lg:flex">
+                  <Link to="/comment/new" className="">
+                    코멘트 등록하기
+                  </Link>
+                </li>
+              </>
+            )}
             <li>
               <DarkmodeIcon />
             </li>
           </ul>
           <div className="flex items-center relative">
-            {false && (
-              <Link to="/">
-                <button className="hover:text-dusty2-black hover:border-b border-dusty2-black">
-                  로그인
-                </button>
-              </Link>
+            {!user && (
+              <button
+                onClick={login}
+                className="hover:text-dusty2-black hover:border-b border-dusty2-black"
+              >
+                로그인
+              </button>
             )}
-            {true && (
+            {user && (
               <Icon
-                src="/icon/my.png"
-                alt="프로필 이미지"
-                onClick={() => setDropdown((prev) => !prev)}
-                className="icon w-8 md:w-9"
+                src={user?.photoURL || '/icon/my.png'}
+                alt={user?.displayName || '프로필 이미지'}
+                onClick={handleDropdown}
+                className="icon w-8 md:w-9 rounded-full"
               />
             )}
-            {dropdown && <ProfileDropdown />}
+            {dropdown && <ProfileDropdown setDropdown={setDropdown} />}
           </div>
         </nav>
       </div>
@@ -74,9 +86,11 @@ const Header = () => {
             <li>
               <Search />
             </li>
-            <li>
-              <Link to="/comments/new">코멘트 등록하기</Link>
-            </li>
+            {user && (
+              <li>
+                <Link to="/comments/new">코멘트 등록하기</Link>
+              </li>
+            )}
             <li>
               <DarkmodeIcon />
             </li>
@@ -85,6 +99,4 @@ const Header = () => {
       )}
     </header>
   );
-};
-
-export default Header;
+}
