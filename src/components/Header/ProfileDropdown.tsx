@@ -1,9 +1,21 @@
 import { Link } from 'react-router-dom';
 import { useOfficialInfo } from '../../contexts/OfficialInfoContext';
 import Icon from '../UI/Icon';
+import { logout } from '../../apis/firebase';
+import { useAuthContext } from '../../contexts/AuthContext';
 
-export default function ProfileDropdown() {
+type ProfileDropdownProp = {
+  setDropdown: (value: boolean) => void;
+};
+
+export default function ProfileDropdown({ setDropdown }: ProfileDropdownProp) {
   const { officialEmail } = useOfficialInfo();
+  const { logout } = useAuthContext();
+
+  const handleLogout = () => {
+    setDropdown(false);
+    logout();
+  };
 
   return (
     <ul className="absolute right-0 top-full py-3 w-40 rounded-lg bg-white z-40 shadow-lg">
@@ -35,7 +47,7 @@ export default function ProfileDropdown() {
       </li>
       <li className="dropdown-li">
         <Icon src="/icon/logout.png" alt="로그아웃" className="icon w-6 mr-2" />
-        <Link to="/">로그아웃</Link>
+        <button onClick={handleLogout}>로그아웃</button>
       </li>
     </ul>
   );
