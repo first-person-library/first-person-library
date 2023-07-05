@@ -16,7 +16,7 @@ export default function BookSelector({ handleOpen }: BookSelectorProps) {
           </div>
           <div className="relative md:w-3/4 flex items-center">
             <div
-              className="border border-dusty-gray w-full h-12 flex items-center right-4 rounded-full focus:bg-white cursor-pointer"
+              className="border border-dusty-gray w-full h-10 md:h-12 flex items-center right-4 rounded-full focus:bg-white cursor-pointer"
               onClick={handleOpen}
             >
               <Icon

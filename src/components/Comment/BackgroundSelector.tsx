@@ -1,6 +1,7 @@
 import Icon from '../UI/Icon';
 
 type BackgroundSelectorProps = {
+  backgroundType: 'color' | 'blur' | null;
   colorPickerRef: React.LegacyRef<HTMLInputElement>;
   handleColorPick: () => void;
   handleColorClick: () => void;
@@ -9,6 +10,7 @@ type BackgroundSelectorProps = {
 };
 
 export default function BackgroundSelector({
+  backgroundType,
   colorPickerRef,
   handleColorPick,
   handleColorClick,
@@ -24,11 +26,11 @@ export default function BackgroundSelector({
           </div>
         </div>
         <div
-          className={`md:w-3/4 flex items-center text-dusty-black text-sm md:text-lg gap-6 md:gap-11 ${
-            thumbnail ? '' : 'pointer-events-none'
+          className={`md:w-3/4 flex items-center text-dusty2-black text-sm md:text-lg gap-6 md:gap-11 ${
+            thumbnail ? 'hover:cursor-pointer' : 'pointer-events-none'
           }`}
         >
-          <div className="flex items-center gap-4">
+          <div onClick={handleColorClick} className="flex items-center gap-4">
             <div className="relative flex items-center justify-center shrink-0">
               <label htmlFor="colorPicker" className="sr-only"></label>
               <input
@@ -41,20 +43,30 @@ export default function BackgroundSelector({
               <Icon
                 src="/icon/colorpicker.png"
                 alt="컬러 피커"
-                onClick={handleColorClick}
                 className="icon w-6 md:w-8 z-10"
               />
             </div>
-            <span>직접 선택하기</span>
+            <span
+              className={`font-medium ${
+                backgroundType === 'color' ? 'text-strong-black' : ''
+              }`}
+            >
+              직접 선택하기
+            </span>
           </div>
-          <div className="flex items-center gap-4">
+          <div onClick={handleBlurClick} className="flex items-center gap-4">
             <Icon
               src="/icon/blurpicker.png"
               alt="블러 효과"
-              onClick={handleBlurClick}
               className="icon w-6 md:w-8"
             />
-            <span>배경 블러효과</span>
+            <span
+              className={`font-medium ${
+                backgroundType === 'blur' ? 'text-strong-black' : ''
+              }`}
+            >
+              배경 블러효과
+            </span>
           </div>
         </div>
       </div>

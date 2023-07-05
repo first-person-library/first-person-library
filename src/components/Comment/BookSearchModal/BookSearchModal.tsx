@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect, MouseEventHandler } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import BookSearchBar from './BookSearchBar';
 import BookSearchCard from './BookSearchCard';
 import { useQuery } from '@tanstack/react-query';
@@ -47,8 +47,9 @@ export default function BookSearchModal({
   const PER_PAGE = 10;
 
   const books = data?.data;
-  const totalPages = books?.meta.pageable_count
-    ? Math.ceil(books?.meta.pageable_count / PER_PAGE)
+  const meta = books?.meta;
+  const totalPages = meta?.pageable_count
+    ? Math.ceil(meta.pageable_count / PER_PAGE)
     : 0;
 
   const handleChange = (query: string) => {
@@ -76,10 +77,8 @@ export default function BookSearchModal({
     });
   };
 
-  const removeKeyword = (index: number): MouseEventHandler<HTMLSpanElement> => {
-    return () => {
-      setKeywords(keywords.filter((_, i) => i !== index));
-    };
+  const removeKeyword = (index: number) => {
+    setKeywords(keywords.filter((_, i) => i !== index));
   };
 
   const discardKeywords = () => {
@@ -91,9 +90,9 @@ export default function BookSearchModal({
   };
 
   return (
-    <div className="relative flex flex-col h-full md:h-fit bg-white overflow-hidden md:rounded-2xl md:pt-14 lg:pt-16">
+    <div className="relative flex flex-col h-full md:h-fit bg-white overflow-hidden md:rounded-2xl pt-5 md:pt-14 lg:pt-16">
       <div className="p-5 md:pb-9 md:px-12 lg:px-13">
-        <h2 className="md:hidden my-7 md:my-7 text-center font-semibold text-lg">
+        <h2 className="md:hidden my-7 text-center font-semibold text-lg">
           도서 검색하기
         </h2>
         <div
@@ -135,7 +134,7 @@ export default function BookSearchModal({
             </div>
             <BookSearchPagenation
               currentPage={page}
-              isEnd={books?.meta.is_end}
+              isEnd={meta?.is_end}
               totalPages={totalPages}
               nextPage={nextPage}
               previousPage={previousPage}

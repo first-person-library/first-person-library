@@ -3,7 +3,7 @@ import Icon from '../Icon';
 
 type BookCardProps = {
   colorCode: string;
-  backgroundType: 'color' | 'blur';
+  backgroundType: 'color' | 'blur' | null;
   thumbnail?: string;
   title?: string;
   author?: string;

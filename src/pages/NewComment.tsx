@@ -11,8 +11,8 @@ import BookSelectionResult from '../components/Comment/BookSelectionResult';
 
 const NewComment = () => {
   const { isOpen, handleOpen, handleClose } = useModal();
-  const [backgroundType, setBackgroundType] = useState<'color' | 'blur'>(
-    'color'
+  const [backgroundType, setBackgroundType] = useState<'color' | 'blur' | null>(
+    null
   );
   const [backgroundColor, setBackgroundColor] = useState<string>('#F7F7F7');
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
@@ -35,6 +35,7 @@ const NewComment = () => {
   const handleBookSelect = (book: Book) => {
     setSelectedBook(book);
     handleClose();
+    setBackgroundType('color');
   };
 
   const writeComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -68,6 +69,7 @@ const NewComment = () => {
                   <BookSelector handleOpen={handleOpen} />
                 )}
                 <BackgroundSelector
+                  backgroundType={backgroundType}
                   colorPickerRef={colorPickerRef}
                   handleColorPick={handleColorPicker}
                   handleColorClick={handleColorClick}
@@ -83,7 +85,7 @@ const NewComment = () => {
                     placeholder="50자 이내의 독서 코멘트를 남겨주세요."
                   />
                   <div className="absolute right-2 bottom-5 md:right-12 md:bottom-7 text-base md:text-xl">
-                    <span>{`${comment?.length}`}</span>
+                    <span className="text-main-green">{`${comment?.length}`}</span>
                     <span className="text-dusty2-black">/50자</span>
                   </div>
                 </div>
