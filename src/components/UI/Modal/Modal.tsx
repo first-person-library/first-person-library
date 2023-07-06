@@ -23,7 +23,7 @@ export default function Modal({
               onClick={onClose}
               className="fixed inset-0 bg-modal-black opacity-50"
             ></div>
-            <div className="md:max-w-[720px] lg:max-w-3xl relative w-full">
+            <div className="md:max-w-[720px] lg:max-w-3xl relative w-full max-h-full overflow-y-auto">
               {children}
             </div>
           </div>

@@ -3,7 +3,7 @@ import Icon from '../Icon';
 
 type BookCardProps = {
   colorCode: string;
-  backgroundType: 'color' | 'blur';
+  backgroundType: 'color' | 'blur' | null;
   thumbnail?: string;
   title?: string;
   author?: string;
@@ -24,7 +24,7 @@ export default function BookCard({
   return (
     <div className="flex justify-center">
       <div className="bg-bright-gray lg:mb-9 md:mb-7 w-[320px] h-[446px] md:w-[332px] md:h-[450px] flex-col flex items-center justify-center shadow-md">
-        {!thumbnail && (
+        {!thumbnail && !title && (
           <>
             <Icon
               src="/icon/book.png"
@@ -34,6 +34,27 @@ export default function BookCard({
             <span className="text-center text-lg lg:text-xl text-dusty-black">
               도서를 검색해주세요.
             </span>
+          </>
+        )}
+        {!thumbnail && title && (
+          <>
+            <div className="relative h-full flex flex-col w-full overflow-hidden">
+              <img
+                src="/icon/emptybookcard.jpg"
+                alt={title}
+                className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-44 h-[264px] bg-no-repeat bg-contain"
+              />
+              <div className="absolute flex h-1/3 bg-white p-4 bottom-0 left-0 right-0">
+                <div className="break-words font-nanum-myeongjo md:text-lg h-20 overflow-y-hidden pt-1 md:pt-0">
+                  {comment}
+                </div>
+                <div className="absolute bottom-4">
+                  {`<${formattedTitle}> ${
+                    formattedauthor ? `, ${formattedauthor}` : ''
+                  }`}
+                </div>
+              </div>
+            </div>
           </>
         )}
         {thumbnail && (
@@ -53,7 +74,7 @@ export default function BookCard({
               )}
               <img
                 src={thumbnail}
-                alt="책"
+                alt={title}
                 className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-44 h-[264px] bg-no-repeat bg-contain"
               />
               <div className="relative flex h-1/3 bg-white p-4 ">

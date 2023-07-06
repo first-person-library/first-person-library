@@ -45,13 +45,13 @@ export default function BookSelectionResult({
             <span className="w-1/6 flex items-center text-normal-gray font">
               저자
             </span>
-            <span>{authors[0] || '정보가 없습니다'}</span>
+            <span>{authors[0] || '해당 정보가 없습니다.'}</span>
           </div>
           <div className="flex items-center w-full">
             <span className="w-1/6 flex items-center text-normal-gray">
               출판사
             </span>
-            <span className="">{publisher || '정보가 없습니다'}</span>
+            <span className="">{publisher || '해당 정보가 없습니다.'}</span>
           </div>
           <div className="flex items-center w-full">
             <span className="w-1/6 flex items-center text-normal-gray">

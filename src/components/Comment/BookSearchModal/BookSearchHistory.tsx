@@ -1,8 +1,8 @@
-import { MouseEventHandler } from 'react';
+import React from 'react';
 import Icon from '../../UI/Icon';
 
 type BookSearchHistoryProps = {
-  removeKeyword: (index: number) => MouseEventHandler<HTMLSpanElement>;
+  removeKeyword: (index: number) => void;
   discardKeywords: () => void;
   keywords: string[];
   searchSelectedKeyword: (keyword: string) => void;
@@ -16,6 +16,14 @@ export default function BookSearchHistory({
 }: BookSearchHistoryProps) {
   const handleClick = (keyword: string) => {
     searchSelectedKeyword(keyword);
+  };
+
+  const handleRemoveKeyword = (
+    event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
+    index: number
+  ) => {
+    event.stopPropagation();
+    removeKeyword(index);
   };
 
   return (
@@ -57,7 +65,7 @@ export default function BookSearchHistory({
                   <div className="text-sm px-5 py-1.5 cursor-pointer rounded-full bg-bright-gray my-2 mr-3">
                     {keyword}
                     <span
-                      onClick={removeKeyword(index)}
+                      onClick={(event) => handleRemoveKeyword(event, index)}
                       className="px-1 text-normal-gray"
                     >
                       ✖

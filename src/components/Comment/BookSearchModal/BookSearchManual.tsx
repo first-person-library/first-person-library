@@ -1,9 +1,8 @@
-import { MouseEventHandler } from 'react';
 import Icon from '../../UI/Icon';
 import BookSearchHistory from './BookSearchHistory';
 
 type BookSearchManualProps = {
-  removeKeyword: (index: number) => MouseEventHandler<HTMLSpanElement>;
+  removeKeyword: (index: number) => void;
   discardKeywords: () => void;
   keywords: string[];
   searchSelectedKeyword: (keyword: string) => void;

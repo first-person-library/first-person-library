@@ -19,8 +19,14 @@ const ModalContext = createContext<ModalContext>({
 export function ModalProvider({ children }: Props) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const handleOpen = () => setIsOpen(true);
-  const handleClose = () => setIsOpen(false);
+  const handleOpen = () => {
+    setIsOpen(true);
+    document.body.classList.add('overflow-hidden');
+  };
+  const handleClose = () => {
+    setIsOpen(false);
+    document.body.classList.remove('overflow-hidden');
+  };
 
   return (
     <ModalContext.Provider value={{ isOpen, handleOpen, handleClose }}>
