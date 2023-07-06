@@ -17,10 +17,7 @@ export default function BookSelectionResult({
   return (
     <div className="md:flex my-7 md:my-8 lg:my-10">
       <div className="md:w-1/4 flex justify-between md:justify-normal">
-        <label
-          className="md:text-left text-base md:text-xl mb-3 md:mb-0"
-          htmlFor="my-textfield"
-        >
+        <label className="md:text-left text-base md:text-xl mb-3 md:mb-0">
           도서 선택완료
         </label>
         <span

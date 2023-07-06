@@ -3,7 +3,7 @@ export type Books<T> = {
   meta: Meta;
 };
 
-export interface Book {
+export type Book = {
   authors: string[];
   contents: string;
   datetime: string;
@@ -14,12 +14,20 @@ export interface Book {
   status: string;
   thumbnail: string;
   title: string;
-  translators: string[] | [];
+  translators: string[];
   url: string;
-}
+};
 
-export interface Meta {
+export type Meta = {
   is_end: boolean;
   pageable_count: number;
   total_count: number;
-}
+};
+
+export type Comment = {
+  id: string;
+  content: string;
+  backgroundColor: string;
+  backgroundType: string;
+  isbn: string;
+};
