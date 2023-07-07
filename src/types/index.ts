@@ -30,4 +30,5 @@ export type Comment = {
   backgroundColor: string;
   backgroundType: string;
   isbn: string;
+  uid: string;
 };

@@ -2,8 +2,12 @@ import Icon from '../UI/Icon';
 
 export default function LoadingSpinner() {
   return (
-    <div className="h-screen flex items-start justify-center">
-      <Icon src="/icon/loadingspinner.gif" alt="로딩중" />
+    <div className="h-full flex items-start justify-center">
+      <Icon
+        src="/icon/loadingspinner.gif"
+        className="max-h-full"
+        alt="로딩중"
+      />
     </div>
   );
 }

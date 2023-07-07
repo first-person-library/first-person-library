@@ -14,17 +14,20 @@ export default function NewComment() {
   const [comment, setComment] = useState<Comment | null>({
     id: '',
     content: '',
-    backgroundColor: '#F7F7F7',
+    backgroundColor: '#f7f7f7',
     backgroundType: '',
     isbn: '',
+    uid: '',
   });
   const { isOpen, handleOpen, handleClose } = useModal();
   const [backgroundType, setBackgroundType] = useState<'color' | 'blur' | null>(
     null
   );
-  const [backgroundColor, setBackgroundColor] = useState<string>('#F7F7F7');
+  const [backgroundColor, setBackgroundColor] = useState<string>('#f7f7f7');
   const [book, setBook] = useState<Book | null>(null);
   const [content, setContent] = useState<string>('');
+  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   const colorPickerRef = useRef<HTMLInputElement | null>(null);
 
@@ -64,13 +67,20 @@ export default function NewComment() {
     setContent(content);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const isbn = book?.isbn.split(' ')[0];
+    setIsUploading(true);
 
     if (comment) {
-      addNewComment(comment, isbn!);
+      try {
+        const isbn = book?.isbn.split(' ')[0];
+        await addNewComment(comment, isbn!);
+        setIsSuccess(true);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsUploading(false);
+      }
     }
   };
 
@@ -79,7 +89,7 @@ export default function NewComment() {
       <main className="w-full mx-auto lg:pt-24 lg:pb-44 lg:w-4/6 md:px-4 p-6">
         <section className="bg-white rounded-xl lg:border border-dusty-gray">
           <div className="md:my-12 lg:mx-24">
-            {true && (
+            {!isSuccess && (
               <form onSubmit={handleSubmit}>
                 <BookCard
                   colorCode={backgroundColor}
@@ -123,13 +133,16 @@ export default function NewComment() {
                   </div>
                 </div>
                 <div className="flex justify-center my-6 md:my-12 lg:my-16">
-                  <button className="btn btn-normal-gray rounded-full">
-                    발행하기
+                  <button
+                    className={`btn btn-normal-gray rounded-full`}
+                    disabled={isUploading}
+                  >
+                    {isUploading ? '열심히 로딩중💨' : '발행하기'}
                   </button>
                 </div>
               </form>
             )}
-            {false && <CommentSubmission />}
+            {isSuccess && <CommentSubmission />}
           </div>
         </section>
       </main>
