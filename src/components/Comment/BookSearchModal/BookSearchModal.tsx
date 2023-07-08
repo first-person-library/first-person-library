@@ -54,6 +54,7 @@ export default function BookSearchModal({
 
   const handleChange = (query: string) => {
     setQuery(query);
+    setPage(1);
   };
 
   const searchSelectedKeyword = (keyword: string) => {
@@ -117,7 +118,7 @@ export default function BookSearchModal({
           />
         ) : (
           <>
-            <div className="max-h-[450px] overflow-y-auto border-t border-light-gray">
+            <div className="h-[450px] overflow-y-auto border-t border-light-gray">
               {isLoading && <LoadingSpinner />}
               {isError && <ErrorScreen />}
               {books && (
@@ -133,6 +134,8 @@ export default function BookSearchModal({
               )}
             </div>
             <BookSearchPagenation
+              isLoading={isLoading}
+              isError={isError}
               currentPage={page}
               isEnd={meta?.is_end}
               totalPages={totalPages}

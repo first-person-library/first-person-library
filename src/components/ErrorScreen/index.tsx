@@ -2,7 +2,7 @@ import Icon from '../UI/Icon';
 
 export default function ErrorScreen() {
   return (
-    <div className="h-screen flex flex-col items-center">
+    <div className="h-full flex flex-col items-center">
       <Icon
         src="/icon/error.png"
         alt="에러 메시지"

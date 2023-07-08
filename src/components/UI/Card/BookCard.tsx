@@ -7,7 +7,7 @@ type BookCardProps = {
   thumbnail?: string;
   title?: string;
   author?: string;
-  comment?: string;
+  content?: string;
 };
 
 export default function BookCard({
@@ -16,7 +16,7 @@ export default function BookCard({
   thumbnail,
   title,
   author,
-  comment,
+  content,
 }: BookCardProps) {
   const formattedTitle = truncateText(title, 13);
   const formattedauthor = truncateText(author, 7);
@@ -24,7 +24,7 @@ export default function BookCard({
   return (
     <div className="flex justify-center">
       <div className="bg-bright-gray lg:mb-9 md:mb-7 w-[320px] h-[446px] md:w-[332px] md:h-[450px] flex-col flex items-center justify-center shadow-md">
-        {!thumbnail && !title && (
+        {!title && (
           <>
             <Icon
               src="/icon/book.png"
@@ -36,28 +36,7 @@ export default function BookCard({
             </span>
           </>
         )}
-        {!thumbnail && title && (
-          <>
-            <div className="relative h-full flex flex-col w-full overflow-hidden">
-              <img
-                src="/icon/emptybookcard.jpg"
-                alt={title}
-                className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-44 h-[264px] bg-no-repeat bg-contain"
-              />
-              <div className="absolute flex h-1/3 bg-white p-4 bottom-0 left-0 right-0">
-                <div className="break-words font-nanum-myeongjo md:text-lg h-20 overflow-y-hidden pt-1 md:pt-0">
-                  {comment}
-                </div>
-                <div className="absolute bottom-4">
-                  {`<${formattedTitle}> ${
-                    formattedauthor ? `, ${formattedauthor}` : ''
-                  }`}
-                </div>
-              </div>
-            </div>
-          </>
-        )}
-        {thumbnail && (
+        {title && (
           <>
             <div className="relative h-full flex flex-col w-full overflow-hidden">
               {backgroundType === 'color' ? (
@@ -73,13 +52,13 @@ export default function BookCard({
                 />
               )}
               <img
-                src={thumbnail}
+                src={thumbnail || '/icon/emptyimage.jpg'}
                 alt={title}
                 className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-44 h-[264px] bg-no-repeat bg-contain"
               />
               <div className="relative flex h-1/3 bg-white p-4 ">
                 <div className="break-words font-nanum-myeongjo md:text-lg h-20 overflow-y-hidden pt-1 md:pt-0">
-                  {comment}
+                  {content}
                 </div>
                 <div className="absolute bottom-4">
                   {`<${formattedTitle}> ${

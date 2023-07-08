@@ -23,6 +23,7 @@ const AuthContext = createContext<AuthContextType>({
   login: () => {},
   logout: () => {},
 });
+
 export function AuthContextProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
 
