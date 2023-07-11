@@ -9,7 +9,7 @@ import {
 } from 'firebase/auth';
 import { getDatabase, set, ref, get } from 'firebase/database';
 import { v4 as uuid } from 'uuid';
-import { Comment } from '../types';
+import { Book, Comment } from '../types';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -43,7 +43,7 @@ export async function onUserStateChange(callback: (user: User | null) => void) {
   onAuthStateChanged(auth, callback);
 }
 
-export async function addNewComment(comment: Comment, isbn: string) {
+export async function addNewComment(comment: Comment, book: Book) {
   const id = uuid();
   let uid;
 
@@ -58,8 +58,10 @@ export async function addNewComment(comment: Comment, isbn: string) {
     await set(ref(database, `comments/${id}`), {
       ...comment,
       id,
-      isbn,
       uid,
+      createdAt: Date(),
+      updatedAt: '',
+      book,
     });
   } catch (error) {
     console.error(error);
@@ -85,4 +87,20 @@ export async function addUserComment(uid: string, id: string) {
   } catch (error) {
     console.error(error);
   }
+}
+
+export async function getComments(): Promise<Comment[]> {
+  return await get(ref(database, 'comments')).then((snapshot) => {
+    const data: Comment[] = Object.values(snapshot.val());
+
+    const sortedData = data.sort((a, b) => {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
+
+    if (sortedData.length !== 0) {
+      return sortedData;
+    }
+
+    return [];
+  });
 }

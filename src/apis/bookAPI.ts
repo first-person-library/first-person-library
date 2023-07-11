@@ -8,7 +8,6 @@ const client = axios.create({
   },
 });
 
-// 도서 검색
 export async function search({
   query,
   page,
@@ -16,9 +15,9 @@ export async function search({
   query: string;
   page: number;
 }): Promise<AxiosResponse<Books<Book>, Error>> {
-  return await client.get('book', {
+  return await client.get<Books<Book>>('book', {
     params: {
-      query: query,
+      query,
       sort: 'accuracy',
       page: page,
       size: 10,

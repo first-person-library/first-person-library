@@ -11,6 +11,10 @@ body {
   @apply text-base md:text-lg lg:text-xl font-bold h-14 px-10 cursor-pointer;
 }
 
+.btn-disabled {
+  @apply text-base md:text-lg lg:text-xl font-bold h-14 px-10;
+}
+
 .btn-modal {
   @apply text-base font-bold h-8 px-6 cursor-pointer transition duration-300 ease-out;
 }

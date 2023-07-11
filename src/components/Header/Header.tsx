@@ -17,7 +17,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-30 w-full bg-white border-b border-dusty-gray text-sm">
-      <div className="h-16 md:h-[120px] flex mx-auto justify-between items-center w-full lg:w-4/6 px-4">
+      <div className="h-16 md:h-[120px] flex mx-auto justify-between items-center w-full lg:w-5/6 px-4">
         <button
           className="md:hidden flex items-center w-6 h-6"
           onClick={() => setMobileNavbar((prev) => !prev)}

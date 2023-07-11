@@ -22,6 +22,9 @@ export default {
         'nanum-myeongjo': ['Nanum Myeongjo', 'sans-serif'],
         'noto-sans': ['Noto Sans KR', 'sans-serif'],
       },
+      screens: {
+        '3xl': '1600px',
+      },
     },
   },
   plugins: [],
