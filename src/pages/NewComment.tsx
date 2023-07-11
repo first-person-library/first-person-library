@@ -1,5 +1,5 @@
 import { useState, useRef, ChangeEvent, useEffect, FormEvent } from 'react';
-import BookCard from '../components/UI/Card/BookCard';
+import CommentCard from '../components/UI/Card/CommentCard';
 import BackgroundSelector from '../components/Comment/BackgroundSelector';
 import BookSelector from '../components/Comment/BookSelector';
 import { useModal } from '../contexts/ModalContext';
@@ -11,20 +11,14 @@ import BookSelectionResult from '../components/Comment/BookSelectionResult';
 import { addNewComment } from '../apis/firebase';
 
 export default function NewComment() {
-  const [comment, setComment] = useState<Comment | null>({
-    id: '',
-    content: '',
-    backgroundColor: '#f7f7f7',
-    backgroundType: '',
-    isbn: '',
-    uid: '',
-  });
+  const [comment, setComment] = useState<Comment>(commentInitial);
+
   const { isOpen, handleOpen, handleClose } = useModal();
   const [backgroundType, setBackgroundType] = useState<'color' | 'blur' | null>(
     null
   );
   const [backgroundColor, setBackgroundColor] = useState<string>('#f7f7f7');
-  const [book, setBook] = useState<Book | null>(null);
+  const [book, setBook] = useState<Book>(bookInitial);
   const [content, setContent] = useState<string>('');
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
@@ -39,7 +33,7 @@ export default function NewComment() {
           content,
           backgroundType,
           backgroundColor,
-        } as Comment | null)
+        } as Comment)
     );
   }, [backgroundType, content, backgroundColor]);
 
@@ -73,8 +67,7 @@ export default function NewComment() {
 
     if (comment) {
       try {
-        const isbn = book?.isbn.split(' ')[0];
-        await addNewComment(comment, isbn!);
+        await addNewComment(comment, book as Book);
         setIsSuccess(true);
       } catch (error) {
         console.error(error);
@@ -91,15 +84,13 @@ export default function NewComment() {
           <div className="md:my-12 lg:mx-24">
             {!isSuccess && (
               <form onSubmit={handleSubmit}>
-                <BookCard
-                  colorCode={backgroundColor}
-                  backgroundType={backgroundType}
-                  thumbnail={book?.thumbnail}
-                  title={book?.title}
-                  author={book?.authors[0]}
-                  content={content}
+                <CommentCard
+                  comment={{
+                    ...comment,
+                    book,
+                  }}
                 />
-                {book ? (
+                {book.title ? (
                   <BookSelectionResult book={book} handleOpen={handleOpen} />
                 ) : (
                   <BookSelector handleOpen={handleOpen} />
@@ -134,8 +125,14 @@ export default function NewComment() {
                 </div>
                 <div className="flex justify-center my-6 md:my-12 lg:my-16">
                   <button
-                    className={`btn btn-normal-gray rounded-full`}
-                    disabled={isUploading}
+                    className={`btn-disabled bg-normal-gray text-white rounded-full ${
+                      content.length !== 0 && book.title
+                        ? 'cursor-pointer hover:bg-strong-black'
+                        : 'cursor-not-allowed'
+                    }`}
+                    disabled={
+                      isUploading || (content.length !== 0 && !book.title)
+                    }
                   >
                     {isUploading ? '열심히 로딩중💨' : '발행하기'}
                   </button>
@@ -152,3 +149,29 @@ export default function NewComment() {
     </>
   );
 }
+
+const bookInitial = {
+  authors: [],
+  contents: '',
+  datetime: '',
+  isbn: '',
+  price: 0,
+  publisher: '',
+  sale_price: 0,
+  status: '',
+  thumbnail: '',
+  title: '',
+  translators: [],
+  url: '',
+};
+
+const commentInitial = {
+  id: '',
+  content: '',
+  backgroundColor: '#f7f7f7',
+  backgroundType: '',
+  book: bookInitial,
+  uid: '',
+  createdAt: '',
+  updatedAt: '',
+};

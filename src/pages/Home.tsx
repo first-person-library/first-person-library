@@ -1,5 +1,11 @@
+import Comments from '../components/Comment/Comments';
+
 const Home = () => {
-  return <div>home</div>;
+  return (
+    <main>
+      <Comments />
+    </main>
+  );
 };
 
 export default Home;

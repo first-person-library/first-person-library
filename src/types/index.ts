@@ -4,18 +4,18 @@ export type Books<T> = {
 };
 
 export type Book = {
-  authors: string[];
-  contents: string;
-  datetime: string;
+  authors?: string[];
+  contents?: string;
+  datetime?: string;
   isbn: string;
-  price: number;
-  publisher: string;
-  sale_price: number;
-  status: string;
-  thumbnail: string;
+  price?: number;
+  publisher?: string;
+  sale_price?: number;
+  status?: string;
+  thumbnail?: string;
   title: string;
-  translators: string[];
-  url: string;
+  translators?: string[];
+  url?: string;
 };
 
 export type Meta = {
@@ -29,6 +29,8 @@ export type Comment = {
   content: string;
   backgroundColor: string;
   backgroundType: string;
-  isbn: string;
   uid: string;
+  createdAt: string;
+  updatedAt: string;
+  book: Book;
 };
