@@ -34,3 +34,12 @@ export type Comment = {
   updatedAt: string;
   book: Book;
 };
+
+export type Suggest = {
+  author: string;
+  contents: string;
+  isbn: string;
+  publisher: string;
+  thumbnail: string;
+  title: string;
+};

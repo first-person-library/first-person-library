@@ -52,3 +52,18 @@ body {
 .dropdown-li {
   @apply flex items-center px-7 py-3 hover:bg-bright-gray cursor-pointer;
 }
+
+/* 추천 도서 슬라이더*/
+.arrow {
+  @apply hidden lg:block cursor-pointer;
+  transition: all ease-in-out;
+}
+
+.arrow:hover {
+  transition: all ease-in-out;
+  transform: scale(1.2);
+}
+
+.books::-webkit-scrollbar {
+  display: none;
+}

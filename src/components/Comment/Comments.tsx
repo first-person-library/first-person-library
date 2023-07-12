@@ -13,8 +13,8 @@ export default function Comments() {
   } = useQuery<Comment[]>(['comments'], getComments);
 
   return (
-    <div className="w-full mx-auto lg:pt-24 lg:pb-44 lg:w-5/6 md:px-4 p-6">
-      <h2 className="font-bold text-xl md:text-2xl lg:text-4xl mb-5 md:mb-9 lg:mb-20 text-center">
+    <section className="lg:pt-24 lg:pb-44">
+      <h2 className="font-bold text-xl md:text-2xl lg:text-4xl my-5 md:my-9 lg:my-20 text-center">
         도서 코멘트
       </h2>
       {isLoading && <LoadingSpinner />}
@@ -27,6 +27,6 @@ export default function Comments() {
             ))}
         </ul>
       </div>
-    </div>
+    </section>
   );
 }

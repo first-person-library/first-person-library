@@ -89,7 +89,7 @@ export async function addUserComment(uid: string, id: string) {
   }
 }
 
-export async function getComments(): Promise<Comment[]> {
+export async function getComments() {
   return await get(ref(database, 'comments')).then((snapshot) => {
     const data: Comment[] = Object.values(snapshot.val());
 
@@ -101,6 +101,13 @@ export async function getComments(): Promise<Comment[]> {
       return sortedData;
     }
 
+    return [];
+  });
+}
+
+export async function getSuggestBooks() {
+  return await get(ref(database, 'suggest')).then((snapshot) => {
+    if (snapshot.exists()) return Object.values(snapshot.val());
     return [];
   });
 }

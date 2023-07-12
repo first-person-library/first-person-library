@@ -13,9 +13,10 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <Home /> },
-      { path: '/comment', element: <Home /> },
+      { path: 'comments', element: <Home /> },
+      { path: 'comments/:title', element: <Home /> },
       {
-        path: '/comment/new',
+        path: 'comment/new',
         element: (
           <ProtectedRoute>
             <NewComment />
