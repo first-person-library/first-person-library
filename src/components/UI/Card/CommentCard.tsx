@@ -63,10 +63,10 @@ export default function CommentCard({ comment }: CommentCardProps) {
               src={thumbnail || '/icon/emptyimage.jpg'}
               alt={title}
               title={title}
-              className={`absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-no-repeat bg-contain first-letter:
+              className={`absolute rounded-md top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-no-repeat bg-contain first-letter:
                 ${
                   isHomePage
-                    ? 'w-[108px] h-[119px] md:w-[163px] md:h-[200px] lg:w-[152px] lg:h-[209px]'
+                    ? 'h-[119px] md:h-[200px] lg:h-[209px]'
                     : 'w-44 h-[264px]'
                 }
                 `}
