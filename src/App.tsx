@@ -13,8 +13,8 @@ function App() {
     <>
       <AuthContextProvider>
         <OfficialInfoProvider>
-          <Header />
           <QueryClientProvider client={queryClient}>
+            <Header />
             <ModalProvider>
               <Outlet />
             </ModalProvider>

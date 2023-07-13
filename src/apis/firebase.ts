@@ -7,9 +7,17 @@ import {
   signInWithPopup,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { getDatabase, set, ref, get } from 'firebase/database';
+import {
+  getDatabase,
+  set,
+  ref,
+  get,
+  equalTo,
+  query,
+  orderByChild,
+} from 'firebase/database';
 import { v4 as uuid } from 'uuid';
-import { Book, Comment } from '../types';
+import { Book, Comment, Suggest } from '../types';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -89,23 +97,39 @@ export async function addUserComment(uid: string, id: string) {
   }
 }
 
-export async function getComments() {
-  return await get(ref(database, 'comments')).then((snapshot) => {
-    const data: Comment[] = Object.values(snapshot.val());
-
-    const sortedData = data.sort((a, b) => {
-      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    });
-
-    if (sortedData.length !== 0) {
-      return sortedData;
-    }
-
-    return [];
-  });
+export async function getComments({
+  title,
+}: {
+  title?: string;
+}): Promise<Comment[]> {
+  return title
+    ? await get(
+        query(
+          ref(database, 'comments'),
+          orderByChild('book/title'),
+          equalTo(title!)
+        )
+      ).then((snapshot) => {
+        if (snapshot.exists()) {
+          return Object.values(snapshot.val());
+        }
+        return [];
+      })
+    : await get(
+        query(ref(database, 'comments'), orderByChild('createdAt'))
+      ).then((snapshot) => {
+        if (snapshot.exists()) {
+          const comments: Comment[] = [];
+          snapshot.forEach((childSnapshot) => {
+            comments.push(childSnapshot.val());
+          });
+          return comments.reverse();
+        }
+        return [];
+      });
 }
 
-export async function getSuggestBooks() {
+export async function getSuggestBooks(): Promise<Suggest[]> {
   return await get(ref(database, 'suggest')).then((snapshot) => {
     if (snapshot.exists()) return Object.values(snapshot.val());
     return [];
