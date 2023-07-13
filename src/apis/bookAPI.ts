@@ -13,7 +13,7 @@ export async function search({
   page,
 }: {
   query: string;
-  page: number;
+  page?: number;
 }): Promise<AxiosResponse<Books<Book>, Error>> {
   return await client.get<Books<Book>>('book', {
     params: {

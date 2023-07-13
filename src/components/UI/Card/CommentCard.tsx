@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Book, Comment } from '../../../types';
 import truncateText from '../../../utils/truncateText';
 import Icon from '../Icon';
@@ -9,27 +9,30 @@ type CommentCardProps = {
 
 export default function CommentCard({ comment }: CommentCardProps) {
   const { backgroundColor, backgroundType, content } = comment;
-  const { thumbnail, title, authors } = comment.book as Book;
+  const { thumbnail, title } = comment.book as Book;
 
-  const baseFormattedTitle = truncateText(title, 10);
-  const baseFormattedauthor = authors ? truncateText(authors[0], 5) : '';
-  const mobileFormattedTitle = truncateText(title, 5);
-  const mobileFormattedauthor = authors ? truncateText(authors[0], 3) : '';
-  const bookInfo = `<${baseFormattedTitle}>${
-    baseFormattedauthor && `, ${baseFormattedauthor}`
-  }`;
+  const baseFormattedTitle = truncateText(title, 15);
+  const mobileFormattedTitle = truncateText(title, 12);
 
   const location = useLocation();
   const { pathname } = location;
   const isHomePage = pathname === '/';
+  const isComments = pathname.includes('/comments');
 
   const isMobile = window.innerWidth <= 1024;
+
+  const navigate = useNavigate();
+
+  const handleClick = (title: string) => {
+    if (isComments) return;
+    navigate(`comments/${title}`);
+  };
 
   return (
     <div className="flex justify-center">
       <div
         className={`bg-bright-gray lg:mb-9 md:mb-7 flex-col flex items-center justify-center shadow-md   ${
-          isHomePage
+          isHomePage || isComments
             ? 'w-[160px] h-[280px] md:w-[230px] md:h-[470px] lg:w-[280px] lg:h-[450px] xl:w-[266px] xl:h-[429px]' // grid
             : 'w-[320px] h-[446px] md:w-[332px] md:h-[450px]'
         }`}
@@ -46,7 +49,12 @@ export default function CommentCard({ comment }: CommentCardProps) {
             </span>
           </>
         ) : (
-          <div className="relative h-full flex flex-col w-full overflow-hidden">
+          <div
+            onClick={() => handleClick(title)}
+            className={`comment-card relative h-full flex flex-col w-full overflow-hidden ${
+              isHomePage ? 'cursor-pointer hover:text-main-green' : ''
+            }`}
+          >
             {backgroundType === 'color' ? (
               <div
                 style={{ backgroundColor }}
@@ -65,7 +73,7 @@ export default function CommentCard({ comment }: CommentCardProps) {
               title={title}
               className={`absolute rounded-md top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-no-repeat bg-contain first-letter:
                 ${
-                  isHomePage
+                  isHomePage || isComments
                     ? 'h-[119px] md:h-[200px] lg:h-[209px]'
                     : 'w-44 h-[264px]'
                 }
@@ -73,31 +81,31 @@ export default function CommentCard({ comment }: CommentCardProps) {
             />
             <div
               className={`relative flex h-1/3 bg-white 
-                ${isHomePage ? 'p-1 md:p-4' : 'p-4'}
+                ${isHomePage || isComments ? 'p-1 md:p-4' : 'p-4'}
               
               `}
             >
               <div
                 className={`break-words font-nanum-myeongjo  overflow-y-hidden pt-1 md:pt-0 ${
-                  isHomePage ? 'text-xs md:text-base' : 'md:text-lg h-20'
+                  isHomePage || isComments
+                    ? 'text-xs md:text-base'
+                    : 'md:text-lg h-20'
                 }`}
               >
                 {content}
               </div>
               <div
                 className={`absolute ${
-                  isHomePage
+                  isHomePage || isComments
                     ? 'text-xs md:text-base bottom-1 md:bottom-4 '
                     : 'md:text-lg bottom-4'
                 }`}
               >
-                {isHomePage
+                {isHomePage || isComments
                   ? isMobile
-                    ? `<${mobileFormattedTitle}>${
-                        mobileFormattedauthor && `, ${mobileFormattedauthor}`
-                      }`
-                    : bookInfo
-                  : bookInfo}
+                    ? `<${mobileFormattedTitle}>`
+                    : `<${baseFormattedTitle}>`
+                  : `<${baseFormattedTitle}>`}
               </div>
             </div>
           </div>

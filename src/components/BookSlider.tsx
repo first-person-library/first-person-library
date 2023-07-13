@@ -58,7 +58,7 @@ export default function BookSlider() {
             {books?.map((book) => (
               <img
                 key={book.isbn}
-                className="book w-full max-h-48 md:max-h-60 lg:max-h-80 mx-3 lg:mx-5 transform transition-transform duration-450 scale-110 cursor-pointer "
+                className="book w-full max-h-48 md:max-h-60 lg:max-h-80 mx-3 lg:mx-5 transition-transform duration-200 hover:scale-110 cursor-pointer"
                 src={book.thumbnail}
                 alt={book.title}
                 onClick={() => handleClick(book.title)}
