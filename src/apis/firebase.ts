@@ -1,4 +1,3 @@
-import { useNavigate, useLocation } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import {
   User,
@@ -16,6 +15,7 @@ import {
   equalTo,
   query,
   orderByChild,
+  remove,
 } from 'firebase/database';
 import { v4 as uuid } from 'uuid';
 import { Book, Comment, Suggest } from '../types';
@@ -34,13 +34,6 @@ provider.setCustomParameters({
 });
 const auth = getAuth();
 const database = getDatabase(app);
-//const navigate = useNavigate();
-//navigate(`comments/my`);
-
-// const location = useLocation();
-const { pathname } = location;
-// const isHomePage = pathname === '/';
-// const isComments = pathname === '/my';
 
 export async function login() {
   try {
@@ -68,9 +61,6 @@ export async function addNewComment(comment: Comment, book: Book) {
 
   await onUserStateChange(async (user) => {
     uid = user?.uid;
-    if (uid) {
-      await addUserComment(uid, id);
-    }
   });
 
   try {
@@ -87,33 +77,11 @@ export async function addNewComment(comment: Comment, book: Book) {
   }
 }
 
-export async function addUserComment(uid: string, id: string) {
-  const userRef = ref(database, `users/${uid}`);
-
-  try {
-    await get(userRef).then(async (snapshot) => {
-      const comments = snapshot.val();
-
-      if (snapshot.exists()) {
-        await set(userRef, {
-          ...comments,
-          [comments.length]: id,
-        });
-      } else {
-        await set(userRef, { 0: id });
-      }
-    });
-  } catch (error) {
-    console.error(error);
-  }
-}
-
 export async function getComments({
   title,
 }: {
   title?: string;
 }): Promise<Comment[]> {
-  console.log(pathname);
   return title ? getSelectedComments({ title }) : getAllComments();
 }
 
@@ -122,14 +90,12 @@ export async function getMyComments(): Promise<Comment[]> {
     let uid = null;
 
     await onUserStateChange(async (user) => {
-      console.log(user);
       uid = user?.uid;
     });
 
     return await get(
       query(ref(database, 'comments'), orderByChild('uid'), equalTo(uid))
     ).then((snapshot) => {
-      console.log(Object.values(snapshot.val()));
       if (snapshot.exists()) {
         return Object.values(snapshot.val());
       }
@@ -146,8 +112,6 @@ export async function getAllComments() {
     query(ref(database, 'comments'), orderByChild('createdAt'))
   ).then((snapshot) => {
     if (snapshot.exists()) {
-      console.log('전체');
-
       const comments: Comment[] = [];
       snapshot.forEach((childSnapshot) => {
         comments.push(childSnapshot.val());
@@ -170,8 +134,6 @@ export async function getSelectedComments({
       equalTo(title!)
     )
   ).then((snapshot) => {
-    console.log('코멘트 검색');
-
     return snapshot.exists() ? Object.values(snapshot.val()) : [];
   });
 }
@@ -181,4 +143,23 @@ export async function getSuggestBooks(): Promise<Suggest[]> {
     if (snapshot.exists()) return Object.values(snapshot.val());
     return [];
   });
+}
+
+export async function updateMyComment(comment: Comment) {
+  try {
+    await set(ref(database, 'comments/' + comment.id), {
+      ...comment,
+      updatedAt: Date(),
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function deleteMyComment(id: string) {
+  try {
+    await remove(ref(database, 'comments/' + id));
+  } catch (error) {
+    console.error(error);
+  }
 }

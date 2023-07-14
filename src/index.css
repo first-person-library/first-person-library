@@ -20,11 +20,19 @@ body {
 }
 
 .btn-main-green {
-  @apply bg-dusty-green text-white;
+  @apply bg-main-green text-white;
 }
 
 .btn-main-green:hover {
-  @apply bg-main-green text-white;
+  @apply bg-dusty-green text-white;
+}
+
+.btn-border-main-green {
+  @apply border border-main-green;
+}
+
+.btn-border-main-green:hover {
+  @apply border-0 bg-dusty-green text-white;
 }
 
 .btn-normal-gray {
@@ -39,8 +47,16 @@ body {
   @apply bg-strong-black text-white;
 }
 
+.btn-strong-black:hover {
+  @apply bg-normal-gray text-white;
+}
+
 .btn-white {
   @apply border border-dusty-black text-strong-black;
+}
+
+.btn-white:hover {
+  @apply border-0 bg-normal-gray text-white;
 }
 
 /* 아이콘 */

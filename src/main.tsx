@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import './index.css';
+import EditComment from './pages/EditComment';
 import Home from './pages/Home';
 import My from './pages/My';
 import NewComment from './pages/NewComment';
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      { path: '/my/:id', element: <EditComment /> },
     ],
   },
 ]);

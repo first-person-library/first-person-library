@@ -91,7 +91,7 @@ export default function BookSearchModal({
   };
 
   return (
-    <div className="relative flex flex-col h-full md:h-fit bg-white overflow-hidden md:rounded-2xl pt-5 md:pt-14 lg:pt-16">
+    <div className="relative flex flex-col w-full h-full md:h-fit bg-white overflow-hidden md:rounded-2xl pt-5 md:pt-14 lg:pt-16">
       <div className="p-5 md:pb-9 md:px-12 lg:px-13">
         <h2 className="md:hidden my-7 text-center font-semibold text-lg">
           도서 검색하기

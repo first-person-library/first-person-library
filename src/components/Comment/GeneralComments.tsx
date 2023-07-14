@@ -4,7 +4,7 @@ import { getComments } from '../../apis/firebase';
 import { Comment } from '../../types';
 import Comments from './Comments';
 
-export default function CommonComments() {
+export default function GeneralComments() {
   const { title } = useParams();
 
   const {
@@ -14,6 +14,12 @@ export default function CommonComments() {
   } = useQuery<Comment[]>(['comments', title], () => getComments({ title }));
 
   return (
-    <Comments isLoading={isLoading} isError={isError} comments={comments} />
+    <Comments
+      isLoading={isLoading}
+      isError={isError}
+      comments={comments}
+      headline={'도서 코멘트'}
+      keyword={title}
+    />
   );
 }
