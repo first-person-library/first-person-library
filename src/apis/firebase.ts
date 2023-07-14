@@ -1,3 +1,4 @@
+import { useNavigate, useLocation } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import {
   User,
@@ -28,8 +29,18 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const provider = new GoogleAuthProvider();
+provider.setCustomParameters({
+  prompt: 'select_account',
+});
 const auth = getAuth();
 const database = getDatabase(app);
+//const navigate = useNavigate();
+//navigate(`comments/my`);
+
+// const location = useLocation();
+const { pathname } = location;
+// const isHomePage = pathname === '/';
+// const isComments = pathname === '/my';
 
 export async function login() {
   try {
@@ -102,31 +113,67 @@ export async function getComments({
 }: {
   title?: string;
 }): Promise<Comment[]> {
-  return title
-    ? await get(
-        query(
-          ref(database, 'comments'),
-          orderByChild('book/title'),
-          equalTo(title!)
-        )
-      ).then((snapshot) => {
-        if (snapshot.exists()) {
-          return Object.values(snapshot.val());
-        }
-        return [];
-      })
-    : await get(
-        query(ref(database, 'comments'), orderByChild('createdAt'))
-      ).then((snapshot) => {
-        if (snapshot.exists()) {
-          const comments: Comment[] = [];
-          snapshot.forEach((childSnapshot) => {
-            comments.push(childSnapshot.val());
-          });
-          return comments.reverse();
-        }
-        return [];
+  console.log(pathname);
+  return title ? getSelectedComments({ title }) : getAllComments();
+}
+
+export async function getMyComments(): Promise<Comment[]> {
+  try {
+    let uid = null;
+
+    await onUserStateChange(async (user) => {
+      console.log(user);
+      uid = user?.uid;
+    });
+
+    return await get(
+      query(ref(database, 'comments'), orderByChild('uid'), equalTo(uid))
+    ).then((snapshot) => {
+      console.log(Object.values(snapshot.val()));
+      if (snapshot.exists()) {
+        return Object.values(snapshot.val());
+      }
+      return [];
+    });
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
+export async function getAllComments() {
+  return await get(
+    query(ref(database, 'comments'), orderByChild('createdAt'))
+  ).then((snapshot) => {
+    if (snapshot.exists()) {
+      console.log('전체');
+
+      const comments: Comment[] = [];
+      snapshot.forEach((childSnapshot) => {
+        comments.push(childSnapshot.val());
       });
+      return comments.reverse();
+    }
+    return [];
+  });
+}
+
+export async function getSelectedComments({
+  title,
+}: {
+  title?: string;
+}): Promise<Comment[]> {
+  return await get(
+    query(
+      ref(database, 'comments'),
+      orderByChild('book/title'),
+      equalTo(title!)
+    )
+  ).then((snapshot) => {
+    console.log('코멘트 검색');
+
+    return snapshot.exists() ? Object.values(snapshot.val()) : [];
+  });
 }
 
 export async function getSuggestBooks(): Promise<Suggest[]> {

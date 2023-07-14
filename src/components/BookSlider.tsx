@@ -16,7 +16,7 @@ export default function BookSlider() {
   } = useQuery<Suggest[]>(['suggest'], getSuggestBooks);
 
   const handleClick = (title: string) => {
-    navigate(`comments/${title}`);
+    navigate(`/comments/${title}`);
   };
 
   const scrollLeft = (element: HTMLElement) => {

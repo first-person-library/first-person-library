@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../../../contexts/AuthContext';
 import { Book, Comment } from '../../../types';
 import truncateText from '../../../utils/truncateText';
 import Icon from '../Icon';
@@ -8,7 +9,8 @@ type CommentCardProps = {
 };
 
 export default function CommentCard({ comment }: CommentCardProps) {
-  const { backgroundColor, backgroundType, content } = comment;
+  const { user } = useAuthContext();
+  const { backgroundColor, backgroundType, content, id } = comment;
   const { thumbnail, title } = comment.book as Book;
 
   const baseFormattedTitle = truncateText(title, 15);
@@ -17,6 +19,7 @@ export default function CommentCard({ comment }: CommentCardProps) {
   const location = useLocation();
   const { pathname } = location;
   const isHomePage = pathname === '/';
+  const isMyPage = pathname === '/my';
   const isComments = pathname.includes('/comments');
 
   const isMobile = window.innerWidth <= 1024;
@@ -25,7 +28,13 @@ export default function CommentCard({ comment }: CommentCardProps) {
 
   const handleClick = (title: string) => {
     if (isComments) return;
-    navigate(`comments/${title}`);
+
+    if (isMyPage && user) {
+      console.log(isMyPage, user);
+      navigate(`/my/${id}`, { state: { editComment: comment } });
+    } else {
+      navigate(`/comments/${title}`);
+    }
   };
 
   return (
@@ -52,7 +61,9 @@ export default function CommentCard({ comment }: CommentCardProps) {
           <div
             onClick={() => handleClick(title)}
             className={`comment-card relative h-full flex flex-col w-full overflow-hidden ${
-              isHomePage ? 'cursor-pointer hover:text-main-green' : ''
+              isHomePage || isMyPage
+                ? 'cursor-pointer hover:text-main-green'
+                : ''
             }`}
           >
             {backgroundType === 'color' ? (

@@ -4,7 +4,7 @@ export type Books<T> = {
 };
 
 export type Book = {
-  authors?: string[];
+  authors: string[];
   contents?: string;
   datetime?: string;
   isbn: string;
@@ -14,7 +14,7 @@ export type Book = {
   status?: string;
   thumbnail?: string;
   title: string;
-  translators?: string[];
+  translators: string[];
   url?: string;
 };
 
