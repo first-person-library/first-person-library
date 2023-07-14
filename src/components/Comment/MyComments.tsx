@@ -11,6 +11,12 @@ export default function MyComments() {
   } = useQuery<Comment[]>(['comments'], getMyComments);
 
   return (
-    <Comments isLoading={isLoading} isError={isError} comments={comments} />
+    <Comments
+      isLoading={isLoading}
+      isError={isError}
+      comments={comments}
+      headline={'내가 쓴 코멘트'}
+      keyword={'나의'}
+    />
   );
 }

@@ -12,25 +12,27 @@ export default function ProfileDropdown({ setDropdown }: ProfileDropdownProp) {
   const { logout } = useAuthContext();
   const navigate = useNavigate();
 
+  const handleAction = () => {
+    setDropdown(false);
+  };
+
   const handleLogout = () => {
     logout();
-    setDropdown(false);
     navigate('/', { replace: true });
   };
 
-  const handleMyComments = () => {
-    setDropdown(false);
-  };
-
   return (
-    <ul className="absolute right-0 top-full py-3 w-40 rounded-lg bg-white z-40 shadow-lg">
-      <li className="dropdown-li" onClick={handleMyComments}>
+    <ul
+      onClick={handleAction}
+      className="absolute right-0 top-full py-3 w-44 rounded-lg bg-white z-40 shadow-lg"
+    >
+      <li className="dropdown-li">
         <Icon
           src="/icon/mycomment.png"
-          alt="My 코멘트"
+          alt="내가 쓴 코멘트"
           className="icon w-6 mr-2"
         />
-        <Link to="/my">My 코멘트</Link>
+        <Link to="/my">내가 쓴 코멘트</Link>
       </li>
       <li className="dropdown-li">
         <Icon

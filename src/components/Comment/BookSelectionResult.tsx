@@ -12,10 +12,7 @@ export default function BookSelectionResult({
 }: BookSelectionResultProps) {
   const location = useLocation();
   const { pathname } = location;
-  // const isHomePage = pathname === '/';
-  const isComments = pathname.includes('/my/');
-  console.log(pathname);
-  console.log(isComments);
+  const isComments = pathname.includes('/my');
 
   const NOT_AVAILABLE = '해당 정보가 없습니다.';
   const { title, publisher, datetime, authors } = book;
