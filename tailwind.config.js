@@ -25,6 +25,11 @@ export default {
       screens: {
         '3xl': '1600px',
       },
+      backgroundImage: {
+        'hero-lg': "url('/image/heroLarge.png')",
+        'hero-md': "url('/image/heroMedium.png')",
+        'hero-sm': "url('/image/heroSmall.png')",
+      },
     },
   },
   plugins: [],

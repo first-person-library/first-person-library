@@ -163,7 +163,7 @@ export default function CommentEditor({
                     <button
                       type="button"
                       onClick={handleOpen}
-                      className="btn-disabled btn-white rounded-full"
+                      className="btn-disabled btn-border-white rounded-full"
                     >
                       삭제하기
                     </button>

@@ -21,7 +21,7 @@ export default function CommentSubmission() {
               내가 쓴 코멘트 보기
             </button>
             <Link to="/">
-              <button className="btn btn-white rounded-full w-full">
+              <button className="btn btn-border-white rounded-full w-full">
                 메인화면
               </button>
             </Link>
