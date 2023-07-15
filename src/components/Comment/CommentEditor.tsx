@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { addNewComment, updateMyComment } from '../../apis/firebase';
 import { useModal } from '../../contexts/ModalContext';
 import { Book, Comment } from '../../types';
+import LoadingSpinner from '../LoadingSpinner';
 import CommentCard from '../UI/Card/CommentCard';
 import Modal from '../UI/Modal/Modal';
 import BackgroundSelector from './BackgroundSelector';
@@ -41,7 +42,7 @@ export default function CommentEditor({
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const colorPickerRef = useRef<HTMLInputElement | null>(null);
-  const DISABLED = isUploading || (content.length !== 0 && !book.title);
+  const DISABLED = isUploading || (content.length === 0 && !book.title);
 
   useEffect(() => {
     setComment(
@@ -147,17 +148,17 @@ export default function CommentEditor({
                   <button
                     type="submit"
                     className={`btn-disabled btn-strong-black rounded-full ${
-                      content.length !== 0 && book.title
-                        ? 'cursor-pointer'
-                        : 'cursor-not-allowed'
-                    }`}
+                      isUploading ? 'cursor-pointer' : 'cursor-not-allowed'
+                    } `}
                     disabled={DISABLED}
                   >
-                    {isUploading
-                      ? '열심히 로딩중💨'
-                      : isUpdate
-                      ? '수정하기'
-                      : '발행하기'}
+                    {isUploading ? (
+                      <LoadingSpinner />
+                    ) : isUpdate ? (
+                      '수정하기'
+                    ) : (
+                      '발행하기'
+                    )}
                   </button>
                   {isUpdate && (
                     <button

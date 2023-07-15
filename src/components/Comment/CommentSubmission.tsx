@@ -17,9 +17,11 @@ export default function CommentSubmission() {
         </div>
         <div>
           <div className="w-full mt-16 mb:mt-20 space-y-6 mb:space-y-4 flex flex-col">
-            <button className="btn btn-strong-black rounded-full">
-              내가 쓴 코멘트 보기
-            </button>
+            <Link to="/my">
+              <button className="btn btn-strong-black rounded-full w-full">
+                내가 쓴 코멘트 보기
+              </button>
+            </Link>
             <Link to="/">
               <button className="btn btn-border-white rounded-full w-full">
                 메인화면

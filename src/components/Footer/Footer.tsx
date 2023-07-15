@@ -1,7 +1,7 @@
 import { useOfficialInfo } from '../../contexts/OfficialInfoContext';
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+  const CURRENT_YEAR = 2023;
   const { officialName, officialEmail } = useOfficialInfo();
 
   return (
@@ -12,8 +12,9 @@ export default function Footer() {
           <span className="font-bold">Contact</span> {officialEmail}
         </p>
         <p className="md:p-[2px] xl:p-1">
-          <span className="font-bold">Copyright</span> © {currentYear}
-          {officialName} All rights reserved
+          <span className="font-bold">Copyright</span>
+          {` © ${CURRENT_YEAR}
+          ${officialName} All rights reserved`}
         </p>
       </section>
     </footer>

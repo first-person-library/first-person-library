@@ -12,7 +12,7 @@ export default function BookSlider() {
   const {
     isLoading,
     isError,
-    data: books,
+    data: books = [],
   } = useQuery<Suggest[]>(['suggest'], getSuggestBooks);
 
   const handleClick = (title: string) => {
@@ -39,7 +39,7 @@ export default function BookSlider() {
       </div>
       {isLoading && <LoadingSpinner />}
       {isError && <ErrorScreen />}
-      {books && (
+      {books.length !== 0 && (
         <div className="relative">
           <div
             className="absolute h-full flex items-center z-10 left-0 top-0"

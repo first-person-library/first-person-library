@@ -24,12 +24,12 @@ export default function Comments({
       <h2 className="font-bold text-xl md:text-2xl lg:text-4xl my-5 md:my-9 lg:my-20 text-center">
         {headline}
       </h2>
-      <div className="h-screen">
+      <div>
         {isLoading || isError ? (
-          <>
+          <div className="h-screen">
             {isLoading && <LoadingSpinner />}
             {isError && <ErrorScreen />}
-          </>
+          </div>
         ) : (
           <>
             {comments?.length === 0 ? (

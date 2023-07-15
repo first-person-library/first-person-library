@@ -1,7 +1,7 @@
 import React from 'react';
 import Portal from './Portal';
 
-type Props = {
+type ModalProps = {
   isOpen: boolean;
   children: React.ReactNode;
   onClose: () => void;
@@ -13,7 +13,7 @@ export default function Modal({
   children,
   onClose,
   selector = '#modal-root',
-}: Props) {
+}: ModalProps) {
   return (
     <>
       {isOpen ? (

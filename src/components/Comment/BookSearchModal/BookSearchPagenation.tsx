@@ -37,7 +37,6 @@ export default function BookPagenation({
               className="w-5 cursor-pointer"
             />
           )}
-
           <div className="px-4 space-x-2">
             <span>{currentPage}</span>
             {isNextPageAvailable && (
