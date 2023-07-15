@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useOfficialInfo } from '../../contexts/OfficialInfoContext';
 import Icon from '../UI/Icon';
-import { logout } from '../../apis/firebase';
 import { useAuthContext } from '../../contexts/AuthContext';
 
 type ProfileDropdownProp = {
@@ -11,21 +10,29 @@ type ProfileDropdownProp = {
 export default function ProfileDropdown({ setDropdown }: ProfileDropdownProp) {
   const { officialEmail } = useOfficialInfo();
   const { logout } = useAuthContext();
+  const navigate = useNavigate();
+
+  const handleAction = () => {
+    setDropdown(false);
+  };
 
   const handleLogout = () => {
-    setDropdown(false);
     logout();
+    navigate('/', { replace: true });
   };
 
   return (
-    <ul className="absolute right-0 top-full py-3 w-40 rounded-lg bg-white z-40 shadow-lg">
+    <ul
+      onClick={handleAction}
+      className="absolute right-0 top-full py-3 w-44 rounded-lg bg-white z-40 shadow-lg"
+    >
       <li className="dropdown-li">
         <Icon
           src="/icon/mycomment.png"
-          alt="My 코멘트"
+          alt="내가 쓴 코멘트"
           className="icon w-6 mr-2"
         />
-        <Link to="/">My 코멘트</Link>
+        <Link to="/my">내가 쓴 코멘트</Link>
       </li>
       <li className="dropdown-li">
         <Icon
@@ -45,9 +52,9 @@ export default function ProfileDropdown({ setDropdown }: ProfileDropdownProp) {
           문의하기
         </a>
       </li>
-      <li className="dropdown-li">
+      <li className="dropdown-li" onClick={handleLogout}>
         <Icon src="/icon/logout.png" alt="로그아웃" className="icon w-6 mr-2" />
-        <button onClick={handleLogout}>로그아웃</button>
+        로그아웃
       </li>
     </ul>
   );

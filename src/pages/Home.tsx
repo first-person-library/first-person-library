@@ -1,16 +1,17 @@
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import BookSlider from '../components/BookSlider';
-import Comments from '../components/Comment/Comments';
+import GeneralComments from '../components/Comment/GeneralComments';
 
-const Home = () => {
+export default function Home() {
+  const location = useLocation();
+  const { pathname } = location;
+  const isComments = pathname === '/my';
   const { title } = useParams();
 
   return (
     <main className="w-full mx-auto lg:w-5/6 md:px-4 p-6">
-      {!title && <BookSlider />}
-      <Comments />
+      {!title && !isComments && <BookSlider />}
+      <GeneralComments />
     </main>
   );
-};
-
-export default Home;
+}

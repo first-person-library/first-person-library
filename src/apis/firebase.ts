@@ -15,6 +15,7 @@ import {
   equalTo,
   query,
   orderByChild,
+  remove,
 } from 'firebase/database';
 import { v4 as uuid } from 'uuid';
 import { Book, Comment, Suggest } from '../types';
@@ -28,6 +29,9 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const provider = new GoogleAuthProvider();
+provider.setCustomParameters({
+  prompt: 'select_account',
+});
 const auth = getAuth();
 const database = getDatabase(app);
 
@@ -57,9 +61,6 @@ export async function addNewComment(comment: Comment, book: Book) {
 
   await onUserStateChange(async (user) => {
     uid = user?.uid;
-    if (uid) {
-      await addUserComment(uid, id);
-    }
   });
 
   try {
@@ -76,57 +77,65 @@ export async function addNewComment(comment: Comment, book: Book) {
   }
 }
 
-export async function addUserComment(uid: string, id: string) {
-  const userRef = ref(database, `users/${uid}`);
-
-  try {
-    await get(userRef).then(async (snapshot) => {
-      const comments = snapshot.val();
-
-      if (snapshot.exists()) {
-        await set(userRef, {
-          ...comments,
-          [comments.length]: id,
-        });
-      } else {
-        await set(userRef, { 0: id });
-      }
-    });
-  } catch (error) {
-    console.error(error);
-  }
-}
-
 export async function getComments({
   title,
 }: {
   title?: string;
 }): Promise<Comment[]> {
-  return title
-    ? await get(
-        query(
-          ref(database, 'comments'),
-          orderByChild('book/title'),
-          equalTo(title!)
-        )
-      ).then((snapshot) => {
-        if (snapshot.exists()) {
-          return Object.values(snapshot.val());
-        }
-        return [];
-      })
-    : await get(
-        query(ref(database, 'comments'), orderByChild('createdAt'))
-      ).then((snapshot) => {
-        if (snapshot.exists()) {
-          const comments: Comment[] = [];
-          snapshot.forEach((childSnapshot) => {
-            comments.push(childSnapshot.val());
-          });
-          return comments.reverse();
-        }
-        return [];
+  return title ? getSelectedComments({ title }) : getAllComments();
+}
+
+export async function getMyComments(): Promise<Comment[]> {
+  try {
+    let uid = null;
+
+    await onUserStateChange(async (user) => {
+      uid = user?.uid;
+    });
+
+    return await get(
+      query(ref(database, 'comments'), orderByChild('uid'), equalTo(uid))
+    ).then((snapshot) => {
+      if (snapshot.exists()) {
+        return Object.values(snapshot.val());
+      }
+      return [];
+    });
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
+export async function getAllComments() {
+  return await get(
+    query(ref(database, 'comments'), orderByChild('createdAt'))
+  ).then((snapshot) => {
+    if (snapshot.exists()) {
+      const comments: Comment[] = [];
+      snapshot.forEach((childSnapshot) => {
+        comments.push(childSnapshot.val());
       });
+      return comments.reverse();
+    }
+    return [];
+  });
+}
+
+export async function getSelectedComments({
+  title,
+}: {
+  title?: string;
+}): Promise<Comment[]> {
+  return await get(
+    query(
+      ref(database, 'comments'),
+      orderByChild('book/title'),
+      equalTo(title!)
+    )
+  ).then((snapshot) => {
+    return snapshot.exists() ? Object.values(snapshot.val()) : [];
+  });
 }
 
 export async function getSuggestBooks(): Promise<Suggest[]> {
@@ -134,4 +143,23 @@ export async function getSuggestBooks(): Promise<Suggest[]> {
     if (snapshot.exists()) return Object.values(snapshot.val());
     return [];
   });
+}
+
+export async function updateMyComment(comment: Comment) {
+  try {
+    await set(ref(database, 'comments/' + comment.id), {
+      ...comment,
+      updatedAt: Date(),
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function deleteMyComment(id: string) {
+  try {
+    await remove(ref(database, 'comments/' + id));
+  } catch (error) {
+    console.error(error);
+  }
 }
