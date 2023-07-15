@@ -14,16 +14,16 @@ export default function CommentCard({ comment }: CommentCardProps) {
   const { pathname } = location;
   const { backgroundColor, backgroundType, content, id } = comment;
   const { thumbnail, title } = comment.book as Book;
-  const isHomePage = pathname === '/';
-  const isMyPage = pathname === '/my';
-  const isUpdate = pathname === `/my/${id}`;
+  const isHome = pathname === '/';
+  const isMy = pathname.includes('/my');
+  const isUpdate = pathname.includes('/my/');
   const isComments = pathname.includes('/comments');
-  const isHomeOrComments = isHomePage || isComments;
+  const hasComments = isHome || isComments || isMy;
 
   const handleClick = (title: string) => {
     if (isComments) return;
 
-    if (isMyPage && user) {
+    if (isMy) {
       navigate(`/my/${id}`, { state: { savedComment: comment } });
     } else {
       navigate(`/comments/${title}`);
@@ -34,7 +34,7 @@ export default function CommentCard({ comment }: CommentCardProps) {
     <div className="flex justify-center">
       <div
         className={`bg-bright-gray lg:mb-9 md:mb-7 flex-col flex items-center justify-center shadow-md ${
-          isHomeOrComments
+          hasComments
             ? 'w-[160px] h-[280px] md:w-[230px] md:h-[470px] lg:w-[280px] lg:h-[450px] xl:w-[266px] xl:h-[429px]'
             : 'w-[320px] h-[446px] md:w-[332px] md:h-[450px]'
         }`}
@@ -67,7 +67,7 @@ export default function CommentCard({ comment }: CommentCardProps) {
               <img
                 src={thumbnail}
                 alt="블러 배경"
-                className="flex h-2/3 bg-no-repeat bg-contain blur-2xl"
+                className="flex h-2/3 bg-no-repeat bg-contain blur-xl"
               />
             )}
             <img
@@ -76,7 +76,7 @@ export default function CommentCard({ comment }: CommentCardProps) {
               title={title}
               className={`absolute rounded-md top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-no-repeat bg-contain first-letter:
                 ${
-                  isHomeOrComments
+                  hasComments
                     ? 'h-[119px] md:h-[200px] lg:h-[209px]'
                     : 'w-44 h-[264px]'
                 }
@@ -84,25 +84,25 @@ export default function CommentCard({ comment }: CommentCardProps) {
             />
             <div
               className={`relative flex h-1/3 bg-white 
-                ${isHomeOrComments ? 'p-1 md:p-4' : 'p-4'}
+                ${hasComments ? 'p-1 md:p-4' : 'p-4'}
               
               `}
             >
               <p
                 className={`break-words font-nanum-myeongjo  overflow-y-hidden pt-1 md:pt-0 ${
-                  isHomeOrComments ? 'text-xs md:text-base' : 'md:text-lg h-20'
+                  hasComments ? 'text-xs md:text-base' : 'md:text-lg h-20'
                 }`}
               >
                 {content}
               </p>
               <div
                 className={`absolute bottom-0 ${
-                  isHomeOrComments ? 'text-xs md:text-base' : 'md:text-lg'
+                  hasComments ? 'text-xs md:text-base' : 'md:text-lg'
                 }`}
               >
                 <p
                   className={`line-clamp-1 ${
-                    isHomeOrComments ? 'my-1 mr-1 md:my-4 md:mr-4' : 'my-4 mr-4'
+                    hasComments ? 'my-1 mr-1 md:my-4 md:mr-4' : 'my-4 mr-4'
                   }`}
                 >
                   {title}

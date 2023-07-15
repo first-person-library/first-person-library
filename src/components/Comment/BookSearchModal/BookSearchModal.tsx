@@ -45,7 +45,6 @@ export default function BookSearchModal({
   };
 
   const PER_PAGE = 10;
-
   const books = data?.data;
   const meta = books?.meta;
   const totalPages = meta?.pageable_count

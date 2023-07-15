@@ -18,6 +18,14 @@ const router = createBrowserRouter([
       { path: '/comments', element: <Home /> },
       { path: '/comments/:title', element: <Home /> },
       {
+        path: '/comment/new',
+        element: (
+          <ProtectedRoute>
+            <NewComment />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: '/my',
         element: (
           <ProtectedRoute>
@@ -26,14 +34,13 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/comment/new',
+        path: '/my/:id',
         element: (
           <ProtectedRoute>
-            <NewComment />
+            <EditComment />
           </ProtectedRoute>
         ),
       },
-      { path: '/my/:id', element: <EditComment /> },
     ],
   },
 ]);
