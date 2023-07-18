@@ -52,9 +52,6 @@ export default function BookSearchModal({
     ? Math.ceil(meta.pageable_count / PER_PAGE)
     : 0;
 
-  console.log(data);
-  console.log(books?.documents);
-
   const handleChange = (query: string) => {
     setQuery(query);
     setPage(1);
