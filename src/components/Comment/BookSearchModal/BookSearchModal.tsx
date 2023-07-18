@@ -133,7 +133,7 @@ export default function BookSearchModal({
                       className="h-5 md:h-11"
                     />
                     <p className="mt-6 text-base md:text-xl text-normal-gray">
-                      등록된 {`${query} `} 도서가 없습니다.
+                      등록된 {`(${query}) `} 도서가 없습니다.
                     </p>
                   </div>
                 </div>

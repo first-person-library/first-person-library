@@ -7,10 +7,10 @@ export default function ToggleDarkMode() {
   return (
     <button type="button" onClick={toggleDarkMode}>
       {darkMode && (
-        <Icon src="moon.png" alt="다크모드" className="icon w-[22px]" />
+        <Icon src="moon.png" alt="다크모드" className="icon h-5 md:h-[22px]" />
       )}
       {!darkMode && (
-        <Icon src="sun.png" alt="라이트모드" className="icon w-[22px]" />
+        <Icon src="sun.png" alt="라이트모드" className="icon h-5 md:h-[22px]" />
       )}
     </button>
   );

@@ -1,4 +1,10 @@
-import { ReactNode, useState, createContext, useContext } from 'react';
+import {
+  ReactNode,
+  useState,
+  createContext,
+  useContext,
+  useEffect,
+} from 'react';
 
 type ModalContext = {
   isOpen: boolean;
@@ -19,13 +25,37 @@ const ModalContext = createContext<ModalContext>({
 export function ModalProvider({ children }: Props) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (isOpen) {
+      const prevScrollY = preventScroll();
+      return () => {
+        allowScroll(prevScrollY);
+      };
+    }
+  }, [isOpen]);
+
   const handleOpen = () => {
     setIsOpen(true);
-    document.body.classList.add('overflow-hidden');
   };
   const handleClose = () => {
     setIsOpen(false);
-    document.body.classList.remove('overflow-hidden');
+  };
+
+  const preventScroll = () => {
+    const currentScrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+    document.body.style.top = `-${currentScrollY}px`;
+    document.body.style.overflowY = 'scroll';
+    return currentScrollY;
+  };
+
+  const allowScroll = (prevScrollY: number) => {
+    document.body.style.position = '';
+    document.body.style.width = '';
+    document.body.style.top = '';
+    document.body.style.overflowY = '';
+    window.scrollTo(0, prevScrollY);
   };
 
   return (

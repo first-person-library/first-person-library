@@ -22,7 +22,7 @@ export default function ProfileDropdown({
   return (
     <div
       onClick={handleDropdown}
-      className="absolute right-0 top-full py-3 w-44 rounded-lg bg-white dark:bg-dark-point z-40 shadow-lg"
+      className="absolute top-10 right-0 py-3 w-44 rounded-lg bg-white dark:bg-dark-point z-40 shadow-lg"
     >
       <Link to="/my" className="dropdown-li">
         <DarkModeIcon

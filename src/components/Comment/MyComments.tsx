@@ -16,7 +16,6 @@ export default function MyComments() {
       isError={isError}
       comments={comments}
       headline={'내가 쓴 코멘트'}
-      keyword={'나의'}
     />
   );
 }

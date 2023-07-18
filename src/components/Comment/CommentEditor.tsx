@@ -109,7 +109,7 @@ export default function CommentEditor({
 
   return (
     <>
-      <main className="w-full mx-auto lg:pt-24 lg:pb-44 lg:w-4/6 md:px-4 p-6">
+      <main className="w-full mx-auto lg:pt-24 lg:pb-44 lg:w-4/6 md:px-4 p-6 lg:h-auto">
         <section className="rounded-xl lg:border border-dusty-gray dark:border-dusty2-black">
           <div className="md:my-12 lg:mx-24">
             {!isSuccess && (
@@ -181,7 +181,7 @@ export default function CommentEditor({
                 </div>
               </form>
             )}
-            {isSuccess && <CommentSubmission />}
+            <div>{isSuccess && <CommentSubmission />}</div>
           </div>
         </section>
       </main>

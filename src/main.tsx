@@ -7,12 +7,14 @@ import EditComment from './pages/EditComment';
 import Home from './pages/Home';
 import My from './pages/My';
 import NewComment from './pages/NewComment';
+import NotFound from './pages/NotFound';
 import ProtectedRoute from './pages/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    errorElement: <NotFound />,
     children: [
       { index: true, path: '/', element: <Home /> },
       { path: '/comments', element: <Home /> },

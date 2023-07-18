@@ -3,7 +3,7 @@ import DarkModeIcon from '../UI/DarkModeIcon';
 
 export default function CommentSubmission() {
   return (
-    <div className="flex justify-center h-screen">
+    <div className="flex justify-center md:h-screen lg:h-full">
       <div className="my-14 lg:my-20 w-full md:w-auto">
         <div className="flex flex-col items-center">
           <DarkModeIcon

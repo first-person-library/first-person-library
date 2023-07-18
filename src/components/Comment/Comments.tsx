@@ -33,14 +33,14 @@ export default function Comments({
         ) : (
           <>
             {comments?.length === 0 ? (
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center h-screen">
                 <DarkModeIcon
                   src="comments.png"
                   alt="등록된 코멘트가 없습니다."
                   className="h-5 md:h-11"
                 />
                 <p className="mt-6 text-base md:text-xl text-normal-gray">
-                  등록된 {`${keyword} `}코멘트가 없습니다.
+                  등록된 {keyword} 코멘트가 없습니다.
                 </p>
               </div>
             ) : (
