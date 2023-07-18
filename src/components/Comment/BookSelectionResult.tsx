@@ -27,7 +27,7 @@ export default function BookSelectionResult({
   return (
     <div className="md:flex my-7 md:my-8 lg:my-10">
       <div className="md:w-1/4 flex justify-between md:justify-normal">
-        <label className="md:text-left text-base md:text-xl mb-3 md:mb-0">
+        <label className="dark:text-dusty-white md:text-left text-base md:text-xl mb-3 md:mb-0">
           도서 선택완료
         </label>
         {!isUpdate && (
@@ -51,21 +51,21 @@ export default function BookSelectionResult({
             </span>
           )}
         </div>
-        <div className="flex flex-col w-full mt-2 text-base md:text-lg space-y-2 border-t md:border-b border-light-gray py-4">
+        <div className="flex flex-col w-full mt-2 text-base md:text-lg space-y-2 border-t md:border-b border-light-gray dark:border-dusty-black py-4">
           <div className="flex items-center w-full">
-            <span className="w-1/6 flex items-center text-normal-gray font">
+            <span className="w-1/6 flex items-center text-normal-gray dark:text-modal-black">
               저자
             </span>
             <span>{authors[0] || NOT_AVAILABLE}</span>
           </div>
           <div className="flex items-center w-full">
-            <span className="w-1/6 flex items-center text-normal-gray">
+            <span className="w-1/6 flex items-center text-normal-gray dark:text-modal-black">
               출판사
             </span>
             <span>{publisher || NOT_AVAILABLE}</span>
           </div>
           <div className="flex items-center w-full">
-            <span className="w-1/6 flex items-center text-normal-gray">
+            <span className="w-1/6 flex items-center text-normal-gray dark:text-modal-black">
               출간일
             </span>
             <span>{date || NOT_AVAILABLE}</span>

@@ -42,7 +42,16 @@ export default function CommentEditor({
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const colorPickerRef = useRef<HTMLInputElement | null>(null);
-  const DISABLED = isUploading || (content.length === 0 && !book.title);
+  const [cursor, setCursor] = useState(false);
+  const isDisabled = !cursor || isUploading;
+
+  useEffect(() => {
+    if (content.length !== 0 && book.title) {
+      setCursor(true);
+    } else {
+      setCursor(false);
+    }
+  }, [content, book.title]);
 
   useEffect(() => {
     setComment(
@@ -101,7 +110,7 @@ export default function CommentEditor({
   return (
     <>
       <main className="w-full mx-auto lg:pt-24 lg:pb-44 lg:w-4/6 md:px-4 p-6">
-        <section className="bg-white rounded-xl lg:border border-dusty-gray">
+        <section className="rounded-xl lg:border border-dusty-gray dark:border-dusty2-black">
           <div className="md:my-12 lg:mx-24">
             {!isSuccess && (
               <form onSubmit={handleSubmit}>
@@ -134,7 +143,7 @@ export default function CommentEditor({
                     value={content}
                     onChange={handleContent}
                     placeholder="50자 이내의 독서 코멘트를 남겨주세요."
-                    className="w-full border p-3 md:p-6 focus:outline-none text-base md:text-xl text-strong-black placeholder-modal-black"
+                    className="w-full border p-3 md:p-6 focus:outline-none text-base md:text-xl"
                     required
                   />
                   <div className="absolute right-2 bottom-5 md:right-12 md:bottom-7 text-base md:text-xl">
@@ -148,9 +157,9 @@ export default function CommentEditor({
                   <button
                     type="submit"
                     className={`btn-disabled btn-strong-black rounded-full ${
-                      isUploading ? 'cursor-pointer' : 'cursor-not-allowed'
+                      isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'
                     } `}
-                    disabled={DISABLED}
+                    disabled={isDisabled}
                   >
                     {isUploading ? (
                       <LoadingSpinner />

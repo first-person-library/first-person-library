@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../contexts/AuthContext';
-import Icon from './Icon';
+import { useOfficialInfo } from '../../contexts/OfficialInfoContext';
+import DarkModeIcon from './DarkModeIcon';
 
 export default function Hero() {
+  const { officialName } = useOfficialInfo();
   const { user, login } = useAuthContext();
   const navigate = useNavigate();
 
@@ -14,20 +16,20 @@ export default function Hero() {
     }
   };
 
-  return (
-    <section className="min-w-max bg-hero-sm md:bg-hero-md lg:bg-hero-lg bg-cover h-[190px] md:h-[326px] lg:h-[533px]">
+  function Content() {
+    return (
       <div className="w-full mx-auto px-6 lg:w-5/6 py-7 md:px-4 md:py-9 lg:py-24 flex">
         <div className="flex-1 flex-col">
           <h1 className="hidden md:block md:text-5xl lg:text-6xl font-semibold">
-            일인칭서재, 나만의 독서 코멘트.
+            {`${officialName}, 나만의 독서 코멘트.`}
           </h1>
           <h1 className="block md:hidden text-3xl">
-            <span className="block">일인칭서재,</span>
+            <span className="block">{`${officialName},`}</span>
             <span className="font-thin">나만의 독서 코멘트.</span>
           </h1>
-          <div className="hidden md:block text-modal-black text-lg md:text-base lg:text-xl my-8 lg:my-12">
+          <div className="hidden md:block text-modal-black dark:text-normal-gray text-lg md:text-base lg:text-xl my-8 lg:my-12">
             <p className="md:leading-6 lg:leading-8">
-              일인칭서재는 독서의 즐거움을 공유하는 독특한 서재입니다.
+              {`${officialName}는 독서의 즐거움을 공유하는 독특한 서재입니다.`}
               <br />
               어떤 책을 읽을지 고민되시나요?
               <br />
@@ -43,14 +45,25 @@ export default function Hero() {
             코멘트 등록하기
           </button>
         </div>
-        <div className="hidden lg:flex">
-          <Icon
-            src="icon/heroLettering.png"
+        <div className="hidden lg:block">
+          <DarkModeIcon
+            src="heroLettering.png"
             alt="레터링"
-            className="h-[402px]"
+            className="h-[374px]"
           />
         </div>
       </div>
-    </section>
+    );
+  }
+
+  return (
+    <>
+      <section className="block dark:hidden min-w-max bg-cover h-[190px] md:h-[326px] lg:h-[533px] bg-hero-sm md:bg-hero-md lg:bg-hero-lg">
+        <Content />
+      </section>
+      <section className="hidden dark:block min-w-max bg-cover h-[190px] md:h-[326px] lg:h-[533px] bg-dark-hero-sm md:bg-dark-hero-md lg:bg-dark-hero-lg">
+        <Content />
+      </section>
+    </>
   );
 }

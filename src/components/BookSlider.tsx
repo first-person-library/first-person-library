@@ -4,9 +4,11 @@ import { Suggest } from '../types';
 import { getSuggestBooks } from '../apis/firebase';
 import LoadingSpinner from './LoadingSpinner';
 import ErrorScreen from './ErrorScreen';
+import { useOfficialInfo } from '../contexts/OfficialInfoContext';
 import Icon from './UI/Icon';
 
 export default function BookSlider() {
+  const { officialName } = useOfficialInfo();
   const id = 'suggest-books-container';
   const navigate = useNavigate();
   const {
@@ -31,10 +33,10 @@ export default function BookSlider() {
     <section className="w-full mx-auto">
       <div className="text-center my-5 md:my-9 lg:my-20">
         <h2 className="font-bold text-xl md:text-2xl lg:text-4xl mb-2 lg:mb-4">
-          일인칭서재 추천 도서
+          {`${officialName} 추천 도서`}
         </h2>
-        <p className="text-modal-black text-xs md:text-base lg:text-lg">
-          일인칭서재가 선택한 추천 도서를 소개해 드려요.
+        <p className="text-modal-black dark:text-normal-gray text-xs md:text-base lg:text-lg">
+          {`${officialName}가 선택한 추천 도서를 소개해 드려요.`}
         </p>
       </div>
       {isLoading && <LoadingSpinner />}
@@ -46,7 +48,7 @@ export default function BookSlider() {
             onClick={() => scrollLeft(document.getElementById(id)!)}
           >
             <Icon
-              src="icon/arrowleft.png"
+              src="arrowleft.png"
               alt="왼쪽화살표"
               className="arrow w-9 lg:w-14 cursor-pointer"
             />
@@ -70,7 +72,7 @@ export default function BookSlider() {
             onClick={() => scrollRight(document.getElementById(id)!)}
           >
             <Icon
-              src="icon/arrowright.png"
+              src="arrowright.png"
               alt="오른쪽화살표"
               className="arrow w-9 lg:w-14"
             />
