@@ -1,5 +1,5 @@
 import LoadingSpinner from '../../LoadingSpinner';
-import Icon from '../../UI/Icon';
+import DarkModeIcon from '../../UI/DarkModeIcon';
 
 type BookPagenationProps = {
   isLoading: boolean;
@@ -24,39 +24,40 @@ export default function BookPagenation({
   const isNextPageAvailable = !isEnd;
 
   return (
-    <div className="h-[72px] fix md:sticky border-t border-light-gray bottom-0 flex items-center justify-center">
+    <div className="h-[72px] fix md:sticky border-t border-light-gray dark:border-dusty-black bottom-0 flex items-center justify-center">
       {isLoading && <LoadingSpinner />}
       {isError && null}
-      {!isLoading && !isError && (
-        <div className="m-6 flex">
-          {isPreviousPageAvailable && (
-            <Icon
-              onClick={previousPage}
-              src="/icon/modalleft.png"
-              alt="왼쪽"
-              className="w-5 cursor-pointer"
-            />
+      {totalPages === 0
+        ? ''
+        : !(isLoading || isError) && (
+            <div className="m-6 flex">
+              {isPreviousPageAvailable && (
+                <DarkModeIcon
+                  onClick={previousPage}
+                  src="modalleft.png"
+                  alt="왼쪽"
+                  className="w-5 cursor-pointer"
+                />
+              )}
+              <div className="px-4 space-x-2">
+                <span>{currentPage}</span>
+                {isNextPageAvailable && (
+                  <>
+                    <span className="text-light-gray dark:text-white">/</span>
+                    <span className="text-light-gray">{totalPages}</span>
+                  </>
+                )}
+              </div>
+              {isNextPageAvailable && (
+                <DarkModeIcon
+                  onClick={nextPage}
+                  src="modalright.png"
+                  alt="오른쪽"
+                  className="w-5 cursor-pointer"
+                />
+              )}
+            </div>
           )}
-          <div className="px-4 space-x-2">
-            <span>{currentPage}</span>
-            {isNextPageAvailable && (
-              <>
-                <span className="text-light-gray">/</span>
-                <span className="text-light-gray">{totalPages}</span>
-              </>
-            )}
-          </div>
-
-          {isNextPageAvailable && (
-            <Icon
-              onClick={nextPage}
-              src="/icon/modalright.png"
-              alt="오른쪽"
-              className="w-5 cursor-pointer"
-            />
-          )}
-        </div>
-      )}
     </div>
   );
 }

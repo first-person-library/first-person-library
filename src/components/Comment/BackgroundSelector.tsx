@@ -20,12 +20,12 @@ export default function BackgroundSelector({
   return (
     <div className="md:flex my-7 md:my-8 lg:my-11">
       <div className="md:w-1/4 flex items-center">
-        <div className="md:text-left text-base md:text-xl mb-3 md:mb-0">
+        <div className="text-strong-black dark:text-dusty-white md:text-left text-base md:text-xl mb-3 md:mb-0">
           배경색 선택하기
         </div>
       </div>
       <div
-        className={`md:w-3/4 flex items-center text-dusty2-black text-sm md:text-lg gap-6 md:gap-11 ${
+        className={`md:w-3/4 flex items-center text-dusty2-black dark:text-normal-gray text-sm md:text-lg gap-6 md:gap-11 ${
           thumbnail ? 'hover:cursor-pointer' : 'pointer-events-none'
         }`}
       >
@@ -40,14 +40,16 @@ export default function BackgroundSelector({
               className="absolute w-1 h-1"
             ></input>
             <Icon
-              src="/icon/colorpicker.png"
+              src="colorpicker.png"
               alt="컬러 피커"
               className="icon w-6 md:w-8 z-10"
             />
           </div>
           <span
-            className={`font-medium ${
-              backgroundType === 'color' ? 'text-strong-black' : ''
+            className={`${
+              backgroundType === 'color'
+                ? 'text-strong-black dark:text-white font-bold'
+                : 'font-medium '
             }`}
           >
             직접 선택하기
@@ -59,13 +61,15 @@ export default function BackgroundSelector({
           className="flex items-center gap-4"
         >
           <Icon
-            src="/icon/blurpicker.png"
+            src="blurpicker.png"
             alt="블러 효과"
             className="icon w-6 md:w-8"
           />
           <span
-            className={`font-medium ${
-              backgroundType === 'blur' ? 'text-strong-black' : ''
+            className={`${
+              backgroundType === 'blur'
+                ? 'text-strong-black dark:text-white font-bold'
+                : 'font-medium '
             }`}
           >
             배경 블러효과

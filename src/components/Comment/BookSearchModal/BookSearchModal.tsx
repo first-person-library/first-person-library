@@ -9,6 +9,7 @@ import BookSearchPagenation from './BookSearchPagenation';
 import BookSearchManual from './BookSearchManual';
 import LoadingSpinner from '../../LoadingSpinner';
 import ErrorScreen from '../../ErrorScreen';
+import DarkModeIcon from '../../UI/DarkModeIcon';
 
 type BookSearchModalProps = {
   onClose: () => void;
@@ -51,6 +52,9 @@ export default function BookSearchModal({
     ? Math.ceil(meta.pageable_count / PER_PAGE)
     : 0;
 
+  console.log(data);
+  console.log(books?.documents);
+
   const handleChange = (query: string) => {
     setQuery(query);
     setPage(1);
@@ -90,14 +94,14 @@ export default function BookSearchModal({
   };
 
   return (
-    <div className="relative flex flex-col w-full h-full md:h-fit bg-white overflow-hidden md:rounded-2xl pt-5 md:pt-14 lg:pt-16">
+    <div className="relative flex flex-col w-full h-full md:h-fit bg-white dark:bg-dark-point dark:border dark:border-dusty-black overflow-hidden md:rounded-2xl pt-5 md:pt-14 lg:pt-16">
       <div className="p-5 md:pb-9 md:px-12 lg:px-13">
         <h2 className="md:hidden my-7 text-center font-semibold text-lg">
           도서 검색하기
         </h2>
         <div
           onClick={onClose}
-          className="absolute top-12 right-5 md:top-5 md:right-7 lg:top-6 lg:right-8 text-modal-black cursor-pointer"
+          className="absolute top-12 right-5 md:top-5 md:right-7 lg:top-6 lg:right-8 text-modal-black dark:text-white cursor-pointer"
         >
           닫기
         </div>
@@ -117,9 +121,23 @@ export default function BookSearchModal({
           />
         ) : (
           <>
-            <div className="h-[450px] overflow-y-auto border-t border-light-gray">
+            <div className="h-[450px] overflow-y-auto border-t border-light-gray dark:border-dusty-black">
               {isLoading && <LoadingSpinner />}
               {isError && <ErrorScreen />}
+              {books?.documents.length === 0 && (
+                <div className="flex items-center justify-center h-full">
+                  <div className="flex flex-col items-center">
+                    <DarkModeIcon
+                      src="comments.png"
+                      alt="등록된 도서가 없습니다."
+                      className="h-5 md:h-11"
+                    />
+                    <p className="mt-6 text-base md:text-xl text-normal-gray">
+                      등록된 {`${query} `} 도서가 없습니다.
+                    </p>
+                  </div>
+                </div>
+              )}
               {books && (
                 <ul>
                   {books.documents.map((book, index) => (

@@ -3,7 +3,19 @@
 @tailwind utilities;
 
 body {
-  @apply font-noto-sans text-strong-black;
+  @apply font-noto-sans;
+}
+
+:root {
+  @apply text-strong-black bg-white;
+}
+
+html.dark {
+  @apply text-white bg-dark-bg;
+}
+
+textarea {
+  @apply dark:bg-dark-bg placeholder-modal-black dark:placeholder-dusty2-black dark:border-normal-gray;
 }
 
 /* 버튼 */
@@ -15,20 +27,28 @@ body {
   @apply text-base md:text-lg lg:text-xl font-bold h-14 px-10;
 }
 
+.btn-header {
+  @apply py-2 px-5 border border-normal-gray dark:border-modal-black rounded-md;
+}
+
+.btn-header:hover {
+  @apply border-normal-gray bg-effect-gray dark:border-dusty-black dark:bg-dark-point;
+}
+
 .btn-modal {
   @apply text-base font-bold h-8 px-6 cursor-pointer transition duration-300 ease-out;
 }
 
 .btn-main-green {
-  @apply bg-main-green text-white;
+  @apply bg-main-green text-white dark:bg-dark-main-green;
 }
 
 .btn-main-green:hover {
-  @apply bg-dusty-green text-white;
+  @apply bg-dusty-green text-white dark:bg-dusty-black;
 }
 
 .btn-border-main-green {
-  @apply border border-main-green;
+  @apply border border-main-green text-strong-black dark:border-dark-main-green dark:text-dark-main-green;
 }
 
 .btn-border-main-green:hover {
@@ -36,7 +56,7 @@ body {
 }
 
 .btn-border-white {
-  @apply border border-dusty-black text-strong-black;
+  @apply border border-dusty-black text-strong-black dark:border-normal-gray dark:text-white;
 }
 
 .btn-border-white:hover {
@@ -52,15 +72,15 @@ body {
 }
 
 .btn-strong-black {
-  @apply bg-strong-black text-white;
+  @apply bg-strong-black text-white dark:bg-dark-point dark:text-modal-black;
 }
 
 .btn-strong-black:hover {
-  @apply bg-normal-gray text-white;
+  @apply bg-normal-gray text-white dark:bg-white dark:text-black;
 }
 
 .btn-white {
-  @apply bg-white;
+  @apply bg-white text-strong-black;
 }
 
 .btn-white:hover {
@@ -74,7 +94,7 @@ body {
 
 /* 프로필 드롭다운 리스트*/
 .dropdown-li {
-  @apply flex items-center px-7 py-3 hover:bg-bright-gray cursor-pointer;
+  @apply flex items-center px-7 py-3 hover:bg-bright-gray dark:hover:bg-dark-spinner cursor-pointer;
 }
 
 /* 추천 도서 슬라이더*/

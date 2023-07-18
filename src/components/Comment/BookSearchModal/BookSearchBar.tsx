@@ -1,5 +1,5 @@
 import { FormEvent, MutableRefObject } from 'react';
-import Icon from '../../UI/Icon';
+import DarkModeIcon from '../../UI/DarkModeIcon';
 
 type BookSearchBarProps = {
   inputRef: MutableRefObject<HTMLInputElement | null>;
@@ -39,10 +39,10 @@ export default function BookSearchBar({
           id="searchInput"
           ref={inputRef}
           placeholder="검색어를 입력해 주세요."
-          className="w-full h-12 flex items-center px-5 rounded placeholder:text-dusty-black bg-dusty-green focus:outline-none"
+          className="w-full h-12 flex items-center px-5 rounded placeholder:text-dusty-black dark:placeholder:text-normal-gray bg-dusty-green dark:bg-inherit dark:border dark:border-dusty2-black focus:outline-none"
         />
-        <Icon
-          src="/icon/remove.png"
+        <DarkModeIcon
+          src="remove.png"
           alt="지우기"
           onClick={clearQuery}
           className="icon absolute right-5 w-4"
@@ -50,7 +50,7 @@ export default function BookSearchBar({
       </div>
       <button
         type="submit"
-        className="rounded-sm bg-light-gray text-main-green px-5 md:px-6"
+        className="rounded-sm bg-light-gray text-main-green dark:bg-black dark:text-white px-5 md:px-6"
       >
         검색
       </button>

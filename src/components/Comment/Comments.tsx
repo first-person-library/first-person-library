@@ -2,7 +2,7 @@ import { Comment } from '../../types';
 import ErrorScreen from '../ErrorScreen';
 import LoadingSpinner from '../LoadingSpinner';
 import CommentCard from '../UI/Card/CommentCard';
-import Icon from '../UI/Icon';
+import DarkModeIcon from '../UI/DarkModeIcon';
 
 type CommentsProps = {
   isLoading: boolean;
@@ -34,12 +34,12 @@ export default function Comments({
           <>
             {comments?.length === 0 ? (
               <div className="flex flex-col items-center">
-                <Icon
-                  src="/icon/comments.png"
+                <DarkModeIcon
+                  src="comments.png"
                   alt="등록된 코멘트가 없습니다."
                   className="h-5 md:h-11"
                 />
-                <p className="mt-6 text-base md:text-xl text-light-gray">
+                <p className="mt-6 text-base md:text-xl text-normal-gray">
                   등록된 {`${keyword} `}코멘트가 없습니다.
                 </p>
               </div>

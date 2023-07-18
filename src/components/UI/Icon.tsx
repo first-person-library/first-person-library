@@ -6,5 +6,5 @@ type IconProps = ImgHTMLAttributes<HTMLImageElement> & {
 };
 
 export default function Icon({ src, alt, ...props }: IconProps) {
-  return <img src={src} alt={alt} {...props} />;
+  return <img src={`/icon/${src}`} alt={alt} {...props} />;
 }

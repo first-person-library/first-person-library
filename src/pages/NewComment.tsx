@@ -1,6 +1,14 @@
+import { useEffect } from 'react';
 import CommentEditor from '../components/Comment/CommentEditor';
+import { useDarkModeContext } from '../contexts/DarkModeContext';
 
 export default function NewComment() {
+  const { darkMode } = useDarkModeContext();
+  let color = '';
+  useEffect(() => {
+    color = darkMode ? '#757575' : '#f7f7f7';
+  }, [darkMode]);
+
   const bookInitial = {
     authors: [],
     contents: '',
@@ -19,7 +27,7 @@ export default function NewComment() {
   const commentInitial = {
     id: '',
     content: '',
-    backgroundColor: '#f7f7f7',
+    backgroundColor: color,
     backgroundType: '',
     book: bookInitial,
     uid: '',
@@ -33,7 +41,7 @@ export default function NewComment() {
         commentInitial={commentInitial}
         bookInitial={bookInitial}
         backgroundTypeInitial={null}
-        backgroundColorInitial={'#f7f7f7'}
+        backgroundColorInitial={color}
         contentInitial={''}
         isUpdate={false}
       />
