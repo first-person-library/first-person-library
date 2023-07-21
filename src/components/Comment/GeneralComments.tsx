@@ -19,7 +19,7 @@ export default function GeneralComments() {
       isError={isError}
       comments={comments}
       headline={'도서 코멘트'}
-      keyword={`(${title})의`}
+      keyword={title}
     />
   );
 }

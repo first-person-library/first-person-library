@@ -50,7 +50,7 @@ export default function BookSearchHistory({
                   alt="최근 검색어가 없습니다."
                   className="w-5"
                 ></DarkModeIcon>
-                <p className="mt-2 text-sm text-light-gray dark:text-modal-black">
+                <p className="mt-2 text-sm text-normal-gray dark:text-modal-black">
                   최근 검색어가 없습니다.
                 </p>
               </div>

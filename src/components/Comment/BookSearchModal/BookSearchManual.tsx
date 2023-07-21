@@ -18,12 +18,8 @@ export default function BookSearchManual({
     <div className="h-[523px]">
       <div className="px-5 md:px-12 lg:px-13">
         <div className="md:flex mb-7">
-          <div className="mr-7 flex items-center justify-center">
-            <DarkModeIcon
-              src="manual.png"
-              alt="매뉴얼"
-              className="hidden w-5 md:block"
-            />
+          <div className="hidden mr-7 md:flex items-center justify-center">
+            <DarkModeIcon src="manual.png" alt="매뉴얼" className="w-5" />
           </div>
           <div className="space-y-2">
             <p className="text-base md:text-lg font-bold text-dusty-black dark:text-white">
@@ -69,7 +65,7 @@ function MobileManual() {
   return (
     <div className="block md:hidden space-y-6 font-semibold text-center text-main-green dark:text-light-gray text-sm">
       <div className="py-3 bg-dusty-white dark:bg-dusty-black rounded-md shadow-sm">
-        <p>예전에 읽었지만 ‘인생 책’이라 자부할 수 있는 도서</p>
+        <p>‘인생 책’이라 자부할 수 있는 도서</p>
       </div>
       <div className="py-3 bg-dusty-white dark:bg-dusty-black rounded-md shadow-sm">
         <p>중도 포기했지만, 코멘트는 남길 수 있는 도서</p>
