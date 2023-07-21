@@ -40,7 +40,7 @@ export default function Comments({
                   className="h-5 md:h-11"
                 />
                 <p className="mt-6 text-base md:text-xl text-normal-gray">
-                  등록된 {keyword} 코멘트가 없습니다.
+                  등록된 {keyword && `(${keyword})의 `} 코멘트가 없습니다.
                 </p>
               </div>
             ) : (

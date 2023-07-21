@@ -108,16 +108,17 @@ export async function getMyComments(): Promise<Comment[]> {
 }
 
 export async function getAllComments() {
-  return await get(
-    query(ref(database, 'comments'), orderByChild('createdAt'))
-  ).then((snapshot) => {
-    if (snapshot.exists()) {
-      const comments: Comment[] = [];
-      snapshot.forEach((childSnapshot) => {
-        comments.push(childSnapshot.val());
-      });
-      return comments.reverse();
+  return await get(ref(database, 'comments')).then((snapshot) => {
+    const data: Comment[] = Object.values(snapshot.val());
+
+    const sortedData = data.sort((a, b) => {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
+
+    if (sortedData.length !== 0) {
+      return sortedData;
     }
+
     return [];
   });
 }
