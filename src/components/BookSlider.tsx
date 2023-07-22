@@ -50,7 +50,7 @@ export default function BookSlider() {
             <Icon
               src="arrowleft.png"
               alt="왼쪽화살표"
-              className="arrow w-9 lg:w-14 cursor-pointer"
+              className="arrow lg:h-16 cursor-pointer"
             />
           </div>
           <article
@@ -74,7 +74,7 @@ export default function BookSlider() {
             <Icon
               src="arrowright.png"
               alt="오른쪽화살표"
-              className="arrow w-9 lg:w-14"
+              className="arrow lg:h-16"
             />
           </div>
         </div>
