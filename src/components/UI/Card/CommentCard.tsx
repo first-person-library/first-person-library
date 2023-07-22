@@ -19,7 +19,7 @@ export default function CommentCard({ comment }: CommentCardProps) {
   const hasComments = isHome || isComments || isMy;
 
   const handleClick = (title: string) => {
-    if (isComments) return;
+    if (isComments || isWrite) return;
 
     if (isMy) {
       navigate(`/my/${id}`, { state: { savedComment: comment } });
@@ -29,13 +29,14 @@ export default function CommentCard({ comment }: CommentCardProps) {
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center my-3 md:my-0">
       <div
         className={`bg-bright-gray dark:bg-modal-black lg:mb-9 md:mb-7 flex-col flex items-center justify-center shadow-md ${
           hasComments
             ? 'w-[160px] h-[280px] md:w-[230px] md:h-[470px] lg:w-[280px] lg:h-[450px] xl:w-[266px] xl:h-[429px]'
             : 'w-[320px] h-[446px] md:w-[332px] md:h-[450px]'
-        }`}
+        }
+        `}
       >
         {!title ? (
           <>

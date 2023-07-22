@@ -21,7 +21,7 @@ export default {
         'dark-bg': '#121212',
         'dark-point': '#343439',
         'dark-spinner': '#3c3c43',
-        'dark-main-green': '#178153',
+        'dark-main-green': '#70D66D',
       },
       fontFamily: {
         cambay: ['Cambay', 'sans-serif'],

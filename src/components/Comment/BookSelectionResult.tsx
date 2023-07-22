@@ -53,19 +53,19 @@ export default function BookSelectionResult({
         </div>
         <div className="flex flex-col w-full mt-2 text-base md:text-lg space-y-2 border-t md:border-b border-light-gray dark:border-dusty-black py-4">
           <div className="flex items-center w-full">
-            <span className="w-1/6 flex items-center text-normal-gray dark:text-modal-black">
+            <span className="w-1/5 md:w-1/6 3xl:w-1/12 flex items-center text-normal-gray dark:text-modal-black">
               저자
             </span>
             <span>{authors[0] || NOT_AVAILABLE}</span>
           </div>
           <div className="flex items-center w-full">
-            <span className="w-1/6 flex items-center text-normal-gray dark:text-modal-black">
+            <span className="w-1/5 md:w-1/6 3xl:w-1/12 flex items-center text-normal-gray dark:text-modal-black">
               출판사
             </span>
             <span>{publisher || NOT_AVAILABLE}</span>
           </div>
           <div className="flex items-center w-full">
-            <span className="w-1/6 flex items-center text-normal-gray dark:text-modal-black">
+            <span className="w-1/5 md:w-1/6 3xl:w-1/12 flex items-center text-normal-gray dark:text-modal-black">
               출간일
             </span>
             <span>{date || NOT_AVAILABLE}</span>

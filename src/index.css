@@ -28,7 +28,7 @@ textarea {
 }
 
 .btn-header {
-  @apply py-2 px-5 border border-normal-gray dark:border-modal-black rounded-md;
+  @apply py-1 px-2 md:py-2 md:px-5 border border-normal-gray dark:border-modal-black rounded-md cursor-pointer transition duration-300 ease-out;
 }
 
 .btn-header:hover {
@@ -36,7 +36,7 @@ textarea {
 }
 
 .btn-modal {
-  @apply text-base font-bold h-8 px-6 cursor-pointer transition duration-300 ease-out;
+  @apply text-base font-bold h-8 px-2 md:px-6 cursor-pointer transition duration-300 ease-out;
 }
 
 .btn-main-green {
@@ -72,11 +72,11 @@ textarea {
 }
 
 .btn-strong-black {
-  @apply bg-strong-black text-white dark:bg-dark-point dark:text-modal-black;
+  @apply bg-strong-black text-white dark:bg-white dark:text-black;
 }
 
 .btn-strong-black:hover {
-  @apply bg-normal-gray text-white dark:bg-white dark:text-black;
+  @apply bg-normal-gray text-white dark:bg-dark-point dark:text-modal-black;
 }
 
 .btn-white {
@@ -94,7 +94,7 @@ textarea {
 
 /* 프로필 드롭다운 리스트*/
 .dropdown-li {
-  @apply flex items-center px-7 py-3 hover:bg-bright-gray dark:hover:bg-dark-spinner cursor-pointer;
+  @apply flex items-center px-3 py-2 md:px-5 md:py-3 hover:bg-bright-gray dark:hover:bg-dark-spinner cursor-pointer;
 }
 
 /* 추천 도서 슬라이더*/
