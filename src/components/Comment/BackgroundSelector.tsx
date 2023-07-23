@@ -17,6 +17,8 @@ export default function BackgroundSelector({
   handleBlurClick,
   thumbnail,
 }: BackgroundSelectorProps) {
+  const isIOS = /iPad|iPhone/.test(navigator.userAgent);
+
   return (
     <div className="md:flex my-7 md:my-8 lg:my-11">
       <div className="md:w-1/4 flex items-center">
@@ -29,32 +31,34 @@ export default function BackgroundSelector({
           thumbnail ? 'hover:cursor-pointer' : 'pointer-events-none'
         }`}
       >
-        <div onClick={handleColorClick} className="flex items-center gap-4">
-          <div className="relative flex items-center justify-center shrink-0">
-            <label htmlFor="backgroundColor" className="sr-only"></label>
-            <input
-              id="backgroundColor"
-              type="color"
-              ref={colorPickerRef}
-              onChange={handleColorPick}
-              className="absolute w-1 h-1"
-            ></input>
-            <Icon
-              src="colorpicker.png"
-              alt="컬러 피커"
-              className="icon w-6 md:w-8 z-10"
-            />
+        {!isIOS && (
+          <div onClick={handleColorClick} className="flex items-center gap-4">
+            <div className="relative flex items-center justify-center shrink-0">
+              <label htmlFor="backgroundColor" className="sr-only"></label>
+              <input
+                id="backgroundColor"
+                type="color"
+                ref={colorPickerRef}
+                onChange={handleColorPick}
+                className="absolute w-1 h-1"
+              ></input>
+              <Icon
+                src="colorpicker.png"
+                alt="컬러 피커"
+                className="icon w-6 md:w-8 z-10"
+              />
+            </div>
+            <span
+              className={`${
+                backgroundType === 'color'
+                  ? 'text-strong-black dark:text-white font-bold'
+                  : 'font-medium '
+              }`}
+            >
+              직접 선택하기
+            </span>
           </div>
-          <span
-            className={`${
-              backgroundType === 'color'
-                ? 'text-strong-black dark:text-white font-bold'
-                : 'font-medium '
-            }`}
-          >
-            직접 선택하기
-          </span>
-        </div>
+        )}
         <div
           id="backgroundType"
           onClick={handleBlurClick}

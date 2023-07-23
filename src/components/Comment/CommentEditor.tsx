@@ -75,7 +75,12 @@ export default function CommentEditor({
   };
 
   const handleBlurClick = () => {
-    setBackgroundType('blur');
+    if (backgroundType === 'blur') {
+      setBackgroundColor(backgroundColorInitial);
+      setBackgroundType('color');
+    } else {
+      setBackgroundType('blur');
+    }
   };
 
   const handleBookSelect = (book: Book) => {

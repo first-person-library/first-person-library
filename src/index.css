@@ -6,7 +6,7 @@ body {
   @apply font-noto-sans;
 }
 
-:root {
+html {
   @apply text-strong-black bg-white;
 }
 
