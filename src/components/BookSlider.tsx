@@ -4,11 +4,10 @@ import { Suggest } from '../types';
 import { getSuggestBooks } from '../apis/firebase';
 import LoadingSpinner from './LoadingSpinner';
 import ErrorScreen from './ErrorScreen';
-import { useOfficialInfo } from '../contexts/OfficialInfoContext';
 import Icon from './UI/Icon';
+import { OFFICIAL_NAME } from '../constants/officialInfo';
 
 export default function BookSlider() {
-  const { officialName } = useOfficialInfo();
   const id = 'suggest-books-container';
   const navigate = useNavigate();
   const {
@@ -33,10 +32,10 @@ export default function BookSlider() {
     <section className="w-full mx-auto">
       <div className="text-center my-5 md:my-9 lg:my-20">
         <h2 className="font-bold text-xl md:text-2xl lg:text-4xl mb-2 lg:mb-4">
-          {`${officialName} 추천 도서`}
+          {`${OFFICIAL_NAME} 추천 도서`}
         </h2>
         <p className="text-modal-black dark:text-normal-gray text-xs md:text-base lg:text-lg">
-          {`${officialName}가 선택한 추천 도서를 소개해 드려요.`}
+          {`${OFFICIAL_NAME}가 선택한 추천 도서를 소개해 드려요.`}
         </p>
       </div>
       {isLoading && <LoadingSpinner />}
