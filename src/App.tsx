@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthContextProvider } from './contexts/AuthContext';
 import { DarkModeContextProvider } from './contexts/DarkModeContext';
 import ScrollToTopButton from './components/UI/ScrollToTopButton';
+import ScrollToTop from './utils/ScrollToTop';
 
 const queryClient = new QueryClient();
 
@@ -17,6 +18,7 @@ function App() {
           <QueryClientProvider client={queryClient}>
             <Header />
             <ModalProvider>
+              <ScrollToTop />
               <Outlet />
               <ScrollToTopButton />
             </ModalProvider>

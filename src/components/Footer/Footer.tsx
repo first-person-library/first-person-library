@@ -4,7 +4,7 @@ export default function Footer() {
   const CURRENT_YEAR = 2023;
 
   return (
-    <footer className="hidden md:block bg-bright-gray dark:bg-dark-point text-dusty-black text-center dark:text-dusty-gray md:py-14 xl:py-[70px] font-noto-sans">
+    <footer className="hidden lg:block bg-bright-gray dark:bg-dark-point text-dusty-black text-center dark:text-dusty-gray md:py-14 xl:py-[70px] font-noto-sans">
       <section>
         <p className="md:p-2 xl:p-5 text-xl font-bold">{OFFICIAL_NAME}</p>
         <p className="md:p-[2px] xl:p-1">
