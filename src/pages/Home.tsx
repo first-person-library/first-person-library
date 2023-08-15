@@ -1,18 +1,16 @@
-import { useLocation, useParams } from 'react-router-dom';
 import BookSlider from '../components/BookSlider';
 import GeneralComments from '../components/Comment/GeneralComments';
 import Hero from '../components/UI/Hero';
+import usePageFlags from '../hooks/usePageFlags';
 
 export default function Home() {
-  const location = useLocation();
-  const { pathname } = location;
-  const isHomePage = pathname === '/';
+  const { IS_HOME_PAGE } = usePageFlags();
 
   return (
     <main className="w-full mx-auto">
-      {isHomePage && <Hero />}
+      {IS_HOME_PAGE && <Hero />}
       <div className="w-full mx-auto lg:w-5/6 md:px-4 p-6">
-        {isHomePage && <BookSlider />}
+        {IS_HOME_PAGE && <BookSlider />}
         <GeneralComments />
       </div>
     </main>

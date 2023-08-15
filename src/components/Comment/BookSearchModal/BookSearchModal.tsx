@@ -9,7 +9,6 @@ import BookSearchPagenation from './BookSearchPagenation';
 import BookSearchManual from './BookSearchManual';
 import LoadingSpinner from '../../LoadingSpinner';
 import ErrorScreen from '../../ErrorScreen';
-import DarkModeIcon from '../../UI/DarkModeIcon';
 
 type BookSearchModalProps = {
   onClose: () => void;
@@ -124,11 +123,6 @@ export default function BookSearchModal({
               {books?.documents.length === 0 && (
                 <div className="flex items-center justify-center h-full">
                   <div className="flex flex-col items-center">
-                    <DarkModeIcon
-                      src="comments.png"
-                      alt="등록된 도서가 없습니다."
-                      className="h-5 md:h-11"
-                    />
                     <p className="mt-6 text-base md:text-xl text-normal-gray">
                       등록된 {`(${query}) `} 도서가 없습니다.
                     </p>

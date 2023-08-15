@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import usePageFlags from '../../hooks/usePageFlags';
 import { Book } from '../../types';
 
 type BookSelectionResultProps = {
@@ -10,11 +10,9 @@ export default function BookSelectionResult({
   book,
   handleOpen,
 }: BookSelectionResultProps) {
-  const location = useLocation();
-  const { pathname } = location;
-  const isUpdate = pathname.includes('/my/');
   const NOT_AVAILABLE = '해당 정보가 없습니다.';
   const { title, publisher, datetime, authors } = book;
+  const { IS_UPDATE_PAGE } = usePageFlags();
 
   const formattedDate = datetime ? new Date(datetime) : null;
   const date =
@@ -27,7 +25,7 @@ export default function BookSelectionResult({
         <label className="dark:text-dusty-white md:text-left text-base md:text-xl mb-3 md:mb-0">
           도서 선택완료
         </label>
-        {!isUpdate && (
+        {!IS_UPDATE_PAGE && (
           <span
             onClick={handleOpen}
             className="block md:hidden text-sm text-normal-gray cursor-pointer shrink-0"
@@ -39,7 +37,7 @@ export default function BookSelectionResult({
       <div className="md:w-3/4 flex flex-col items-center justify-start mt-8 md:mt-0">
         <div className="flex justify-between w-full">
           <span className="text-base md:text-xl line-clamp-1">{title}</span>
-          {!isUpdate && (
+          {!IS_UPDATE_PAGE && (
             <span
               onClick={handleOpen}
               className="hidden md:block text-sm text-normal-gray cursor-pointer shrink-0"

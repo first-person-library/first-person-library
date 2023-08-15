@@ -12,7 +12,6 @@ export default function ScrollToTopButton() {
     const handleScroll = () => {
       setShowButton(window.scrollY > window.innerHeight / 2);
     };
-    console.log('df');
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
