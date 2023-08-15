@@ -1,4 +1,5 @@
-import type { ImgHTMLAttributes } from 'react';
+import { ImgHTMLAttributes } from 'react';
+import { useDarkModeContext } from '../../contexts/DarkModeContext';
 
 type DarkModeIconProps = ImgHTMLAttributes<HTMLImageElement> & {
   src: string;
@@ -12,20 +13,12 @@ export default function DarkModeIcon({
   className,
   ...props
 }: DarkModeIconProps) {
-  return (
-    <>
-      <img
-        src={`/icon/light/${src}`}
-        alt={alt}
-        {...props}
-        className={['block dark:hidden', className].join(' ')}
-      />
-      <img
-        src={`/icon/dark/${src}`}
-        alt={alt}
-        {...props}
-        className={['hidden dark:block', className].join(' ')}
-      />
-    </>
-  );
+  const { darkMode } = useDarkModeContext();
+
+  const iconSrc = darkMode ? `/icon/dark/${src}` : `/icon/light/${src}`;
+  const iconClass = darkMode
+    ? ['hidden dark:block', className].join(' ')
+    : ['block dark:hidden', className].join(' ');
+
+  return <img src={iconSrc} alt={alt} {...props} className={iconClass} />;
 }

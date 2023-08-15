@@ -20,12 +20,8 @@ export default function BookSlider() {
     navigate(`/comments/${title}`);
   };
 
-  const scrollLeft = (element: HTMLElement) => {
-    element.scrollLeft -= window.innerWidth - 700;
-  };
-
-  const scrollRight = (element: HTMLElement) => {
-    element.scrollLeft += window.innerWidth - 700;
+  const scroll = (element: HTMLElement, amount: number) => {
+    element.scrollLeft += amount;
   };
 
   return (
@@ -44,7 +40,10 @@ export default function BookSlider() {
         <div className="relative">
           <div
             className="absolute h-full flex items-center z-10 left-0 top-0"
-            onClick={() => scrollLeft(document.getElementById(id)!)}
+            onClick={() =>
+              scroll(document.getElementById(id)!, -window.innerWidth + 700)
+            }
+            aria-label="왼쪽으로 스크롤"
           >
             <Icon
               src="arrowleft.png"
@@ -68,7 +67,10 @@ export default function BookSlider() {
           </article>
           <div
             className="absolute h-full flex items-center z-10 right-0 top-0"
-            onClick={() => scrollRight(document.getElementById(id)!)}
+            onClick={() =>
+              scroll(document.getElementById(id)!, window.innerWidth - 700)
+            }
+            aria-label="오른쪽으로 스크롤"
           >
             <Icon
               src="arrowright.png"

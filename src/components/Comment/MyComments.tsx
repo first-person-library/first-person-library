@@ -4,6 +4,7 @@ import { Comment } from '../../types';
 import Comments from './Comments';
 
 export default function MyComments() {
+  const HEADLINE = '내가 쓴 코멘트';
   const {
     isLoading,
     isError,
@@ -14,8 +15,8 @@ export default function MyComments() {
     <Comments
       isLoading={isLoading}
       isError={isError}
-      comments={comments}
-      headline={'내가 쓴 코멘트'}
+      comments={comments ?? null}
+      headline={HEADLINE}
     />
   );
 }

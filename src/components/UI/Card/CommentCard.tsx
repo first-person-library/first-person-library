@@ -10,18 +10,19 @@ export default function CommentCard({ comment }: CommentCardProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
-  const { backgroundColor, backgroundType, content, id } = comment;
-  const { thumbnail, title } = comment.book as Book;
-  const isHome = pathname === '/';
-  const isMy = pathname.includes('/my');
-  const isWrite = ['/my/', '/new'].some((path) => pathname.includes(path));
-  const isComments = pathname.includes('/comments');
-  const hasComments = isHome || isComments || isMy;
+  const { backgroundColor, backgroundType, content, id, book } = comment;
+  const { thumbnail, title } = book as Book;
 
-  const handleClick = (title: string) => {
-    if (isComments || isWrite) return;
+  const isHomePage = pathname === '/';
+  const isMyPage = pathname.includes('/my');
+  const isWritePage = ['/my/', '/new'].some((path) => pathname.includes(path));
+  const isCommentsPage = pathname.includes('/comments');
+  const hasComments = isHomePage || isCommentsPage || isMyPage;
 
-    if (isMy) {
+  const handleClick = () => {
+    if (isCommentsPage || isWritePage) return;
+
+    if (isMyPage) {
       navigate(`/my/${id}`, { state: { savedComment: comment } });
     } else {
       navigate(`/comments/${title}`);
@@ -42,7 +43,7 @@ export default function CommentCard({ comment }: CommentCardProps) {
           <>
             <DarkModeIcon
               src="book.png"
-              alt="책 썸네일"
+              alt="책 썸네일이 없습니다."
               className="w-6 md:w-7 mb-7 md:mb-11"
             />
             <span className="text-center text-lg lg:text-xl text-dusty-black dark:text-bright-gray">
@@ -51,9 +52,9 @@ export default function CommentCard({ comment }: CommentCardProps) {
           </>
         ) : (
           <div
-            onClick={() => handleClick(title)}
+            onClick={handleClick}
             className={`comment-card relative h-full flex flex-col w-full overflow-hidden ${
-              !(isComments || isWrite) &&
+              !(isCommentsPage || isWritePage) &&
               'cursor-pointer hover:text-main-green dark:hover:text-dark-main-green hover:font-semibold'
             }`}
           >

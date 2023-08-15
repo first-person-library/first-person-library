@@ -3,15 +3,12 @@ import Icon from '../UI/Icon';
 
 export default function ToggleDarkMode() {
   const { darkMode, toggleDarkMode } = useDarkModeContext();
+  const iconSrc = darkMode ? 'moon.png' : 'sun.png';
+  const iconLabel = darkMode ? '다크모드 활성화' : '라이트모드 활성화';
 
   return (
-    <button type="button" onClick={toggleDarkMode}>
-      {darkMode && (
-        <Icon src="moon.png" alt="다크모드" className="icon h-5 md:h-[22px]" />
-      )}
-      {!darkMode && (
-        <Icon src="sun.png" alt="라이트모드" className="icon h-5 md:h-[22px]" />
-      )}
+    <button type="button" onClick={toggleDarkMode} aria-label={iconLabel}>
+      <Icon src={iconSrc} alt={iconLabel} className="icon h-5 md:h-[22px]" />
     </button>
   );
 }

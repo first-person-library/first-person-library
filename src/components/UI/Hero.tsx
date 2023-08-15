@@ -2,10 +2,16 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../contexts/AuthContext';
 import { OFFICIAL_NAME } from '../../constants/officialInfo';
 import DarkModeIcon from './DarkModeIcon';
+import { useDarkModeContext } from '../../contexts/DarkModeContext';
 
 export default function Hero() {
   const { user, login } = useAuthContext();
   const navigate = useNavigate();
+  const { darkMode } = useDarkModeContext();
+  const bgClass = darkMode
+    ? 'hidden dark:block bg-dark-hero-sm md:bg-dark-hero-md lg:bg-dark-hero-lg'
+    : 'block dark:hidden bg-hero-sm md:bg-hero-md lg:bg-hero-lg';
+  const commentButtonText = '코멘트 등록하기';
 
   const handleCommentButton = () => {
     if (user) {
@@ -15,8 +21,10 @@ export default function Hero() {
     }
   };
 
-  function Content() {
-    return (
+  return (
+    <section
+      className={`${bgClass} min-w-max bg-cover h-[190px] md:h-[326px] lg:h-[533px]`}
+    >
       <div className="w-full mx-auto px-6 lg:w-5/6 py-7 md:px-4 md:py-9 lg:py-24 flex">
         <div className="flex-1 flex-col">
           <h1 className="hidden md:block md:text-5xl lg:text-6xl font-semibold">
@@ -40,29 +48,19 @@ export default function Hero() {
             type="button"
             onClick={handleCommentButton}
             className="btn-white p-3 text-xs md:text-lg md:p-4 lg:text-2xl lg:p-5 rounded-lg mt-4"
+            aria-label={commentButtonText}
           >
-            코멘트 등록하기
+            {commentButtonText}
           </button>
         </div>
         <div className="hidden lg:block">
           <DarkModeIcon
             src="heroLettering.png"
-            alt="레터링"
+            alt="나만의 독서 코멘트."
             className="h-[374px]"
           />
         </div>
       </div>
-    );
-  }
-
-  return (
-    <>
-      <section className="block dark:hidden min-w-max bg-cover h-[190px] md:h-[326px] lg:h-[533px] bg-hero-sm md:bg-hero-md lg:bg-hero-lg">
-        <Content />
-      </section>
-      <section className="hidden dark:block min-w-max bg-cover h-[190px] md:h-[326px] lg:h-[533px] bg-dark-hero-sm md:bg-dark-hero-md lg:bg-dark-hero-lg">
-        <Content />
-      </section>
-    </>
+    </section>
   );
 }

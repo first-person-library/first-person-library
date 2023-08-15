@@ -18,7 +18,7 @@ export default function BookSelector({ handleOpen }: BookSelectorProps) {
           onClick={handleOpen}
         >
           <DarkModeIcon
-            src="search2.png"
+            src="search.png"
             alt="검색"
             className="absolute right-6 w-6"
           />

@@ -20,6 +20,16 @@ const DarkModeContext = createContext<DarkModeContextType>({
   toggleDarkMode: () => {},
 });
 
+function updateDarkMode(darkMode: boolean) {
+  if (darkMode) {
+    document.documentElement.classList.add('dark');
+    localStorage.theme = 'dark';
+  } else {
+    document.documentElement.classList.remove('dark');
+    localStorage.theme = 'light';
+  }
+}
+
 export function DarkModeContextProvider({ children }: DarkModeProviderProps) {
   const [darkMode, setDarkMode] = useState<boolean>(false);
   const toggleDarkMode = () => {
@@ -41,16 +51,6 @@ export function DarkModeContextProvider({ children }: DarkModeProviderProps) {
       {children}
     </DarkModeContext.Provider>
   );
-}
-
-function updateDarkMode(darkMode: boolean) {
-  if (darkMode) {
-    document.documentElement.classList.add('dark');
-    localStorage.theme = 'dark';
-  } else {
-    document.documentElement.classList.remove('dark');
-    localStorage.theme = 'light';
-  }
 }
 
 export const useDarkModeContext = () => useContext(DarkModeContext);

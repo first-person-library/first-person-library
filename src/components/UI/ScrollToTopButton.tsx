@@ -10,17 +10,14 @@ export default function ScrollToTopButton() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const middleScrollY = window.innerHeight / 2;
-
-      setShowButton(scrollY > middleScrollY);
+      setShowButton(window.scrollY > window.innerHeight / 2);
     };
-
+    console.log('df');
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [showButton]);
 
   return (
     <DarkModeIcon

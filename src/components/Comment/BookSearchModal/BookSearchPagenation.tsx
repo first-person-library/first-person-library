@@ -32,12 +32,13 @@ export default function BookPagenation({
         : !(isLoading || isError) && (
             <div className="m-6 flex">
               {isPreviousPageAvailable && (
-                <DarkModeIcon
+                <button
                   onClick={previousPage}
-                  src="modalleft.png"
-                  alt="왼쪽"
-                  className="w-5 cursor-pointer"
-                />
+                  className="w-5 h-5 cursor-pointer"
+                  aria-label="이전 페이지"
+                >
+                  <DarkModeIcon src="modalleft.png" alt="왼쪽 화살표" />
+                </button>
               )}
               <div className="px-4 space-x-2">
                 <span>{currentPage}</span>
@@ -49,12 +50,13 @@ export default function BookPagenation({
                 )}
               </div>
               {isNextPageAvailable && (
-                <DarkModeIcon
+                <button
                   onClick={nextPage}
-                  src="modalright.png"
-                  alt="오른쪽"
-                  className="w-5 cursor-pointer"
-                />
+                  className="w-5 h-5 cursor-pointer"
+                  aria-label="다음 페이지"
+                >
+                  <DarkModeIcon src="modalright.png" alt="오른쪽 화살표" />
+                </button>
               )}
             </div>
           )}

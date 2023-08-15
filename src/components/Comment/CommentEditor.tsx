@@ -164,7 +164,10 @@ export default function CommentEditor({
                     className={`btn-disabled btn-strong-black rounded-full ${
                       isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'
                     } `}
-                    disabled={isDisabled}
+                    disabled={isDisabled || isUploading}
+                    aria-label={
+                      isUpdate ? '코멘트 수정하기' : '코멘트 발행하기'
+                    }
                   >
                     {isUploading ? (
                       <LoadingSpinner />
@@ -179,6 +182,7 @@ export default function CommentEditor({
                       type="button"
                       onClick={handleOpen}
                       className="btn-disabled btn-border-white rounded-full"
+                      aria-label="코멘트 삭제하기"
                     >
                       삭제하기
                     </button>

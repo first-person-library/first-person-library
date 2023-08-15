@@ -6,6 +6,7 @@ import Comments from './Comments';
 
 export default function GeneralComments() {
   const { title } = useParams();
+  const HEADLINE = '도서 코멘트';
 
   const {
     isLoading,
@@ -17,8 +18,8 @@ export default function GeneralComments() {
     <Comments
       isLoading={isLoading}
       isError={isError}
-      comments={comments}
-      headline={'도서 코멘트'}
+      comments={comments ?? null}
+      headline={HEADLINE}
       keyword={title}
     />
   );

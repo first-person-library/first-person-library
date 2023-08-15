@@ -6,13 +6,13 @@ import Hero from '../components/UI/Hero';
 export default function Home() {
   const location = useLocation();
   const { pathname } = location;
-  const isHome = pathname === '/';
+  const isHomePage = pathname === '/';
 
   return (
     <main className="w-full mx-auto">
-      {isHome && <Hero />}
+      {isHomePage && <Hero />}
       <div className="w-full mx-auto lg:w-5/6 md:px-4 p-6">
-        {isHome && <BookSlider />}
+        {isHomePage && <BookSlider />}
         <GeneralComments />
       </div>
     </main>

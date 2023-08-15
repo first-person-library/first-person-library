@@ -36,7 +36,9 @@ export default function Comments({
               <div className="flex flex-col items-center h-screen">
                 <DarkModeIcon
                   src="comments.png"
-                  alt="등록된 코멘트가 없습니다."
+                  alt={`${
+                    keyword ? `${keyword}의 ` : ''
+                  }등록된 코멘트가 없습니다.`}
                   className="h-5 md:h-11"
                 />
                 <p className="mt-6 text-base md:text-xl text-normal-gray">

@@ -33,12 +33,14 @@ export default function BookSearchHistory({
         <div className="flex flex-col">
           <div className="flex justify-between w-full">
             <span className="font-semibold">최근 검색어</span>
-            <span
+            <button
               onClick={discardKeywords}
               className="text-xs md:text-sm text-normal-gray cursor-pointer"
+              role="button"
+              aria-label="전체 검색어 삭제"
             >
               전체 삭제
-            </span>
+            </button>
           </div>
         </div>
         <div className="my-6">
@@ -64,12 +66,13 @@ export default function BookSearchHistory({
                 >
                   <div className="text-sm px-5 py-1.5 cursor-pointer rounded-full bg-bright-gray dark:border dark:border-modal-black dark:bg-inherit my-2 mr-3">
                     {keyword}
-                    <span
+                    <button
                       onClick={(event) => handleRemoveKeyword(event, index)}
                       className="px-1 text-normal-gray"
+                      aria-label={`${keyword} 삭제`}
                     >
                       ✖
-                    </span>
+                    </button>
                   </div>
                 </div>
               ))}

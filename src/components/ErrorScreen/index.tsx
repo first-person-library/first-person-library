@@ -5,7 +5,7 @@ export default function ErrorScreen() {
     <div className="h-full flex flex-col items-center">
       <DarkModeIcon
         src="error.png"
-        alt="에러 메시지"
+        alt="에러 아이콘"
         className="w-12 md:w-16 lg:w-24 my-7 md:my-10 lg:my-12"
       />
       <h2 className="text-xl md:text-3xl lg:text-4xl">오류가 발생했습니다.</h2>

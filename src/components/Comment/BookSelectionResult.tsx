@@ -15,14 +15,11 @@ export default function BookSelectionResult({
   const isUpdate = pathname.includes('/my/');
   const NOT_AVAILABLE = '해당 정보가 없습니다.';
   const { title, publisher, datetime, authors } = book;
-  let date;
 
-  if (datetime) {
-    new Date(datetime);
-    const year = new Date(datetime).getFullYear();
-    const month = new Date(datetime).getMonth() + 1;
-    date = `${year}년 ${month}월`;
-  }
+  const formattedDate = datetime ? new Date(datetime) : null;
+  const date =
+    formattedDate &&
+    `${formattedDate.getFullYear()}년 ${formattedDate.getMonth() + 1}월`;
 
   return (
     <div className="md:flex my-7 md:my-8 lg:my-10">

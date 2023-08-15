@@ -17,7 +17,7 @@ export default function BackgroundSelector({
   handleBlurClick,
   thumbnail,
 }: BackgroundSelectorProps) {
-  const isIOS = /iPad|iPhone/.test(navigator.userAgent);
+  const isIOSEnvironment = /iPad|iPhone/.test(navigator.userAgent);
 
   return (
     <div className="md:flex my-7 md:my-8 lg:my-11">
@@ -31,8 +31,12 @@ export default function BackgroundSelector({
           thumbnail ? 'hover:cursor-pointer' : 'pointer-events-none'
         }`}
       >
-        {!isIOS && (
-          <div onClick={handleColorClick} className="flex items-center gap-4">
+        {!isIOSEnvironment && (
+          <div
+            onClick={handleColorClick}
+            className="flex items-center gap-4"
+            role="button"
+          >
             <div className="relative flex items-center justify-center shrink-0">
               <label htmlFor="backgroundColor" className="sr-only"></label>
               <input
@@ -63,6 +67,7 @@ export default function BackgroundSelector({
           id="backgroundType"
           onClick={handleBlurClick}
           className="flex items-center gap-4"
+          role="button"
         >
           <Icon
             src="blurpicker.png"

@@ -47,7 +47,7 @@ export default function ProfileDropdown({ dropdownRef }: ProfileDropdownProp) {
         id="emailEnquiry"
         onClick={handleContactClick}
         target="_blank"
-        rel="nooperner noreferrer"
+        rel="noopener noreferrer"
         className="dropdown-li"
       >
         <DarkModeIcon src="help.png" alt="문의하기" className="icon w-6 mr-2" />

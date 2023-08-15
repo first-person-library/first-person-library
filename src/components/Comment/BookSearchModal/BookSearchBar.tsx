@@ -41,12 +41,15 @@ export default function BookSearchBar({
           placeholder="검색어를 입력해 주세요."
           className="w-full h-12 flex items-center px-5 rounded placeholder:text-dusty-black dark:placeholder:text-normal-gray bg-dusty-green dark:bg-inherit dark:border dark:border-dusty2-black focus:outline-none"
         />
-        <DarkModeIcon
-          src="remove.png"
-          alt="지우기"
+        <button
+          type="button"
           onClick={clearQuery}
           className="icon absolute right-5 w-4"
-        />
+          role="button"
+          aria-label="검색어 지우기"
+        >
+          <DarkModeIcon src="remove.png" alt="지우기" />
+        </button>
       </div>
       <button
         type="submit"

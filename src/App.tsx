@@ -12,21 +12,19 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <>
-      <AuthContextProvider>
-        <DarkModeContextProvider>
-          <QueryClientProvider client={queryClient}>
-            <Header />
-            <ModalProvider>
-              <ScrollToTop />
-              <Outlet />
-              <ScrollToTopButton />
-            </ModalProvider>
-          </QueryClientProvider>
-          <Footer />
-        </DarkModeContextProvider>
-      </AuthContextProvider>
-    </>
+    <AuthContextProvider>
+      <DarkModeContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <Header />
+          <ModalProvider>
+            <ScrollToTop />
+            <Outlet />
+            <ScrollToTopButton />
+          </ModalProvider>
+        </QueryClientProvider>
+        <Footer />
+      </DarkModeContextProvider>
+    </AuthContextProvider>
   );
 }
 

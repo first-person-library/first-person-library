@@ -24,14 +24,14 @@ export default function BookSearchCard({
               src={thumbnail}
               alt={title}
               title={title}
-              className="aspect-w-2 aspect-h-3"
+              className="w-full aspect-w-2 aspect-h-3"
             />
           ) : (
             <DarkModeIcon
               src={'emptyimage.jpg'}
-              alt={title}
+              alt="도서 이미지 없음"
               title={title}
-              className="aspect-w-2 aspect-h-3"
+              className="w-full aspect-w-2 aspect-h-3"
             />
           )}
         </div>
