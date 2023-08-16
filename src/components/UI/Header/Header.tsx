@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProfileDropdown from './ProfileDropdown';
 import ToggleDarkMode from './ToggleDarkMode';
-import DarkModeIcon from '../UI/DarkModeIcon';
-import { useAuthContext } from '../../contexts/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
+import DarkModeIcon from '../Icon/DarkModeIcon';
 
 export default function Header() {
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
@@ -62,19 +62,22 @@ export default function Header() {
                 로그인
               </button>
             )}
-            <>
-              {user?.photoURL && (
+            {user?.photoURL && (
+              <div className="relative flex">
                 <img
                   src={user?.photoURL}
                   alt={user?.displayName!}
                   title={user?.displayName!}
                   ref={profileImgRef}
                   onClick={toggleDropdown}
-                  className="icon w-8 md:w-9 rounded-full"
+                  className="icon w-8 md:w-9 rounded-full cursor-pointer"
                 />
-              )}
-              {showDropdown && <ProfileDropdown dropdownRef={dropdownRef} />}
-            </>
+                <span className="flex items-center text-dusty2-black dark:text-normal-gray text-xl ml-1">
+                  {showDropdown ? '▴' : '▾'}
+                </span>
+              </div>
+            )}
+            {showDropdown && <ProfileDropdown dropdownRef={dropdownRef} />}
           </div>
         </nav>
       </div>

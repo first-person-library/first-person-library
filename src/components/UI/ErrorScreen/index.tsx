@@ -1,4 +1,4 @@
-import DarkModeIcon from '../UI/DarkModeIcon';
+import DarkModeIcon from '../Icon/DarkModeIcon';
 
 export default function ErrorScreen() {
   return (

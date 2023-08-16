@@ -1,9 +1,9 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import Portal from './Portal';
 
 type ModalProps = {
   isOpen: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
   onClose: () => void;
   selector?: string;
 };

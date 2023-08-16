@@ -3,18 +3,18 @@ import { deleteMyComment } from '../../apis/firebase';
 
 type DeleteCommentModalProps = {
   onClose: () => void;
-  commentId: string;
+  commentID: string;
 };
 
-export default function DeleteCommentModal({
+export default function CommentDeleteModal({
   onClose,
-  commentId,
+  commentID,
 }: DeleteCommentModalProps) {
   const navigate = useNavigate();
   const handleDelete = () => {
     onClose();
     navigate('/my', { replace: true });
-    deleteMyComment(commentId);
+    deleteMyComment(commentID);
   };
 
   return (

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import usePageFlags from '../../../hooks/usePageFlags';
 import { Comment } from '../../../types';
-import DarkModeIcon from '../DarkModeIcon';
+import DarkModeIcon from '../Icon/DarkModeIcon';
 
 type CommentCardProps = {
   comment: Comment;

@@ -93,50 +93,34 @@ export async function getMyComments(): Promise<Comment[]> {
       uid = user?.uid;
     });
 
-    return await get(
-      query(ref(database, 'comments'), orderByChild('uid'), equalTo(uid))
-    ).then((snapshot) => {
-      if (snapshot.exists()) {
-        return Object.values(snapshot.val());
-      }
-      return [];
-    });
+    const queryRef = query(
+      ref(database, 'comments'),
+      orderByChild('uid'),
+      equalTo(uid)
+    );
+    return await getCommentsSnapshot(queryRef);
   } catch (error) {
     console.error(error);
     return [];
   }
 }
 
-export async function getAllComments() {
-  return await get(ref(database, 'comments')).then((snapshot) => {
-    const data: Comment[] = Object.values(snapshot.val());
-
-    const sortedData = data.sort((a, b) => {
-      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    });
-
-    if (sortedData.length !== 0) {
-      return sortedData;
-    }
-
-    return [];
-  });
+async function getAllComments() {
+  const queryRef = ref(database, 'comments');
+  return await getCommentsSnapshot(queryRef);
 }
 
-export async function getSelectedComments({
+async function getSelectedComments({
   title,
 }: {
   title?: string;
 }): Promise<Comment[]> {
-  return await get(
-    query(
-      ref(database, 'comments'),
-      orderByChild('book/title'),
-      equalTo(title!)
-    )
-  ).then((snapshot) => {
-    return snapshot.exists() ? Object.values(snapshot.val()) : [];
-  });
+  const queryRef = query(
+    ref(database, 'comments'),
+    orderByChild('book/title'),
+    equalTo(title!)
+  );
+  return await getCommentsSnapshot(queryRef);
 }
 
 export async function getSuggestBooks(): Promise<Suggest[]> {
@@ -163,4 +147,22 @@ export async function deleteMyComment(id: string) {
   } catch (error) {
     console.error(error);
   }
+}
+
+async function getCommentsSnapshot(queryRef: any): Promise<Comment[]> {
+  return await get(queryRef).then((snapshot) => {
+    if (snapshot.exists()) {
+      const data: Comment[] = Object.values(snapshot.val());
+
+      const sortedData = data.sort((a, b) => {
+        return (
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+      });
+
+      return sortedData;
+    }
+
+    return [];
+  });
 }

@@ -1,3 +1,4 @@
+import { NOT_AVAILABLE } from '../../constants/message';
 import usePageFlags from '../../hooks/usePageFlags';
 import { Book } from '../../types';
 
@@ -6,11 +7,10 @@ type BookSelectionResultProps = {
   handleOpen?: () => void;
 };
 
-export default function BookSelectionResult({
+export default function CommentBookSelectionResult({
   book,
   handleOpen,
 }: BookSelectionResultProps) {
-  const NOT_AVAILABLE = '해당 정보가 없습니다.';
   const { title, publisher, datetime, authors } = book;
   const { IS_UPDATE_PAGE } = usePageFlags();
 

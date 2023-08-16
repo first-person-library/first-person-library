@@ -1,16 +1,17 @@
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { addNewComment, updateMyComment } from '../../apis/firebase';
 import { useModal } from '../../contexts/ModalContext';
 import { Book, Comment } from '../../types';
-import LoadingSpinner from '../LoadingSpinner';
 import CommentCard from '../UI/Card/CommentCard';
 import Modal from '../UI/Modal/Modal';
-import BackgroundSelector from './BackgroundSelector';
-import BookSearchModal from './BookSearchModal/BookSearchModal';
-import BookSelectionResult from './BookSelectionResult';
-import BookSelector from './BookSelector';
+import BookSearchModal from '../BookSearchModal/BookSearchModal';
 import CommentSubmission from './CommentSubmission';
-import DeleteCommentModal from './DeleteCommentModal';
+import CommentDeleteModal from './CommentDeleteModal';
+import CommentBookSelectionResult from './CommentBookSelectionResult';
+import CommentBookSelector from './CommentBookSelector';
+import CommentBookBackground from './CommentBookBackground';
+import CommentContent from './CommentContent';
+import CommentButton from './CommentButton';
 
 type CommentEditorProps = {
   commentInitial: Comment;
@@ -42,14 +43,14 @@ export default function CommentEditor({
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const colorPickerRef = useRef<HTMLInputElement | null>(null);
-  const [cursor, setCursor] = useState(false);
-  const isDisabled = !cursor || isUploading;
+  const [isInputValid, setInputValid] = useState<boolean>(false);
+  const isDisabled = !isInputValid || isUploading;
 
   useEffect(() => {
     if (content.length !== 0 && book.title) {
-      setCursor(true);
+      setInputValid(true);
     } else {
-      setCursor(false);
+      setInputValid(false);
     }
   }, [content, book.title]);
 
@@ -89,9 +90,8 @@ export default function CommentEditor({
     handleClose();
   };
 
-  const handleContent = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const content = e.target.value.slice(0, 50);
-    setContent(content);
+  const handleContent = (newContent: string) => {
+    setContent(newContent);
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -126,11 +126,14 @@ export default function CommentEditor({
                   }}
                 />
                 {book.title ? (
-                  <BookSelectionResult book={book} handleOpen={handleOpen} />
+                  <CommentBookSelectionResult
+                    book={book}
+                    handleOpen={handleOpen}
+                  />
                 ) : (
-                  <BookSelector handleOpen={handleOpen} />
+                  <CommentBookSelector handleOpen={handleOpen} />
                 )}
-                <BackgroundSelector
+                <CommentBookBackground
                   backgroundType={backgroundType}
                   colorPickerRef={colorPickerRef}
                   handleColorPick={handleColorPicker}
@@ -138,56 +141,15 @@ export default function CommentEditor({
                   handleBlurClick={handleBlurClick}
                   thumbnail={book?.thumbnail}
                 />
-                <div className="relative">
-                  <label htmlFor="content" className="sr-only">
-                    코멘트 작성란
-                  </label>
-                  <textarea
-                    rows={4}
-                    id="content"
-                    value={content}
-                    onChange={handleContent}
-                    placeholder="50자 이내의 독서 코멘트를 남겨주세요."
-                    className="w-full border p-3 md:p-6 focus:outline-none text-base md:text-xl"
-                    required
-                  />
-                  <div className="absolute right-2 bottom-5 md:right-12 md:bottom-7 text-base md:text-xl">
-                    <span className="text-main-green">{`${
-                      content.length || 0
-                    }`}</span>
-                    <span className="text-dusty2-black">/50자</span>
-                  </div>
-                </div>
-                <div className="flex justify-center my-6 md:my-12 lg:my-16 space-x-5">
-                  <button
-                    type="submit"
-                    className={`btn-disabled btn-strong-black rounded-full ${
-                      isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'
-                    } `}
-                    disabled={isDisabled || isUploading}
-                    aria-label={
-                      isUpdate ? '코멘트 수정하기' : '코멘트 발행하기'
-                    }
-                  >
-                    {isUploading ? (
-                      <LoadingSpinner />
-                    ) : isUpdate ? (
-                      '수정하기'
-                    ) : (
-                      '발행하기'
-                    )}
-                  </button>
-                  {isUpdate && (
-                    <button
-                      type="button"
-                      onClick={handleOpen}
-                      className="btn-disabled btn-border-white rounded-full"
-                      aria-label="코멘트 삭제하기"
-                    >
-                      삭제하기
-                    </button>
-                  )}
-                </div>
+                <CommentContent
+                  content={content}
+                  handleContent={handleContent}
+                />
+                <CommentButton
+                  isUpdate={isUpdate}
+                  isUploading={isUploading}
+                  isDisabled={isDisabled}
+                />
               </form>
             )}
             <div>{isSuccess && <CommentSubmission />}</div>
@@ -196,7 +158,7 @@ export default function CommentEditor({
       </main>
       <Modal isOpen={isOpen} onClose={handleClose}>
         {isUpdate ? (
-          <DeleteCommentModal onClose={handleClose} commentId={comment.id} />
+          <CommentDeleteModal onClose={handleClose} commentID={comment.id} />
         ) : (
           <BookSearchModal onClose={handleClose} onSelect={handleBookSelect} />
         )}

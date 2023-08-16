@@ -1,5 +1,6 @@
-import DarkModeIcon from '../../UI/DarkModeIcon';
-import { Book } from '../../../types';
+import { NOT_AVAILABLE } from '../../constants/message';
+import { Book } from '../../types';
+import DarkModeIcon from '../UI/Icon/DarkModeIcon';
 
 type BookSearchCardProps = {
   book: Book;
@@ -28,7 +29,7 @@ export default function BookSearchCard({
             />
           ) : (
             <DarkModeIcon
-              src={'emptyimage.jpg'}
+              src="emptyimage.jpg"
               alt="도서 이미지 없음"
               title={title}
               className="w-full aspect-w-2 aspect-h-3"
@@ -50,7 +51,7 @@ export default function BookSearchCard({
                   }`}
                 </p>
               ) : (
-                <p>해당 정보가 없습니다.</p>
+                <p>{NOT_AVAILABLE}</p>
               )}
             </div>
           </div>

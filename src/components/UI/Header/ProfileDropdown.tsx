@@ -1,10 +1,11 @@
+import { RefObject } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import DarkModeIcon from '../UI/DarkModeIcon';
-import { useAuthContext } from '../../contexts/AuthContext';
-import { OFFICIAL_EMAIL } from '../../constants/officialInfo';
+import { useAuthContext } from '../../../contexts/AuthContext';
+import { OFFICIAL_EMAIL } from '../../../constants/officialInfo';
+import DarkModeIcon from '../Icon/DarkModeIcon';
 
 type ProfileDropdownProp = {
-  dropdownRef: React.RefObject<HTMLDivElement>;
+  dropdownRef: RefObject<HTMLDivElement>;
 };
 
 export default function ProfileDropdown({ dropdownRef }: ProfileDropdownProp) {
@@ -33,7 +34,7 @@ export default function ProfileDropdown({ dropdownRef }: ProfileDropdownProp) {
   return (
     <div
       ref={dropdownRef}
-      className="absolute top-10 right-0 py-3 w-36 md:w-44 rounded-lg bg-white dark:bg-dark-point z-40 shadow-lg"
+      className="absolute top-12 right-0 py-3 w-36 md:w-44 rounded-lg bg-white dark:bg-dark-point z-40 shadow-lg"
     >
       <Link to="/my" className="dropdown-li">
         <DarkModeIcon

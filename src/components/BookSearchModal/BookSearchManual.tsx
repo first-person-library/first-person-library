@@ -1,4 +1,4 @@
-import DarkModeIcon from '../../UI/DarkModeIcon';
+import DarkModeIcon from '../UI/Icon/DarkModeIcon';
 import BookSearchHistory from './BookSearchHistory';
 
 type BookSearchManualProps = {

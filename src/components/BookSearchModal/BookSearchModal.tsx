@@ -2,13 +2,12 @@ import { useState, useRef, useEffect } from 'react';
 import BookSearchBar from './BookSearchBar';
 import BookSearchCard from './BookSearchCard';
 import { useQuery } from '@tanstack/react-query';
-import { search } from '../../../apis/bookAPI';
-import { Books, Book } from '../../../types';
-import { AxiosResponse } from 'axios';
+import { Books, Book } from '../../types';
 import BookSearchPagenation from './BookSearchPagenation';
 import BookSearchManual from './BookSearchManual';
-import LoadingSpinner from '../../LoadingSpinner';
-import ErrorScreen from '../../ErrorScreen';
+import LoadingSpinner from '../UI/LoadingSpinner';
+import ErrorScreen from '../UI/ErrorScreen';
+import { search } from '../../apis/bookSearch';
 
 type BookSearchModalProps = {
   onClose: () => void;
@@ -19,6 +18,7 @@ export default function BookSearchModal({
   onClose,
   onSelect,
 }: BookSearchModalProps) {
+  const PER_PAGE = 10;
   const [query, setQuery] = useState<string>('');
   const [page, setPage] = useState<number>(1);
   const [keywords, setKeywords] = useState<string[]>(() => {
@@ -26,30 +26,35 @@ export default function BookSearchModal({
     return keywordsString ? JSON.parse(keywordsString) : [];
   });
   const inputRef = useRef<HTMLInputElement | null>(null);
+
   useEffect(() => {
     localStorage.setItem('keywords', JSON.stringify(keywords));
   }, [keywords]);
 
-  const { isLoading, isError, data } = useQuery<
-    AxiosResponse<Books<Book>, Error>
-  >(['books', query, page], () => search({ query, page }), {
-    enabled: !!query,
-  });
+  const {
+    isLoading,
+    isError,
+    data: books,
+  } = useQuery<Books<Book>>(
+    ['books', query, page, PER_PAGE],
+    () => search({ query, page, size: PER_PAGE }),
+    {
+      enabled: !!query,
+    }
+  );
 
-  const nextPage = () => {
-    setPage((prev) => prev + 1);
-  };
+  const meta = books?.meta;
+  const totalPages = meta?.pageable_count
+    ? Math.ceil(meta.pageable_count / PER_PAGE)
+    : 0;
 
   const previousPage = () => {
     setPage((prev) => prev - 1);
   };
 
-  const PER_PAGE = 10;
-  const books = data?.data;
-  const meta = books?.meta;
-  const totalPages = meta?.pageable_count
-    ? Math.ceil(meta.pageable_count / PER_PAGE)
-    : 0;
+  const nextPage = () => {
+    setPage((prev) => prev + 1);
+  };
 
   const handleChange = (query: string) => {
     setQuery(query);

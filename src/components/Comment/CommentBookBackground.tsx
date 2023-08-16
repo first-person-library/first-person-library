@@ -1,15 +1,16 @@
-import Icon from '../UI/Icon';
+import { RefObject } from 'react';
+import Icon from '../UI/Icon/Icon';
 
 type BackgroundSelectorProps = {
   backgroundType: 'color' | 'blur' | null;
-  colorPickerRef: React.RefObject<HTMLInputElement>;
+  colorPickerRef: RefObject<HTMLInputElement>;
   handleColorPick: () => void;
   handleColorClick: () => void;
   handleBlurClick: () => void;
   thumbnail?: string;
 };
 
-export default function BackgroundSelector({
+export default function CommentBookBackground({
   backgroundType,
   colorPickerRef,
   handleColorPick,

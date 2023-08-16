@@ -1,5 +1,5 @@
-import { useDarkModeContext } from '../../contexts/DarkModeContext';
-import Icon from '../UI/Icon';
+import { useDarkModeContext } from '../../../contexts/DarkModeContext';
+import Icon from '../Icon/Icon';
 
 export default function ToggleDarkMode() {
   const { darkMode, toggleDarkMode } = useDarkModeContext();

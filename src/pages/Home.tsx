@@ -1,6 +1,6 @@
-import BookSlider from '../components/BookSlider';
 import GeneralComments from '../components/Comment/GeneralComments';
-import Hero from '../components/UI/Hero';
+import Hero from '../components/UI/Hero/Hero';
+import BookSlider from '../components/UI/Slider/BookSlider';
 import usePageFlags from '../hooks/usePageFlags';
 
 export default function Home() {

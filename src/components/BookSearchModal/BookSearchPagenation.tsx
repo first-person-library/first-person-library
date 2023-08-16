@@ -1,5 +1,5 @@
-import LoadingSpinner from '../../LoadingSpinner';
-import DarkModeIcon from '../../UI/DarkModeIcon';
+import DarkModeIcon from '../UI/Icon/DarkModeIcon';
+import LoadingSpinner from '../UI/LoadingSpinner';
 
 type BookPagenationProps = {
   isLoading: boolean;

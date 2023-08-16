@@ -1,8 +1,8 @@
 import { Comment } from '../../types';
-import ErrorScreen from '../ErrorScreen';
-import LoadingSpinner from '../LoadingSpinner';
 import CommentCard from '../UI/Card/CommentCard';
-import DarkModeIcon from '../UI/DarkModeIcon';
+import ErrorScreen from '../UI/ErrorScreen';
+import DarkModeIcon from '../UI/Icon/DarkModeIcon';
+import LoadingSpinner from '../UI/LoadingSpinner';
 
 type CommentsProps = {
   isLoading: boolean;

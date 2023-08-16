@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import DarkModeIcon from '../UI/DarkModeIcon';
+import DarkModeIcon from '../UI/Icon/DarkModeIcon';
 
 export default function CommentSubmission() {
   return (

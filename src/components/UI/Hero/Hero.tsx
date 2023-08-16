@@ -1,16 +1,13 @@
 import { useNavigate } from 'react-router-dom';
-import { useAuthContext } from '../../contexts/AuthContext';
-import { OFFICIAL_NAME } from '../../constants/officialInfo';
-import DarkModeIcon from './DarkModeIcon';
-import { useDarkModeContext } from '../../contexts/DarkModeContext';
+import { OFFICIAL_NAME } from '../../../constants/officialInfo';
+import { useAuthContext } from '../../../contexts/AuthContext';
+import { useDarkModeContext } from '../../../contexts/DarkModeContext';
+import DarkModeIcon from '../Icon/DarkModeIcon';
 
 export default function Hero() {
   const { user, login } = useAuthContext();
   const navigate = useNavigate();
   const { darkMode } = useDarkModeContext();
-  const bgClass = darkMode
-    ? 'hidden dark:block bg-dark-hero-sm md:bg-dark-hero-md lg:bg-dark-hero-lg'
-    : 'block dark:hidden bg-hero-sm md:bg-hero-md lg:bg-hero-lg';
   const commentButtonText = '코멘트 등록하기';
 
   const handleCommentButton = () => {
@@ -23,7 +20,11 @@ export default function Hero() {
 
   return (
     <section
-      className={`${bgClass} min-w-max bg-cover h-[190px] md:h-[326px] lg:h-[533px]`}
+      className={`min-w-max bg-cover h-[190px] md:h-[326px] lg:h-[533px] ${
+        darkMode
+          ? 'hidden dark:block bg-dark-hero-sm md:bg-dark-hero-md lg:bg-dark-hero-lg'
+          : 'block dark:hidden bg-hero-sm md:bg-hero-md lg:bg-hero-lg'
+      } `}
     >
       <div className="w-full mx-auto px-6 lg:w-5/6 py-7 md:px-4 md:py-9 lg:py-24 flex">
         <div className="flex-1 flex-col">

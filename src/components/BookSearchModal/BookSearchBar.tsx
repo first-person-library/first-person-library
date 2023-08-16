@@ -1,8 +1,8 @@
-import { FormEvent, MutableRefObject } from 'react';
-import DarkModeIcon from '../../UI/DarkModeIcon';
+import { FormEvent, RefObject } from 'react';
+import DarkModeIcon from '../UI/Icon/DarkModeIcon';
 
 type BookSearchBarProps = {
-  inputRef: MutableRefObject<HTMLInputElement | null>;
+  inputRef: RefObject<HTMLInputElement>;
   onChange: (query: string) => void;
   addKeyword: (query: string) => void;
 };
@@ -44,7 +44,7 @@ export default function BookSearchBar({
         <button
           type="button"
           onClick={clearQuery}
-          className="icon absolute right-5 w-4"
+          className="absolute right-5 w-4"
           role="button"
           aria-label="검색어 지우기"
         >

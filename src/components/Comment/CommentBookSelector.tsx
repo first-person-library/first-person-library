@@ -1,10 +1,10 @@
-import DarkModeIcon from '../UI/DarkModeIcon';
+import DarkModeIcon from '../UI/Icon/DarkModeIcon';
 
 type BookSelectorProps = {
   handleOpen: () => void;
 };
 
-export default function BookSelector({ handleOpen }: BookSelectorProps) {
+export default function CommentBookSelector({ handleOpen }: BookSelectorProps) {
   return (
     <div className="md:flex my-7 md:my-12 lg:my-10">
       <div className="md:w-1/4 flex items-center">

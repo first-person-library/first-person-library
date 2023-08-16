@@ -1,5 +1,5 @@
 import { ImgHTMLAttributes } from 'react';
-import { useDarkModeContext } from '../../contexts/DarkModeContext';
+import { useDarkModeContext } from '../../../contexts/DarkModeContext';
 
 type DarkModeIconProps = ImgHTMLAttributes<HTMLImageElement> & {
   src: string;

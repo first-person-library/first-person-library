@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { Suggest } from '../types';
-import { getSuggestBooks } from '../apis/firebase';
-import LoadingSpinner from './LoadingSpinner';
-import ErrorScreen from './ErrorScreen';
-import Icon from './UI/Icon';
-import { OFFICIAL_NAME } from '../constants/officialInfo';
+import { getSuggestBooks } from '../../../apis/firebase';
+import { OFFICIAL_NAME } from '../../../constants/officialInfo';
+import { Suggest } from '../../../types';
+import ErrorScreen from '../ErrorScreen';
+import Icon from '../Icon/Icon';
+import LoadingSpinner from '../LoadingSpinner';
 
 export default function BookSlider() {
   const id = 'suggest-books-container';
