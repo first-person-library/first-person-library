@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { MouseEvent, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProfileDropdown from './ProfileDropdown';
 import ToggleDarkMode from './ToggleDarkMode';
@@ -12,15 +12,6 @@ export default function Header() {
   const profileImgRef = useRef(null);
 
   useEffect(() => {
-    const handleDropdownClose = (e: MouseEvent) => {
-      if (
-        e.target !== dropdownRef.current &&
-        e.target !== profileImgRef.current
-      ) {
-        setShowDropdown(false);
-      }
-    };
-
     window.addEventListener('click', handleDropdownClose);
 
     return () => {
@@ -28,8 +19,22 @@ export default function Header() {
     };
   }, []);
 
+  const handleDropdownClose: EventListener = (e) => {
+    if (
+      e.target !== dropdownRef.current &&
+      e.target !== profileImgRef.current
+    ) {
+      setShowDropdown(false);
+    }
+  };
+
   const toggleDropdown = () => {
     setShowDropdown((prev) => !prev);
+  };
+
+  const handleProfileImageClick = (e: MouseEvent) => {
+    e.stopPropagation();
+    toggleDropdown();
   };
 
   return (
@@ -63,19 +68,23 @@ export default function Header() {
               </button>
             )}
             {user?.photoURL && (
-              <div className="relative flex">
+              <button
+                type="button"
+                onClick={handleProfileImageClick}
+                aria-label={showDropdown ? '드롭다운 닫기' : '드롭다운 열기'}
+                className="relative flex items-center"
+              >
                 <img
                   src={user?.photoURL}
                   alt={user?.displayName!}
                   title={user?.displayName!}
                   ref={profileImgRef}
-                  onClick={toggleDropdown}
                   className="icon w-8 md:w-9 rounded-full cursor-pointer"
                 />
-                <span className="flex items-center text-dusty2-black dark:text-normal-gray text-xl ml-1">
+                <span className="flex items-center text-dusty2-black dark:text-normal-gray text-xl ml-1 cursor-pointer">
                   {showDropdown ? '▴' : '▾'}
                 </span>
-              </div>
+              </button>
             )}
             {showDropdown && <ProfileDropdown dropdownRef={dropdownRef} />}
           </div>

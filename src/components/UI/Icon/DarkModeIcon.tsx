@@ -20,5 +20,7 @@ export default function DarkModeIcon({
     ? ['hidden dark:block', className].join(' ')
     : ['block dark:hidden', className].join(' ');
 
-  return <img src={iconSrc} alt={alt} {...props} className={iconClass} />;
+  return (
+    <img src={iconSrc} alt={alt} title={alt} {...props} className={iconClass} />
+  );
 }

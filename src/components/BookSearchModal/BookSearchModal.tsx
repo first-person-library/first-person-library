@@ -7,7 +7,7 @@ import BookSearchPagenation from './BookSearchPagenation';
 import BookSearchManual from './BookSearchManual';
 import LoadingSpinner from '../UI/LoadingSpinner';
 import ErrorScreen from '../UI/ErrorScreen';
-import { search } from '../../apis/bookSearch';
+import { search } from '../../apis/bookAPI';
 
 type BookSearchModalProps = {
   onClose: () => void;
