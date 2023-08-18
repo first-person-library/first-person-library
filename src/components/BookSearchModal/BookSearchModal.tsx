@@ -21,15 +21,12 @@ export default function BookSearchModal({
   const PER_PAGE = 10;
   const [query, setQuery] = useState<string>('');
   const [page, setPage] = useState<number>(1);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
   const [keywords, setKeywords] = useState<string[]>(() => {
     const keywordsString = localStorage.getItem('keywords');
     return keywordsString ? JSON.parse(keywordsString) : [];
   });
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  useEffect(() => {
-    localStorage.setItem('keywords', JSON.stringify(keywords));
-  }, [keywords]);
 
   const {
     isLoading,
@@ -47,6 +44,10 @@ export default function BookSearchModal({
   const totalPages = meta?.pageable_count
     ? Math.ceil(meta.pageable_count / PER_PAGE)
     : 0;
+
+  useEffect(() => {
+    localStorage.setItem('keywords', JSON.stringify(keywords));
+  }, [keywords]);
 
   const previousPage = () => {
     setPage((prev) => prev - 1);

@@ -16,6 +16,7 @@ import {
   query,
   orderByChild,
   remove,
+  Query,
 } from 'firebase/database';
 import { v4 as uuid } from 'uuid';
 import { Book, Comment, Suggest } from '../types';
@@ -98,6 +99,8 @@ export async function getMyComments(): Promise<Comment[]> {
       orderByChild('uid'),
       equalTo(uid)
     );
+    console.log(queryRef);
+
     return await getCommentsSnapshot(queryRef);
   } catch (error) {
     console.error(error);
@@ -107,6 +110,7 @@ export async function getMyComments(): Promise<Comment[]> {
 
 async function getAllComments() {
   const queryRef = ref(database, 'comments');
+  console.log(queryRef);
   return await getCommentsSnapshot(queryRef);
 }
 
@@ -120,6 +124,7 @@ async function getSelectedComments({
     orderByChild('book/title'),
     equalTo(title!)
   );
+  console.log(queryRef);
   return await getCommentsSnapshot(queryRef);
 }
 
@@ -149,7 +154,7 @@ export async function deleteMyComment(id: string) {
   }
 }
 
-async function getCommentsSnapshot(queryRef: any): Promise<Comment[]> {
+async function getCommentsSnapshot(queryRef: Query): Promise<Comment[]> {
   return await get(queryRef).then((snapshot) => {
     if (snapshot.exists()) {
       const data: Comment[] = Object.values(snapshot.val());

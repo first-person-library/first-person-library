@@ -30,7 +30,7 @@ export default function BookPagenation({
       {totalPages === 0
         ? ''
         : !(isLoading || isError) && (
-            <div className="m-6 flex">
+            <div className="m-6 flex items-center">
               {isPreviousPageAvailable && (
                 <button
                   onClick={previousPage}

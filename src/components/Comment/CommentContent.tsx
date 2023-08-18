@@ -24,7 +24,7 @@ export default function CommentContent({
         id="content"
         value={content}
         onChange={handleContentChange}
-        placeholder="50자 이내의 독서 코멘트를 남겨주세요."
+        placeholder="50자 이내의 도서 코멘트를 남겨주세요."
         className="w-full border p-3 md:p-6 focus:outline-none text-base md:text-xl"
         required
       />

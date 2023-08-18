@@ -22,6 +22,7 @@ export default function ScrollToTopButton() {
 
   return (
     <button
+      type="button"
       aria-label="맨 위로 가기"
       className={`fixed bottom-4 right-4 md:bottom-12 md:right-12 lg:bottom-20 lg:right-20 h-9 md:h-12 ${
         showButton ? 'visible' : 'invisible'

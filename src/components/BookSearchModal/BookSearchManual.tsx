@@ -27,7 +27,7 @@ export default function BookSearchManual({
             </p>
             <p className="text-xs md:text-sm text-modal text-modal-black dark:text-normal-gray">
               다음과 같은 도서들도 검색해 보면 좋아요!{' '}
-              <br className="block md:hidden" /> 어떤 종류의 독서 코멘트도
+              <br className="block md:hidden" /> 어떤 종류의 도서 코멘트도
               환영입니다.
             </p>
           </div>
