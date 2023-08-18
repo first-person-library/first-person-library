@@ -9,7 +9,7 @@ import { User } from 'firebase/auth';
 import { login, logout, onUserStateChange } from '../apis/firebase';
 
 type AuthContextType = {
-  user: User | null;
+  user: User | null; // 현재 인증된 사용자의 정보
   login: () => void;
   logout: () => void;
 };

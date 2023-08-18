@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import DarkModeIcon from '../UI/DarkModeIcon';
+import DarkModeIcon from '../UI/Icon/DarkModeIcon';
 
 export default function CommentSubmission() {
   return (
-    <div className="flex justify-center md:h-screen lg:h-full">
+    <div className="flex flex-col justify-center lg:h-full mx-auto md:w-[350px] lg:w-[400px]">
       <div className="my-14 lg:my-20 w-full md:w-auto">
         <div className="flex flex-col items-center">
           <DarkModeIcon
@@ -16,9 +16,12 @@ export default function CommentSubmission() {
           </p>
         </div>
         <div>
-          <div className="w-full mt-16 mb:mt-20 space-y-6 mb:space-y-4 flex flex-col">
+          <div className="mt-16 mb:mt-20 space-y-6 mb:space-y-4 flex flex-col">
             <Link to="/my">
-              <button className="btn btn-strong-black rounded-full w-full">
+              <button
+                type="button"
+                className="btn btn-strong-black rounded-full w-full"
+              >
                 내가 쓴 코멘트 보기
               </button>
             </Link>

@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { Book, Books } from '../types';
 
 const client = axios.create({
@@ -11,16 +11,19 @@ const client = axios.create({
 export async function search({
   query,
   page,
+  size,
 }: {
   query: string;
-  page?: number;
-}): Promise<AxiosResponse<Books<Book>, Error>> {
-  return await client.get<Books<Book>>('book', {
+  page: number;
+  size: number;
+}): Promise<Books<Book>> {
+  const response = await client.get<Books<Book>>('book', {
     params: {
       query,
       sort: 'accuracy',
-      page: page,
-      size: 10,
+      page,
+      size,
     },
   });
+  return response.data;
 }

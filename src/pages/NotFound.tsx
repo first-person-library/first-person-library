@@ -1,5 +1,4 @@
-import DarkModeIcon from '../components/UI/DarkModeIcon';
-import Icon from '../components/UI/Icon';
+import Icon from '../components/UI/Icon/Icon';
 
 export default function NotFound() {
   return (
