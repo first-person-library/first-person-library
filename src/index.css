@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply font-noto-sans;
+}
+
+html {
+  @apply text-strong-black bg-white;
+}
+
+html.dark {
+  @apply text-white bg-dark-bg;
+}
+
+textarea {
+  @apply dark:bg-dark-bg placeholder-modal-black dark:placeholder-dusty2-black dark:border-normal-gray;
+}
+
+/* 버튼 */
+.btn {
+  @apply text-base md:text-lg lg:text-xl font-bold h-14 px-10 cursor-pointer;
+}
+
+.btn-disabled {
+  @apply text-base md:text-lg lg:text-xl font-bold h-14 px-10;
+}
+
+.btn-header {
+  @apply py-1 px-2 md:py-2 md:px-5 border border-normal-gray dark:border-modal-black rounded-md cursor-pointer transition duration-300 ease-out;
+}
+
+.btn-header:hover {
+  @apply border-normal-gray bg-effect-gray dark:border-dusty-black dark:bg-dark-point;
+}
+
+.btn-modal {
+  @apply text-base font-bold h-8 px-2 md:px-6 cursor-pointer transition duration-300 ease-out;
+}
+
+.btn-main-green {
+  @apply bg-main-green text-white dark:bg-dark-main-green;
+}
+
+.btn-main-green:hover {
+  @apply bg-dusty-green text-white dark:bg-dusty-black;
+}
+
+.btn-border-main-green {
+  @apply border border-main-green text-strong-black dark:border-dark-main-green dark:text-dark-main-green;
+}
+
+.btn-border-main-green:hover {
+  @apply border-0 bg-dusty-green text-white;
+}
+
+.btn-border-white {
+  @apply border border-dusty-black text-strong-black dark:border-normal-gray dark:text-white;
+}
+
+.btn-border-white:hover {
+  @apply border-0 bg-normal-gray text-white;
+}
+
+.btn-normal-gray {
+  @apply bg-normal-gray text-white;
+}
+
+.btn-normal-gray:hover {
+  @apply bg-strong-black text-white;
+}
+
+.btn-strong-black {
+  @apply bg-strong-black text-white dark:bg-white dark:text-black;
+}
+
+.btn-strong-black:hover {
+  @apply bg-normal-gray text-white dark:bg-dark-point dark:text-modal-black;
+}
+
+.btn-white {
+  @apply bg-white text-strong-black;
+}
+
+.btn-white:hover {
+  @apply bg-strong-black text-white;
+}
+
+/* 아이콘 */
+.icon {
+  @apply bg-no-repeat bg-contain cursor-pointer;
+}
+
+/* 프로필 드롭다운 리스트*/
+.dropdown-li {
+  @apply flex items-center px-3 py-2 md:px-5 md:py-3 hover:bg-bright-gray dark:hover:bg-dark-spinner cursor-pointer;
+}
+
+/* 추천 도서 슬라이더*/
+.arrow {
+  @apply hidden lg:block cursor-pointer;
+  transition: all ease-in-out;
+}
+
+.arrow:hover {
+  transition: all ease-in-out;
+  transform: scale(1.2);
+}
+
+.books::-webkit-scrollbar {
+  display: none;
+}

@@ -1,0 +1,10 @@
+{
+  "editor.tabSize": 2,
+  "files.autoSave": "onWindowChange",
+  "prettier.configPath": ".prettierrc.json",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}
