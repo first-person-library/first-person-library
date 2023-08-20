@@ -99,7 +99,6 @@ export async function getMyComments(): Promise<Comment[]> {
       orderByChild('uid'),
       equalTo(uid)
     );
-    console.log(queryRef);
 
     return await getCommentsSnapshot(queryRef);
   } catch (error) {
@@ -110,7 +109,6 @@ export async function getMyComments(): Promise<Comment[]> {
 
 async function getAllComments() {
   const queryRef = ref(database, 'comments');
-  console.log(queryRef);
   return await getCommentsSnapshot(queryRef);
 }
 
@@ -124,7 +122,6 @@ async function getSelectedComments({
     orderByChild('book/title'),
     equalTo(title!)
   );
-  console.log(queryRef);
   return await getCommentsSnapshot(queryRef);
 }
 
