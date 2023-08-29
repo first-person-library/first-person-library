@@ -6,23 +6,23 @@ import {
   useEffect,
 } from 'react';
 
-type ModalContextType = {
+interface ModalContextValue {
   isOpen: boolean;
   handleOpen: () => void;
   handleClose: () => void;
-};
+}
 
-type Props = {
+type ModalProviderProps = {
   children: ReactNode;
 };
 
-const ModalContext = createContext<ModalContextType>({
+const ModalContext = createContext<ModalContextValue>({
   isOpen: false,
   handleOpen: () => {},
   handleClose: () => {},
 });
 
-export function ModalProvider({ children }: Props) {
+export function ModalProvider({ children }: ModalProviderProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [prevScrollY, setPrevScrollY] = useState<number>(0);
 

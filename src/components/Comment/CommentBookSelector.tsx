@@ -1,8 +1,8 @@
 import DarkModeIcon from '../UI/Icon/DarkModeIcon';
 
-type BookSelectorProps = {
+interface BookSelectorProps {
   handleOpen: () => void;
-};
+}
 
 export default function CommentBookSelector({ handleOpen }: BookSelectorProps) {
   return (

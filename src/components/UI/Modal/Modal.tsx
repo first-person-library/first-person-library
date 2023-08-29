@@ -1,12 +1,12 @@
 import { ReactNode } from 'react';
 import Portal from './Portal';
 
-type ModalProps = {
+interface ModalProps {
   isOpen: boolean;
   children: ReactNode;
   onClose: () => void;
   selector?: string;
-};
+}
 
 export default function Modal({
   isOpen,

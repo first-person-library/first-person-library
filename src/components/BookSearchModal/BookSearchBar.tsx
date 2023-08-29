@@ -1,11 +1,11 @@
 import { FormEvent, RefObject } from 'react';
 import DarkModeIcon from '../UI/Icon/DarkModeIcon';
 
-type BookSearchBarProps = {
+interface BookSearchBarProps {
   inputRef: RefObject<HTMLInputElement>;
   onChange: (query: string) => void;
   addKeyword: (query: string) => void;
-};
+}
 
 export default function BookSearchBar({
   inputRef,

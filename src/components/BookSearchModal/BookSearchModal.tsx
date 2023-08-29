@@ -9,10 +9,10 @@ import LoadingSpinner from '../UI/LoadingSpinner';
 import ErrorScreen from '../UI/ErrorScreen';
 import { search } from '../../apis/bookAPI';
 
-type BookSearchModalProps = {
+interface BookSearchModalProps {
   onClose: () => void;
   onSelect: (book: Book) => void;
-};
+}
 
 export default function BookSearchModal({
   onClose,

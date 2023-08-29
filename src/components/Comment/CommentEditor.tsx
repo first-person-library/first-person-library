@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { addNewComment, updateMyComment } from '../../apis/firebase';
 import { useModal } from '../../contexts/ModalContext';
-import { Book, Comment } from '../../types';
+import { BackgroundType, Book, Comment } from '../../types';
 import CommentCard from '../UI/Card/CommentCard';
 import Modal from '../UI/Modal/Modal';
 import BookSearchModal from '../BookSearchModal/BookSearchModal';
@@ -16,7 +16,7 @@ import CommentButton from './CommentButton';
 type CommentEditorProps = {
   commentInitial: Comment;
   bookInitial: Book;
-  backgroundTypeInitial: 'color' | 'blur' | null;
+  backgroundTypeInitial: BackgroundType;
   backgroundColorInitial: string;
   contentInitial: string;
   isUpdate: boolean;

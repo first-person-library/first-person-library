@@ -1,3 +1,5 @@
+export type BackgroundType = 'color' | 'blur' | null;
+
 export type Books<T> = {
   documents: T[];
   meta: Meta;
@@ -43,3 +45,10 @@ export type Suggest = {
   thumbnail: string;
   title: string;
 };
+
+export interface BookSearchHistoryProps {
+  removeKeyword: (index: number) => void;
+  discardKeywords: () => void;
+  keywords: string[];
+  searchSelectedKeyword: (keyword: string) => void;
+}

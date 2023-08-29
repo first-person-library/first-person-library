@@ -1,7 +1,7 @@
 import DarkModeIcon from '../UI/Icon/DarkModeIcon';
 import LoadingSpinner from '../UI/LoadingSpinner';
 
-type BookPagenationProps = {
+interface BookSearchPagenationProps {
   isLoading: boolean;
   isError: boolean;
   currentPage?: number;
@@ -9,9 +9,9 @@ type BookPagenationProps = {
   totalPages?: number;
   nextPage: () => void;
   previousPage: () => void;
-};
+}
 
-export default function BookPagenation({
+export default function BookSearchPagenation({
   isLoading,
   isError,
   currentPage,
@@ -19,7 +19,7 @@ export default function BookPagenation({
   totalPages,
   nextPage,
   previousPage,
-}: BookPagenationProps) {
+}: BookSearchPagenationProps) {
   const isPreviousPageAvailable = currentPage !== 1;
   const isNextPageAvailable = !isEnd;
 

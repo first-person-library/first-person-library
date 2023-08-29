@@ -6,16 +6,16 @@ import {
   useEffect,
 } from 'react';
 
-type DarkModeContextType = {
+interface DarkModeContextValue {
   darkMode: boolean;
   toggleDarkMode: () => void;
-};
+}
 
 type DarkModeProviderProps = {
   children: ReactNode;
 };
 
-const DarkModeContext = createContext<DarkModeContextType>({
+const DarkModeContext = createContext<DarkModeContextValue>({
   darkMode: false,
   toggleDarkMode: () => {},
 });

@@ -1,9 +1,9 @@
 import { ChangeEvent } from 'react';
 
-type CommentContentProps = {
+interface CommentContentProps {
   content: string;
   handleContent: (content: string) => void;
-};
+}
 
 export default function CommentContent({
   content,

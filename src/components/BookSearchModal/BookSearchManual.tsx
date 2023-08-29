@@ -1,19 +1,13 @@
+import { BookSearchHistoryProps } from '../../types';
 import DarkModeIcon from '../UI/Icon/DarkModeIcon';
 import BookSearchHistory from './BookSearchHistory';
-
-type BookSearchManualProps = {
-  removeKeyword: (index: number) => void;
-  discardKeywords: () => void;
-  keywords: string[];
-  searchSelectedKeyword: (keyword: string) => void;
-};
 
 export default function BookSearchManual({
   removeKeyword,
   discardKeywords,
   keywords,
   searchSelectedKeyword,
-}: BookSearchManualProps) {
+}: BookSearchHistoryProps) {
   return (
     <div className="h-[523px]">
       <div className="px-5 md:px-12 lg:px-13">

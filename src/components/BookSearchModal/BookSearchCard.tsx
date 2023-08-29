@@ -2,10 +2,10 @@ import { NOT_AVAILABLE } from '../../constants/message';
 import { Book } from '../../types';
 import DarkModeIcon from '../UI/Icon/DarkModeIcon';
 
-type BookSearchCardProps = {
+interface BookSearchCardProps {
   book: Book;
   handleBookSelect: (book: Book) => void;
-};
+}
 
 export default function BookSearchCard({
   book,

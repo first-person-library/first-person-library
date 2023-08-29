@@ -1,22 +1,23 @@
 import { RefObject } from 'react';
+import { BackgroundType } from '../../types';
 import Icon from '../UI/Icon/Icon';
 
-type BackgroundSelectorProps = {
-  backgroundType: 'color' | 'blur' | null;
+interface BackgroundSelectorProps {
+  backgroundType: BackgroundType;
   colorPickerRef: RefObject<HTMLInputElement>;
+  thumbnail?: string;
   handleColorPick: () => void;
   handleColorClick: () => void;
   handleBlurClick: () => void;
-  thumbnail?: string;
-};
+}
 
 export default function CommentBookBackground({
   backgroundType,
   colorPickerRef,
+  thumbnail,
   handleColorPick,
   handleColorClick,
   handleBlurClick,
-  thumbnail,
 }: BackgroundSelectorProps) {
   const isIOSEnvironment = /iPad|iPhone/.test(navigator.userAgent);
 

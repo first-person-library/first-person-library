@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { deleteMyComment } from '../../apis/firebase';
 
-type DeleteCommentModalProps = {
+interface DeleteCommentModalProps {
   onClose: () => void;
   commentID: string;
-};
+}
 
 export default function CommentDeleteModal({
   onClose,

@@ -4,11 +4,11 @@ import { useAuthContext } from '../../../contexts/AuthContext';
 import { OFFICIAL_EMAIL } from '../../../constants/officialInfo';
 import DarkModeIcon from '../Icon/DarkModeIcon';
 
-type ProfileDropdownProp = {
+type ProfileDropdownProps = {
   dropdownRef: RefObject<HTMLDivElement>;
 };
 
-export default function ProfileDropdown({ dropdownRef }: ProfileDropdownProp) {
+export default function ProfileDropdown({ dropdownRef }: ProfileDropdownProps) {
   const { logout } = useAuthContext();
   const navigate = useNavigate();
 

@@ -3,11 +3,7 @@ import usePageFlags from '../../../hooks/usePageFlags';
 import { Comment } from '../../../types';
 import DarkModeIcon from '../Icon/DarkModeIcon';
 
-type CommentCardProps = {
-  comment: Comment;
-};
-
-export default function CommentCard({ comment }: CommentCardProps) {
+export default function CommentCard({ comment }: { comment: Comment }) {
   const navigate = useNavigate();
   const { backgroundColor, backgroundType, content, id, book } = comment;
   const { thumbnail, title } = book;

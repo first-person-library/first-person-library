@@ -2,10 +2,10 @@ import { NOT_AVAILABLE } from '../../constants/message';
 import usePageFlags from '../../hooks/usePageFlags';
 import { Book } from '../../types';
 
-type BookSelectionResultProps = {
+interface BookSelectionResultProps {
   book: Book;
   handleOpen?: () => void;
-};
+}
 
 export default function CommentBookSelectionResult({
   book,

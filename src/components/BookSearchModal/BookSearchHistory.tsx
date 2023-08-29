@@ -1,12 +1,6 @@
 import { MouseEvent } from 'react';
+import { BookSearchHistoryProps } from '../../types';
 import DarkModeIcon from '../UI/Icon/DarkModeIcon';
-
-type BookSearchHistoryProps = {
-  removeKeyword: (index: number) => void;
-  discardKeywords: () => void;
-  keywords: string[];
-  searchSelectedKeyword: (keyword: string) => void;
-};
 
 export default function BookSearchHistory({
   removeKeyword,

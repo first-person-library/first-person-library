@@ -8,17 +8,17 @@ import {
 import { User } from 'firebase/auth';
 import { login, logout, onUserStateChange } from '../apis/firebase';
 
-type AuthContextType = {
+interface AuthContextValue {
   user: User | null; // 현재 인증된 사용자의 정보
   login: () => void;
   logout: () => void;
-};
+}
 
 type AuthProviderProps = {
   children: ReactNode;
 };
 
-const AuthContext = createContext<AuthContextType>({
+const AuthContext = createContext<AuthContextValue>({
   user: null,
   login: () => {},
   logout: () => {},
