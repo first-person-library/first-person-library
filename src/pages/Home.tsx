@@ -7,7 +7,7 @@ export default function Home() {
   const { IS_HOME_PAGE } = usePageFlags();
 
   return (
-    <main className="w-full mx-auto">
+    <main>
       {IS_HOME_PAGE && <Hero />}
       <div className="w-full mx-auto lg:w-5/6 md:px-4 p-6">
         {IS_HOME_PAGE && <BookSlider />}

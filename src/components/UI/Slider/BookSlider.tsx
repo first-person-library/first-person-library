@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getSuggestBooks } from '../../../apis/firebase';
 import { OFFICIAL_NAME } from '../../../constants/officialInfo';
@@ -8,20 +9,23 @@ import Icon from '../Icon/Icon';
 import LoadingSpinner from '../LoadingSpinner';
 
 export default function BookSlider() {
-  const id = 'suggest-books-container';
   const navigate = useNavigate();
+  const sliceRef = useRef<HTMLElement | null>(null);
+
   const {
     isLoading,
     isError,
     data: books = [],
   } = useQuery<Suggest[]>(['suggest'], getSuggestBooks);
 
-  const handleClick = (title: string) => {
+  const handleBookClick = (title: string) => {
     navigate(`/comments/${title}`);
   };
 
-  const scroll = (element: HTMLElement, amount: number) => {
-    element.scrollLeft += amount;
+  const handleScroll = (amount: number) => {
+    if (sliceRef.current) {
+      sliceRef.current.scrollLeft += amount;
+    }
   };
 
   return (
@@ -40,9 +44,7 @@ export default function BookSlider() {
         <div className="relative">
           <div
             className="absolute h-full flex items-center z-10 left-0 top-0"
-            onClick={() =>
-              scroll(document.getElementById(id)!, -window.innerWidth + 700)
-            }
+            onClick={() => handleScroll(-window.innerWidth + 700)}
             aria-label="왼쪽으로 스크롤"
           >
             <Icon
@@ -52,7 +54,7 @@ export default function BookSlider() {
             />
           </div>
           <article
-            id={id}
+            ref={sliceRef}
             className="books flex overflow-x-scroll overflow-y-hidden scroll py-5 scroll-smooth"
           >
             {books?.map((book) => (
@@ -61,15 +63,13 @@ export default function BookSlider() {
                 className="book w-full max-h-48 md:max-h-60 lg:max-h-80 mx-3 lg:mx-5 transition-transform duration-200 hover:scale-110 cursor-pointer"
                 src={book.thumbnail}
                 alt={book.title}
-                onClick={() => handleClick(book.title)}
+                onClick={() => handleBookClick(book.title)}
               />
             ))}
           </article>
           <div
             className="absolute h-full flex items-center z-10 right-0 top-0"
-            onClick={() =>
-              scroll(document.getElementById(id)!, window.innerWidth - 700)
-            }
+            onClick={() => handleScroll(window.innerWidth - 700)}
             aria-label="오른쪽으로 스크롤"
           >
             <Icon

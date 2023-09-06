@@ -6,8 +6,8 @@ import DarkModeIcon from '../Icon/DarkModeIcon';
 
 export default function Hero() {
   const { user, login } = useAuthContext();
-  const navigate = useNavigate();
   const { darkMode } = useDarkModeContext();
+  const navigate = useNavigate();
   const commentButtonText = '코멘트 등록하기';
 
   const handleCommentButton = () => {
@@ -27,7 +27,7 @@ export default function Hero() {
       } `}
     >
       <div className="w-full mx-auto px-6 lg:w-5/6 py-7 md:px-4 md:py-9 lg:py-24 flex">
-        <div className="flex-1 flex-col">
+        <div className="flex-1">
           <h1 className="hidden md:block md:text-5xl lg:text-6xl font-semibold">
             {`${OFFICIAL_NAME}, 나만의 도서 코멘트.`}
           </h1>

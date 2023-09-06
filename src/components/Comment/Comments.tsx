@@ -9,7 +9,7 @@ type CommentsProps = {
   isError: boolean;
   comments: Comment[];
   headline: string;
-  keyword?: string;
+  title?: string;
 };
 
 export default function Comments({
@@ -17,7 +17,7 @@ export default function Comments({
   isError,
   comments,
   headline,
-  keyword = '',
+  title = '',
 }: CommentsProps) {
   return (
     <section>
@@ -33,16 +33,14 @@ export default function Comments({
         ) : (
           <>
             {comments?.length === 0 ? (
-              <div className="flex flex-col items-center h-screen">
+              <div className="flex flex-col items-center">
                 <DarkModeIcon
                   src="comments.png"
-                  alt={`${
-                    keyword ? `${keyword}의 ` : ''
-                  }등록된 코멘트가 없습니다.`}
+                  alt={`${title ? `${title}의 ` : ''}등록된 코멘트가 없습니다.`}
                   className="h-5 md:h-11"
                 />
                 <p className="mt-6 text-base md:text-xl text-normal-gray">
-                  등록된 {keyword && `(${keyword})의 `} 코멘트가 없습니다.
+                  등록된 {title && `(${title})의 `} 코멘트가 없습니다.
                 </p>
               </div>
             ) : (

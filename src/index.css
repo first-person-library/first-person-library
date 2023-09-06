@@ -14,6 +14,14 @@ html.dark {
   @apply text-white bg-dark-bg;
 }
 
+#root {
+  @apply flex flex-col min-h-screen;
+}
+
+main {
+  @apply flex-grow;
+}
+
 textarea {
   @apply dark:bg-dark-bg placeholder-modal-black dark:placeholder-dusty2-black dark:border-normal-gray;
 }

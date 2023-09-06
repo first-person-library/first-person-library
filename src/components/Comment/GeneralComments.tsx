@@ -20,7 +20,7 @@ export default function GeneralComments() {
       isError={isError}
       comments={comments ?? null}
       headline={HEADLINE}
-      keyword={title}
+      title={title}
     />
   );
 }

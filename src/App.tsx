@@ -9,7 +9,6 @@ import Footer from './components/UI/Footer/Footer';
 import Header from './components/UI/Header/Header';
 
 const queryClient = new QueryClient();
-
 function App() {
   return (
     <AuthContextProvider>
