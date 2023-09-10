@@ -52,3 +52,8 @@ export interface BookSearchHistoryProps {
   keywords: string[];
   searchSelectedKeyword: (keyword: string) => void;
 }
+
+export enum Color {
+  Dark = '#757575',
+  Light = '#f7f7f7',
+}

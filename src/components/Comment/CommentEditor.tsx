@@ -33,7 +33,8 @@ export default function CommentEditor({
   const { isOpen, handleOpen, handleClose } = useModal();
   const [comment, setComment] = useState<Comment>(commentInitial);
   const [book, setBook] = useState<Book>(bookInitial);
-  const [backgroundType, setBackgroundType] = useState<'color' | 'blur' | null>(
+  const { title } = book;
+  const [backgroundType, setBackgroundType] = useState<BackgroundType>(
     backgroundTypeInitial
   );
   const [backgroundColor, setBackgroundColor] = useState<string>(
@@ -47,12 +48,12 @@ export default function CommentEditor({
   const isDisabled = !isInputValid || isUploading;
 
   useEffect(() => {
-    if (content.length !== 0 && book.title) {
+    if (content.length !== 0 && title) {
       setInputValid(true);
     } else {
       setInputValid(false);
     }
-  }, [content, book.title]);
+  }, [content, title]);
 
   useEffect(() => {
     setComment(
@@ -125,7 +126,7 @@ export default function CommentEditor({
                     book,
                   }}
                 />
-                {book.title ? (
+                {title ? (
                   <CommentBookSelectionResult
                     book={book}
                     handleOpen={handleOpen}
