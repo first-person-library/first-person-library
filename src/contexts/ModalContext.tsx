@@ -26,14 +26,6 @@ export function ModalProvider({ children }: ModalProviderProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [prevScrollY, setPrevScrollY] = useState<number>(0);
 
-  useEffect(() => {
-    // 모달이 열릴 때에만 실행
-    if (isOpen) {
-      const currentScrollY = preventScroll();
-      setPrevScrollY(currentScrollY);
-    }
-  }, [isOpen]);
-
   const preventScroll = () => {
     const currentScrollY = window.scrollY;
     document.body.style.position = 'fixed';
@@ -51,9 +43,18 @@ export function ModalProvider({ children }: ModalProviderProps) {
     window.scrollTo(0, prevScrollY);
   };
 
+  useEffect(() => {
+    // 모달이 열릴 때에만 실행
+    if (isOpen) {
+      const currentScrollY = preventScroll();
+      setPrevScrollY(currentScrollY);
+    }
+  }, [isOpen]);
+
   const handleOpen = () => {
     setIsOpen(true);
   };
+
   const handleClose = () => {
     allowScroll(); // 모달이 닫힐 때에만 실행
     setIsOpen(false);

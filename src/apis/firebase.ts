@@ -60,7 +60,7 @@ export async function addNewComment(comment: Comment, book: Book) {
   const id = uuid();
   let uid;
 
-  await onUserStateChange(async (user) => {
+  await onUserStateChange((user) => {
     uid = user?.uid;
   });
 
@@ -90,7 +90,7 @@ export async function getMyComments(): Promise<Comment[]> {
   try {
     let uid = null;
 
-    await onUserStateChange(async (user) => {
+    await onUserStateChange((user) => {
       uid = user?.uid;
     });
 

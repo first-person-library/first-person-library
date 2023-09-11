@@ -37,8 +37,6 @@ export default function NewComment() {
     updatedAt: '',
   };
 
-  console.log(backgroundColor);
-
   return (
     <CommentEditor
       commentInitial={commentInitial}
