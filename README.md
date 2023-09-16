@@ -26,7 +26,7 @@ VITE_FIREBASE_DB_URL=...
 VITE_FIREBASE_PROJECT_ID=...
 ```
 
-Firebase Config Key는 `.env` 파일에 노출되어 있지 않습니다.
+Firebase Config Key는 노출하지 않음.
 
 ## 2. 사용한 기술
 
