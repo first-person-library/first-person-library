@@ -4,21 +4,21 @@ import DarkModeIcon from '../Icon/DarkModeIcon';
 export default function ScrollToTopButton() {
   const [showButton, setShowButton] = useState<boolean>(false);
 
-  const handleScrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const handleScroll = () => {
+    setShowButton(window.scrollY > window.innerHeight / 2);
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      setShowButton(window.scrollY > window.innerHeight / 2);
-    };
-
     window.addEventListener('scroll', handleScroll);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [showButton]);
+
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <button
